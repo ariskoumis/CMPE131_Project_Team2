@@ -1,7 +1,9 @@
 const express                 = require('express'),
+      path                    = require('path'),
       handlers                = require('./util/route_handlers.js'),
       mongoose                = require("mongoose"),
       passport                = require("passport"),
+      flash                   = require('express-flash'),
       methodOverride          = require("method-override"),
       bodyParser              = require('body-parser'),
       localStrategy           = require("passport-local"),
@@ -10,8 +12,11 @@ const express                 = require('express'),
 /**
  * Controllers (route handlers).
  */
-const homeRoute = require('./routes/home'),
-      userRoute = require('./routes/user');
+// Home route to handle Home Page and other pages (if coming up in the future
+const homeRoute = require('./routes/home');
+
+// User route to handle Login Logout Signup routes
+const userRoute = require('./routes/user');
 
 /**
  * Create Express server.
@@ -22,9 +27,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/CMPEit", {
-  useMongoClient: true
-});
+mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/CMPEit", {});
 
 /**
  * Express configuration.
@@ -37,6 +40,10 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+/**
+ * Uncomment to use to handle User Authentication
+ */
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -44,13 +51,13 @@ passport.deserializeUser(User.deserializeUser());
 /**
  * Primary app routes.
  */
-app.get('/', handlers.root_handler);
+// app.get('/', handlers.root_handler);
 app.get("/", homeRoute.index);
-app.get('/login', userRoute.getLogin);
-app.post('/login', userRoute.postLogin);
-app.get('/logout', userRoute.logout);
-app.get('/signup', userRoute.getSignup);
-app.post('/signup', userRoute.postSignup);
+// app.get('/login', userRoute.getLogin);
+// app.post('/login', userRoute.postLogin);
+// app.get('/logout', userRoute.logout);
+// app.get('/signup', userRoute.getSignup);
+// app.post('/signup', userRoute.postSignup);
 
 
 /**
@@ -80,7 +87,7 @@ app.use(function(err, req, res) {
  */
 var PORT = process.env.PORT || 8000;
 app.listen(PORT, process.env.IP, function() {
-  console.log('Project hosted on port ${PORT}!');
+  console.log('Project hosted on port 8000');
 });
 
 module.exports = app;
