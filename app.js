@@ -12,9 +12,10 @@ const express                 = require('express'),
  * Controllers (route handlers).
  */
 // Home route to handle Home Page and other pages (if coming up in the future
-const homeRoute = require('./routes/home');
+// const homeRoute = require('./routes/home');
 // User route to handle Login Logout Signup routes
-const userRoute = require('./routes/user');
+// const userRoute = require('./routes/user');
+const handlers = require('./util/route_handlers.js');
 
 /**
  * Create Express server.
@@ -49,7 +50,8 @@ passport.deserializeUser(User.deserializeUser());
 /**
  * Primary app routes.
  */
-app.get("/", homeRoute.index);
+// app.get("/", homeRoute.index);
+app.get('/', handlers.root_handler);
 
 
 /**
