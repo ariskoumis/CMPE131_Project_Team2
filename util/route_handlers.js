@@ -2,7 +2,7 @@ const handler_map = {};
 
 
 handler_map.root_handler = function(req, res) {
-	res.sendFile('index.html', function(err) {
+	res.sendFile('home', function(err) {
 		if (err) {
 			console.log(err);
 		} else {
