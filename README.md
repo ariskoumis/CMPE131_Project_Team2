@@ -28,4 +28,4 @@
 
     ```npm run browserify```
 
-   This step will change eventually, because you have to do it every time you change a js file.
+    This step will change eventually, because you have to do it every time you change a js file.

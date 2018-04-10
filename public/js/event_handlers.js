@@ -1,8 +1,7 @@
 const events = {};
 
-events.testClicked = function() {
-	console.log("falkjsdfldkasjflksj");
+events.testDBClicked = function() {
+	console.log("hey!");
 }
-
 
 module.exports = events;
