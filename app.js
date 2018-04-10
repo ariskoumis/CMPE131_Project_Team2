@@ -22,17 +22,9 @@ mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/CMPEit", {});
  */
 app.use(express.static('public'));
 
-<<<<<<< HEAD
 //Establish endpoint handlers
 app.get('/', handlers.rootHandler);
 app.get('/home', handlers.homeHandler);
-=======
-/**
- * Primary app routes.
- */
-// app.get("/", homeRoute.index);
-app.get('/', handlers.root_handler);
->>>>>>> 1aeca987e0ecf0e2dffb260f97881a971553fe80
 
 
 /**
