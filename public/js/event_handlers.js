@@ -1,7 +1,8 @@
 const events = {};
+const routing = require("./routing.js");
 
 events.testDBClicked = function() {
-	console.log("hey!");
+	routing.sendPostRequest("testDB", {});
 }
 
 module.exports = events;

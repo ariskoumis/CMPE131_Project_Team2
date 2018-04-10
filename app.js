@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 //Establish endpoint handlers
 app.get('/', handlers.rootHandler);
-app.get('/testDB', handlers.homeHandler);
+app.post('/testDB', handlers.testDBHandler);
 
 
 /**
