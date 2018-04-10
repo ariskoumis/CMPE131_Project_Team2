@@ -3,7 +3,12 @@ const events = {};
 const routing = require("./routing.js");
 
 events.testDBClicked = function() {
-	routing.sendPostRequest("testDB", {});
+	var data = {
+		username: document.getElementById("username").value,
+		password: document.getElementById("password").value
+	};
+
+	routing.sendPostRequest("testDB", data);
 }
 
 module.exports = events;
@@ -62,16 +67,12 @@ routing.sendPostRequest = function(endpoint, data) {
     xhr.open("POST", "http://localhost:8000/"+endpoint, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    //Check if data is empty
+    //Check if data was passed to function, if not, add empty object
     if (data) {
-        xhr.send(JSON.stringify({
-            value: data
-        }));
+        xhr.send(JSON.stringify(data));
     }
     else {
-        xhr.send(JSON.stringify({
-            value: {}
-        }));
+        xhr.send();
     }
     
 }

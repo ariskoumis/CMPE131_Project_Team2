@@ -1,5 +1,6 @@
-const handler_map = {};
-const path = require('path');
+var handler_map = {};
+var path = require('path');
+var database = require('./database.js');
 
 handler_map.rootHandler = function(req, res) {
 	res.set("Content-Type", "text/html");
@@ -13,7 +14,12 @@ handler_map.rootHandler = function(req, res) {
 }
 
 handler_map.testDBHandler = function(req, res) {
-	console.log("Testing Database");
+
+	// extract data from POST request
+	var data = (req.body);
+
+	//Write to data to collection titled 'users'
+	database.write("users", data);
 };
 
 //export

@@ -21,14 +21,10 @@ routing.sendPostRequest = function(endpoint, data) {
 
     //Check if data was passed to function, if not, add empty object
     if (data) {
-        xhr.send(JSON.stringify({
-            value: data
-        }));
+        xhr.send(JSON.stringify(data));
     }
     else {
-        xhr.send(JSON.stringify({
-            value: {}
-        }));
+        xhr.send();
     }
     
 }

@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser')
 
 var database = require('./util/database.js');
 var handlers = require('./util/route_handlers.js');
@@ -12,7 +13,14 @@ database.init();
 /**
  * Express configuration.
  */
+
+//Serve all folders in public directory to localhost
 app.use(express.static('public'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 //Establish endpoint handlers
 app.get('/', handlers.rootHandler);

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ariskoumis/CMPE131_Project#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "mongodb": "^3.0.6"
   },
