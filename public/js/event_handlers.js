@@ -1,7 +1,7 @@
 const events = {};
 
 events.testClicked = function() {
-	console.log("test");
+	console.log("falkjsdfldkasjflksj");
 }
 
 

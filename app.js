@@ -7,7 +7,8 @@ const PORT = 8000;
 app.use(express.static('public'));
 
 //Establish endpoint handlers
-app.get('/', handlers.root_handler);
+app.get('/', handlers.rootHandler);
+app.get('/home', handlers.homeHandler);
 
 //Provide port to access project
 app.listen(PORT, () => console.log(`Project hosted on port ${PORT}!`));
