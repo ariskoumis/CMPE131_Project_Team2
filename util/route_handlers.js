@@ -13,14 +13,18 @@ handler_map.rootHandler = function(req, res) {
 	});
 }
 
-handler_map.testDBHandler = function(req, res) {
+handler_map.attemptLoginHandler = function(req, res) {
+	var data = req.body;
+	console.log("attempt login");
+}
 
-	// extract data from POST request
-	var data = (req.body);
+handler_map.createAccountHandler = function(req, res) {
+	var data = req.body;
+	console.log("create user");
 
 	//Write to data to collection titled 'users'
-	database.write("users", data);
-};
+	// database.write("users", data);
+}
 
 //export
 module.exports = handler_map;

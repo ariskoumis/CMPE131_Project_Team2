@@ -9,14 +9,12 @@ var MongoClient = mongo.MongoClient;
  */
 
 var database = {};
-var url = "mongodb://localhost:27017";
-
 database.mongoclient = mongo.MongoClient;
-database.url = "mongodb://localhost:27017/mydb";
+database.url = "mongodb://localhost:27017";
 
 database.init = function() {
 
-    database.mongoclient.connect(url, function(err, client) {
+    database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
         console.log("Database created!");
         client.close();
@@ -26,9 +24,9 @@ database.init = function() {
 
 database.write = function(collection_name, data) {
 
-    database.mongoclient.connect(url, function(err, client) {
+    database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
-        
+
         var db = client.db("mydb");        
         db.collection(collection_name).insertOne(data);
         client.close();

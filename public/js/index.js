@@ -22,9 +22,8 @@ function attachButtonListner(button_id, listener) {
  * Main function when page is loaded. Everything starts from here.
  */
 function main() {
-    attachButtonListner("test-DB", events.testDBClicked);
-    // .addEventListener('click', events.testDBClicked);
-    
+    attachButtonListner("login", events.loginClicked);
+    attachButtonListner("create-account", events.createAccountClicked);
 }
 
 

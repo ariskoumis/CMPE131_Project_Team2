@@ -24,8 +24,8 @@ app.use(bodyParser.json())
 
 //Establish endpoint handlers
 app.get('/', handlers.rootHandler);
-app.post('/testDB', handlers.testDBHandler);
-
+app.post('/attempt-login', handlers.attemptLoginHandler);
+app.post('/create-account', handlers.createAccountHandler);
 
 /**
  * catch 404 and forward to error handler
