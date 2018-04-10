@@ -4,6 +4,9 @@
 1. Install Node Package Manager
 
    [Node Package Manager (npm)](https://www.npmjs.com/)
+2. Install mongodb 
+
+    [MongoDB Installation](https://docs.mongodb.com/manual/administration/install-community/)
 2. Clone this repository
 
     [Instructions here](https://help.github.com/articles/cloning-a-repository/)
@@ -15,9 +18,13 @@
 
     ```node .```
 
-6. Open your browser to localhost:8000. You should see the website.
+6. Start the mongodb database
 
-7. When you make changes to the js files, run the following command to rebundle the files. Then, refresh the page.
+    ```mongod```
+
+7. Open your browser to localhost:8000. You should see the website.
+
+8.  (Optional) When you make changes to the clientside js files (any js files in the 'public' folder) , run the following command to rebundle the files. Then, refresh the page.
 
     ```npm run browserify```
 
