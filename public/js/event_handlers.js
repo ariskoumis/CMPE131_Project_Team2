@@ -23,5 +23,29 @@ events.createAccountClicked = function() {
 }
 
 events.SSEReceived = function(data) {
-	console.log(data);
+	//exit function if data doesn't have event property
+	if (!data.hasOwnProperty('event')) {
+		return;
+	}
+
+	switch(data.event) {
+
+		case "login_result":
+			if (data.result) {
+				alert("Login Successful!");
+			} else {
+				alert("Login Failed");
+			}
+			break;
+
+		case "create_account_result":
+			if (data.result) {
+				alert("Account Creation Successful!");
+			} else {
+				alert("Account Creation Failed");
+			}
+			break;
+	}
+
+
 }

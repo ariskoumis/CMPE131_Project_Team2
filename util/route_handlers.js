@@ -19,13 +19,15 @@ handler_map.rootHandler = function(req, res) {
 handler_map.attemptLoginHandler = function(req, res) {
 	var data = req.body;
 	console.log("attempt login");
+
+	Stream.emit("push", "message", { event: "login_result", result: true});
 }
 
 handler_map.createAccountHandler = function(req, res) {
 	var data = req.body;
 	console.log("create user");
 
-	Stream.emit("push", "message", { test1: "hey", test2: "yo!"});
+	Stream.emit("push", "message", { event: "create_account_result", result: true});
 
 	//Write to data to collection titled 'users'
 	// database.write("users", data);
