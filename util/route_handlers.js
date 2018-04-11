@@ -1,6 +1,9 @@
+var EventEmitter = require('events');
+
 var handler_map = {};
 var path = require('path');
 var database = require('./database.js');
+const Stream = new EventEmitter();
 
 handler_map.rootHandler = function(req, res) {
 	res.set("Content-Type", "text/html");
@@ -22,8 +25,22 @@ handler_map.createAccountHandler = function(req, res) {
 	var data = req.body;
 	console.log("create user");
 
+	Stream.emit("push", "message", { test1: "hey", test2: "yo!"});
+
 	//Write to data to collection titled 'users'
 	// database.write("users", data);
+}
+
+handler_map.initializeSSEHandler = function(req, res) {
+	res.writeHead(200, {
+		'Content-Type': 'text/event-stream',
+		'Cache-Control': 'no-cache',
+		'Connection': 'keep-alive'
+	});
+
+	Stream.on("push", function(event, data) {
+		res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
+	});
 }
 
 //export

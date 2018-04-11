@@ -1,5 +1,8 @@
 const events = {};
-const routing = require("./routing.js");
+import routing from "./routing.js";
+// const routing = require("./routing.js");
+
+export default events;
 
 events.loginClicked = function() {
 	var data = {
@@ -19,6 +22,6 @@ events.createAccountClicked = function() {
 	routing.sendPostRequest("create-account", data);
 }
 
-
-
-module.exports = events;
+events.SSEReceived = function(data) {
+	console.log(data);
+}

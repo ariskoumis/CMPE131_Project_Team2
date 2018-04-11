@@ -24,6 +24,7 @@ app.use(bodyParser.json())
 
 //Establish endpoint handlers
 app.get('/', handlers.rootHandler);
+app.get('/stream', handlers.initializeSSEHandler);
 app.post('/attempt-login', handlers.attemptLoginHandler);
 app.post('/create-account', handlers.createAccountHandler);
 

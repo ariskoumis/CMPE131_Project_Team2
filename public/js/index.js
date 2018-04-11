@@ -1,5 +1,5 @@
-const events = require("./event_handlers.js");
-const routing = require("./routing.js");
+import events  from "./event_handlers.js";
+import routing from "./routing.js";
 
 /**
  * Function: attachButtonListener
@@ -24,6 +24,8 @@ function attachButtonListner(button_id, listener) {
 function main() {
     attachButtonListner("login", events.loginClicked);
     attachButtonListner("create-account", events.createAccountClicked);
+
+    routing.setupSSE();
 }
 
 

@@ -20,6 +20,10 @@ events.createAccountClicked = function() {
 	routing.sendPostRequest("create-account", data);
 }
 
+events.SSEReceived = function(data) {
+	console.log(data);
+	console.log("MOMMA");
+}
 
 
 module.exports = events;
@@ -50,8 +54,8 @@ function attachButtonListner(button_id, listener) {
 function main() {
     attachButtonListner("login", events.loginClicked);
     attachButtonListner("create-account", events.createAccountClicked);
-    // .addEventListener('click', events.testDBClicked);
-    
+
+    routing.setupSSE();
 }
 
 
@@ -59,6 +63,7 @@ function main() {
 document.addEventListener('DOMContentLoaded', main);
 },{"./event_handlers.js":1,"./routing.js":3}],3:[function(require,module,exports){
 const routing = {};
+const events = require('./event_handlers.js');
 
 /**
  * Function sendPostrequest
@@ -74,9 +79,9 @@ const routing = {};
  * Type: Object
  * Description: Any parameters, or additional data you want to send to endpoint. By default is empty
  */
-routing.sendPostRequest = function(endpoint, data) {
+routing.sendPostRequest = function (endpoint, data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8000/"+endpoint, true);
+    xhr.open("POST", "http://localhost:8000/" + endpoint, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     //Check if data was passed to function, if not, add empty object
@@ -86,8 +91,36 @@ routing.sendPostRequest = function(endpoint, data) {
     else {
         xhr.send();
     }
-    
+
+}
+
+routing.setupSSE = function() {
+    if (!!window.EventSource) {
+        var source = new EventSource('/stream');
+
+        source.addEventListener('message', function (e) {
+            var data = JSON.parse(e.data);
+            console.log("hey");
+            console.log(events);
+            events.SSEReceived(data);
+        }, false);
+
+        source.addEventListener('open', function (e) {
+            console.log("SSE Stream Opened!");
+        }, false);
+
+        source.addEventListener('error', function (e) {
+            if (e.target.readyState == EventSource.CLOSED) {
+                console.log("Disconnected");
+            }
+            else if (e.target.readyState == EventSource.CONNECTING) {
+                console.log("Connecting...");
+            }
+        }, false)
+    } else {
+        console.log("Your browser doesn't support SSE");
+    }
 }
 
 module.exports = routing;
-},{}]},{},[2]);
+},{"./event_handlers.js":1}]},{},[2]);
