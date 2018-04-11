@@ -23,9 +23,3 @@
     ```mongod```
 
 7. Open your browser to localhost:8000. You should see the website.
-
-8.  (Optional) When you make changes to the clientside js files (any js files in the 'public' folder) , run the following command to rebundle the files. Then, refresh the page.
-
-    ```npm run browserify```
-
-    This step will change eventually, because you have to do it every time you change a js file.
