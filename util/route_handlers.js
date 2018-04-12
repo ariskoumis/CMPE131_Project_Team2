@@ -14,24 +14,25 @@ handler_map.rootHandler = function(req, res) {
 			console.log("we good.")
 		}
 	});
-}
+};
 
 handler_map.attemptLoginHandler = function(req, res) {
 	var data = req.body;
 	console.log("attempt login");
 
 	Stream.emit("push", "message", { event: "login_result", result: true});
-}
+};
 
 handler_map.createAccountHandler = function(req, res) {
 	var data = req.body;
 	console.log("create user");
 
-	Stream.emit("push", "message", { event: "create_account_result", result: true});
+	// Stream.emit("push", "message", { event: "create_account_result", result: true});
 
 	//Write to data to collection titled 'users'
-	// database.write("users", data);
-}
+	var success = database.write("users", data);
+	console.log(success);
+};
 
 handler_map.initializeSSEHandler = function(req, res) {
 	res.writeHead(200, {
