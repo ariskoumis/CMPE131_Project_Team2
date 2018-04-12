@@ -26,12 +26,13 @@ handler_map.rootHandler = function (req, res) {
  */
 handler_map.attemptLoginHandler = function (req) {
   var data = req.body;
-  if (data.username === "" | data.password === "") {
-    console.log("You're missing one section, please fill all to login.");
-    Stream.emit("push", "message", {event: "login_result", result: false});;
-  } else {
-    database.mongoclient.connect(database.url, function (err, client) {
-      if (err) throw err;
+
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    if (data.username === "" | data.password === "") {
+      console.log("You're missing one section, please fill all to login.");
+      Stream.emit("push", "message", {event: "login_result", result: false});
+    } else {
       var db = client.db("mydb");
       db.collection("users").findOne({username: data.username}, function (err, res) {
         if (res !== null && res.password === data.password) {
@@ -43,8 +44,8 @@ handler_map.attemptLoginHandler = function (req) {
         }
         client.close();
       })
-    });
-  }
+    }
+  });
 };
 
 /**
@@ -53,13 +54,13 @@ handler_map.attemptLoginHandler = function (req) {
 handler_map.createAccountHandler = function (req, res) {
   var data = req.body;
   // database.signup("users", data);
-  if (data.username === "" | data.password === "" | data.email === "") {
-    console.log("You're missing one section, please fill all to signup.");
-    Stream.emit("push", "message", {event: "create_account_result", result: false});
-  } else {
-    //Write to data to collection titled 'users'
-    database.mongoclient.connect(database.url, function (err, client) {
-      if (err) throw err;
+  //Write to data to collection titled 'users'
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    if (data.username === "" | data.password === "" | data.email === "") {
+      console.log("You're missing one section, please fill all to signup.");
+      Stream.emit("push", "message", {event: "create_account_result", result: false});
+    } else {
       var db = client.db("mydb");
       db.collection("users").findOne({username: data.username}, function (err, res) {
         if (res !== null) {
@@ -72,8 +73,8 @@ handler_map.createAccountHandler = function (req, res) {
         }
         client.close();
       })
-    });
-  }
+    }
+  });
 };
 
 /**
