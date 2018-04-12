@@ -5,9 +5,9 @@ var path = require('path');
 var database = require('./database.js');
 const Stream = new EventEmitter();
 
-handler_map.rootHandler = function(req, res) {
+handler_map.rootHandler = function (req, res) {
 	res.set("Content-Type", "text/html");
-	res.sendFile(path.resolve(__dirname + '/../public/index.html'), function(err) {
+	res.sendFile(path.resolve(__dirname + '/../public/index.html'), function (err) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -16,47 +16,48 @@ handler_map.rootHandler = function(req, res) {
 	});
 };
 
-handler_map.attemptLoginHandler = function(req, res) {
+handler_map.attemptLoginHandler = function (req, res) {
 	var data = req.body;
 	console.log("attempt login");
 
-	Stream.emit("push", "message", { event: "login_result", result: true});
+	Stream.emit("push", "message", { event: "login_result", result: true });
 };
 
-handler_map.createAccountHandler = function(req, res) {
+handler_map.createAccountHandler = function (req, res) {
 	var data = req.body;
-	console.log("create user");
-
+	var account_creation_result = false;
 
 	//Write to data to collection titled 'users'
-  database.mongoclient.connect(database.url, function(err, client) {
-  	if (err) throw err;
-    var db = client.db("mydb");
-    db.collection("users").findOne({username: data.username}, function (err, res) {
-      if (res !== null) {
-        console.log("User does Exist, please enter a different username");
+	database.mongoclient.connect(database.url, function (err, client) {
+		if (err) throw err;
+		var db = client.db("mydb");
+		db.collection("users").findOne({ username: data.username }, function (err, res) {
+			if (res !== null) {
+				console.log("User does Exist, please enter a different username");
+				Stream.emit("push", "message", { event: "create_account_result", result: false });
+			} else {
+				console.log("Congratulation, you just create an account");
+				db.collection("users").insertOne(data);
+				Stream.emit("push", "message", { event: "create_account_result", result: true });
+			}
+			client.close();
+		})
+	});
 
-      } else {
-        console.log("Congratulation, you just create an account");
-        db.collection("users").insertOne(data);
-      }
-      client.close();
-    })
-		});
-  Stream.emit("push", "message", { event: "create_account_result", result: true});
+	
 
 	// var success = database.write("users", data);
 	// console.log("This is the line: " + success);
 };
 
-handler_map.initializeSSEHandler = function(req, res) {
+handler_map.initializeSSEHandler = function (req, res) {
 	res.writeHead(200, {
 		'Content-Type': 'text/event-stream',
 		'Cache-Control': 'no-cache',
 		'Connection': 'keep-alive'
 	});
 
-	Stream.on("push", function(event, data) {
+	Stream.on("push", function (event, data) {
 		res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
 	});
 };
