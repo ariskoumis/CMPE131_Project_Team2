@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 var express       = require('express'),
-    bodyParser    = require('body-parser'),
-    database      = require('./util/database.js'),
-    handlers      = require('./util/route_handlers.js');
+  bodyParser    = require('body-parser'),
+  database      = require('./util/database.js'),
+  handlers      = require('./util/route_handlers.js');
 
 /**
  * Create Express server.

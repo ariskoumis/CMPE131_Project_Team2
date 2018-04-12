@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 var EventEmitter  		= require('events'),
-    mongo             = require('mongodb'),
-    Stream 				  	= new EventEmitter(),
-    database          = {};
+  mongo             = require('mongodb'),
+  Stream 				  	= new EventEmitter(),
+  database          = {};
 
 /***
  * Each database has multiple documents. Here are the documents in our db called "website" as of now.
@@ -20,11 +20,11 @@ database.url          = "mongodb://localhost:27017";
  * Initialize Database
  */
 database.init = function() {
-    database.mongoclient.connect(database.url, function(err, client) {
-        if (err) throw err;
-        console.log("Database created!");
-        client.close();
-    });
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    console.log("Database created!");
+    client.close();
+  });
 };
 
 /**

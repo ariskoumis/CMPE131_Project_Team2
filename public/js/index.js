@@ -15,17 +15,17 @@ import routing from "./routing.js";
  *
  */
 function attachButtonListner(button_id, listener) {
-    document.getElementById(button_id).addEventListener("click", listener);
+  document.getElementById(button_id).addEventListener("click", listener);
 }
 
 /**
  * Main function when page is loaded. Everything starts from here.
  */
 function main() {
-    attachButtonListner("login", events.loginClicked);
-    attachButtonListner("create-account", events.createAccountClicked);
+  attachButtonListner("login", events.loginClicked);
+  attachButtonListner("create-account", events.createAccountClicked);
 
-    routing.setupSSE();
+  routing.setupSSE();
 }
 
 //Only run the main function when all the HTML elements on the page have rendered

@@ -11,51 +11,51 @@ export default events;
  * Activate Login Clicked Function
  */
 events.loginClicked = function() {
-	var data = {
-		username: document.getElementById("username").value,
+  var data = {
+    username: document.getElementById("username").value,
     email: document.getElementById("email").value,
-		password: document.getElementById("password").value
-	};
+    password: document.getElementById("password").value
+  };
 
-	routing.sendPostRequest("attempt-login", data);
+  routing.sendPostRequest("attempt-login", data);
 };
 
 /**
  * Activate Signup Clicked Function
  */
 events.createAccountClicked = function() {
-	var data = {
-		username: document.getElementById("username").value,
+  var data = {
+    username: document.getElementById("username").value,
     email: document.getElementById("email").value,
-		password: document.getElementById("password").value
-	};
+    password: document.getElementById("password").value
+  };
 
-	routing.sendPostRequest("create-account", data);
+  routing.sendPostRequest("create-account", data);
 };
 
 
 events.SSEReceived = function(data) {
-	//exit function if data doesn't have event property
-	if (!data.hasOwnProperty('event')) {
-		return;
-	}
+  //exit function if data doesn't have event property
+  if (!data.hasOwnProperty('event')) {
+    return;
+  }
 
-	switch(data.event) {
+  switch(data.event) {
 
-		case "login_result":
-			if (data.result) {
-				alert("Login Successful!");
-			} else {
-				alert("Login Failed");
-			}
-			break;
+    case "login_result":
+      if (data.result) {
+        alert("Login Successful!");
+      } else {
+        alert("Login Failed");
+      }
+      break;
 
-		case "create_account_result":
-			if (data.result) {
-				alert("Account Creation Successful!");
-			} else {
-				alert("Account Creation Failed");
-			}
-			break;
-	}
+    case "create_account_result":
+      if (data.result) {
+        alert("Account Creation Successful!");
+      } else {
+        alert("Account Creation Failed");
+      }
+      break;
+  }
 };
