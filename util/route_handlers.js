@@ -20,12 +20,24 @@ handler_map.attemptLoginHandler = function (req, res) {
 	var data = req.body;
 	console.log("attempt login");
 
-	Stream.emit("push", "message", { event: "login_result", result: true });
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    var db = client.db("mydb");
+    db.collection("users").findOne({username: data.username}, function (err, res) {
+      if (res !== null && res.password === data.password) {
+        console.log("User Does Exist, Loggin successfully");
+        Stream.emit("push", "message", { event: "login_result", result: true});
+      } else {
+        console.log("Please enter a correct password");
+        Stream.emit("push", "message", { event: "login_result", result: false});
+      }
+      client.close();
+    })
+  });
 };
 
 handler_map.createAccountHandler = function (req, res) {
 	var data = req.body;
-	var account_creation_result = false;
 
 	//Write to data to collection titled 'users'
 	database.mongoclient.connect(database.url, function (err, client) {
@@ -44,7 +56,6 @@ handler_map.createAccountHandler = function (req, res) {
 		})
 	});
 
-	
 
 	// var success = database.write("users", data);
 	// console.log("This is the line: " + success);
