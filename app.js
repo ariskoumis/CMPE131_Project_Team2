@@ -1,9 +1,15 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser')
+/**
+ * Module dependencies.
+ */
+var express       = require('express'),
+  bodyParser    = require('body-parser'),
+  database      = require('./util/database.js'),
+  handlers      = require('./util/route_handlers.js');
 
-var database = require('./util/database.js');
-var handlers = require('./util/route_handlers.js');
+/**
+ * Create Express server.
+ */
+var app = express();
 
 /**
  * Connect to MongoDB.
@@ -13,16 +19,17 @@ database.init();
 /**
  * Express configuration.
  */
-
 //Serve all folders in public directory to localhost
 app.use(express.static('public'));
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-//Establish endpoint handlers
+
+/**
+ * Primary app routes.
+ */
 app.get('/', handlers.rootHandler);
 app.get('/stream', handlers.initializeSSEHandler);
 app.post('/attempt-login', handlers.attemptLoginHandler);
@@ -36,7 +43,6 @@ app.post('/create-account', handlers.createAccountHandler);
 //   err.status = 404;
 //   next(err);
 // });
-
 
 /**
  * Start Express server.
