@@ -14,8 +14,6 @@ export default routing;
  * Type: string
  * Description: endpoint that you want to send data to.
  * Example: "/createDatabase" if there is an endpoint on the server to create a databse
- *
- *
  * Parameter data
  * Type: Object
  * Description: Any parameters, or additional data you want to send to endpoint. By default is empty
