@@ -27,11 +27,26 @@ handler_map.createAccountHandler = function(req, res) {
 	var data = req.body;
 	console.log("create user");
 
-	// Stream.emit("push", "message", { event: "create_account_result", result: true});
 
 	//Write to data to collection titled 'users'
-	var success = database.write("users", data);
-	console.log(success);
+  database.mongoclient.connect(database.url, function(err, client) {
+  	if (err) throw err;
+    var db = client.db("mydb");
+    db.collection("users").findOne({username: data.username}, function (err, res) {
+      if (res !== null) {
+        console.log("User does Exist, please enter a different username");
+
+      } else {
+        console.log("Congratulation, you just create an account");
+        db.collection("users").insertOne(data);
+      }
+      client.close();
+    })
+		});
+  Stream.emit("push", "message", { event: "create_account_result", result: true});
+
+	// var success = database.write("users", data);
+	// console.log("This is the line: " + success);
 };
 
 handler_map.initializeSSEHandler = function(req, res) {
@@ -44,7 +59,7 @@ handler_map.initializeSSEHandler = function(req, res) {
 	Stream.on("push", function(event, data) {
 		res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
 	});
-}
+};
 
 //export
 module.exports = handler_map;
