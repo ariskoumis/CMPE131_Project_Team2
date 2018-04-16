@@ -32,31 +32,34 @@ handler_map.rootHandler = function (req, res) {
 handler_map.attemptLoginHandler = function (req) {
   var data = req.body;
 
-  if (data.username === "" || data.password === "") {
-    console.log("You're missing one section, please fill all to login.");
-    Stream.emit("push", "message", {event: "login_result", result: false});;
-  } else {
-    database.mongoclient.connect(database.url, function (err, client) {
-      if (err) throw err;
-      var db = client.db("mydb");
-      db.collection("users").findOne({username: data.username}, function (err, res) {
-        if (res !== null && res.password === data.password) {
-          console.log("User Does Exist, Login successfully ");
-          currentUser = {
-            id: res._id,
-            username: res.username,
-            password: res.password
-          };
-          Stream.emit("push", "message", {event: "login_result", result: true});
-        } else {
-          console.log("Please enter a correct password");
-          Stream.emit("push", "message", {event: "login_result", result: false});
-        }
-        console.log(currentUser);
-        // console.log("Current User is: " + currentUser.username);
+  // If the customer is login, then they cannot attempt to login again
+  if (!currentUser) {
+    if (data.username === "" || data.password === "") {
+      console.log("You're missing one section, please fill all to login.");
+      Stream.emit("push", "message", {event: "login_result", result: false});;
+    } else {
+      database.mongoclient.connect(database.url, function (err, client) {
+        if (err) throw err;
+        var db = client.db("mydb");
+        db.collection("users").findOne({username: data.username}, function (err, res) {
+          if (res !== null && res.password === data.password) {
+            console.log("User Does Exist, Login successfully ");
+            currentUser = {
+              id: res._id,
+              username: res.username,
+              password: res.password
+            };
+            Stream.emit("push", "message", {event: "login_result", result: true});
+          } else {
+            console.log("Please enter a correct password");
+            Stream.emit("push", "message", {event: "login_result", result: false});
+          }
+          console.log(currentUser);
+          // console.log("Current User is: " + currentUser.username);
+        });
+        client.close();
       });
-      client.close();
-    });
+    }
   }
 };
 
