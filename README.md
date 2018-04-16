@@ -14,12 +14,11 @@
 4. Install dependencies using npm
 
     ```npm install```
+6. Start the mongodb instance
+
+    ```mongod```
 5. Run the express server
 
     ```node .```
-
-6. Start the mongodb database
-
-    ```mongod```
 
 7. Open your browser to localhost:8000. You should see the website.

@@ -33,6 +33,24 @@ events.createAccountClicked = function() {
   routing.sendPostRequest("create-account", data);
 };
 
+/**
+ * Activate Create A Post Clicked Function
+ */
+events.createAPostClicked = function(req) {
+  var data = {
+    title: document.getElementById("title").value,
+    content: document.getElementById("content").value,
+    // Working on where to put the currentUser
+    // user: currentUser
+  };
+  /**
+   * Need Raul build the Create-Post Web Page that has these:
+   * Title, Content
+   */
+
+  routing.sendPostRequest("create-post", data);
+};
+
 
 events.SSEReceived = function(data) {
   //exit function if data doesn't have event property
