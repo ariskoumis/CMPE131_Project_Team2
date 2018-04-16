@@ -2,9 +2,13 @@
  * Module dependencies.
  */
 var express       = require('express'),
-  bodyParser    = require('body-parser'),
-  database      = require('./util/database.js'),
-  handlers      = require('./util/route_handlers.js');
+    bodyParser    = require('body-parser');
+
+/**
+ * Route Handler
+ */
+var database      = require('./util/database.js'),
+    handlers      = require('./util/route_handlers.js');
 
 /**
  * Create Express server.
@@ -26,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-
 /**
  * Primary app routes.
  */
@@ -38,11 +41,11 @@ app.post('/create-account', handlers.createAccountHandler);
 /**
  * catch 404 and forward to error handler
  */
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 /**
  * Start Express server.
