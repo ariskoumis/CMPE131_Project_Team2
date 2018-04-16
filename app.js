@@ -38,17 +38,18 @@ app.get('/stream', handlers.initializeSSEHandler);
 app.post('/attempt-login', handlers.attemptLoginHandler);
 app.post('/create-account', handlers.createAccountHandler);
 
-app.get('/post', handlers.getPost);
+app.get('/post', handlers.showPost);
+app.get('/post-form', handlers.getPostForm);
 app.post('/create-post', handlers.createAPostHandler);
 
 /**
  * catch 404 and forward to error handler
  */
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 /**
  * Start Express server.

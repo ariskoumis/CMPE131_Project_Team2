@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="bd6af456-df16-46c5-8c3f-7470081f0f42" name="Default" comment="" />
+=======
+    <list default="true" id="bd6af456-df16-46c5-8c3f-7470081f0f42" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< Updated upstream
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/create-post.html" afterPath="$PROJECT_DIR$/public/create-post.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/event_handlers.js" afterPath="$PROJECT_DIR$/public/js/event_handlers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/index.js" afterPath="$PROJECT_DIR$/public/js/index.js" />
+>>>>>>> Stashed changes
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/route_handlers.js" afterPath="$PROJECT_DIR$/util/route_handlers.js" />
+    </list>
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -20,38 +36,55 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="251">
               <caret line="41" column="54" lean-forward="false" selection-start-line="41" selection-start-column="54" selection-end-line="41" selection-end-column="54" />
+=======
+            <state relative-caret-position="282">
+<<<<<<< Updated upstream
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+                <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+                <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+                <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+              </folding>
+=======
+              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="database.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/database.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+            <state relative-caret-position="-373">
+              <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
               <folding />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="database.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/util/database.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-195">
-              <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="event_handlers.js" pinned="false" current-in-tab="false">
+=======
+      <file leaf-file-name="event_handlers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/event_handlers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="80" column="2" lean-forward="false" selection-start-line="80" selection-start-column="2" selection-end-line="80" selection-end-column="2" />
+<<<<<<< Updated upstream
+            <state relative-caret-position="-373">
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
+              <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+=======
+            <state relative-caret-position="225">
+              <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -60,8 +93,49 @@
       <file leaf-file-name="route_handlers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/route_handlers.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="335">
+              <caret line="80" column="2" lean-forward="false" selection-start-line="80" selection-start-column="2" selection-end-line="80" selection-end-column="2" />
+=======
+<<<<<<< Updated upstream
+            <state relative-caret-position="-301">
+              <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+=======
+            <state relative-caret-position="210">
+              <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="41" selection-end-column="0" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="route_handlers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/route_handlers.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="275">
               <caret line="169" column="5" lean-forward="true" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
+=======
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="368">
+              <caret line="63" column="2" lean-forward="true" selection-start-line="63" selection-start-column="2" selection-end-line="63" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+=======
+>>>>>>> Stashed changes
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <folding />
             </state>
           </provider>
@@ -70,8 +144,30 @@
       <file leaf-file-name="create-post.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/create-post.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="300">
               <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+=======
+            <state relative-caret-position="210">
+<<<<<<< Updated upstream
+              <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+              <folding>
+                <marker date="1523864104236" expanded="true" signature="328:505" ph="..." />
+              </folding>
+=======
+              <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+              <folding />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <folding />
             </state>
           </provider>
@@ -80,6 +176,7 @@
       <file leaf-file-name="routing.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/routing.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="594">
               <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
@@ -91,6 +188,9 @@
         <entry file="file://$PROJECT_DIR$/util/settings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
+=======
+            <state relative-caret-position="-507">
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -100,8 +200,18 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="210">
               <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+=======
+<<<<<<< Updated upstream
+            <state relative-caret-position="210">
+              <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+=======
+            <state relative-caret-position="225">
+              <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <folding />
             </state>
           </provider>
@@ -110,10 +220,16 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="390">
               <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+=======
+            <state relative-caret-position="227">
+              <caret line="25" column="52" lean-forward="true" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
+                <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -137,12 +253,28 @@
         <option value="$PROJECT_DIR$/public/fail.html" />
         <option value="$PROJECT_DIR$/public/test.html" />
         <option value="$PROJECT_DIR$/package.json" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/public/js/event_handlers.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/create-post.html" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/util/route_handlers.js" />
         <option value="$PROJECT_DIR$/util/route_handlers.js" />
+=======
+        <option value="$PROJECT_DIR$/public/create-post.html" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+<<<<<<< Updated upstream
+        <option value="$PROJECT_DIR$/public/create-post.html" />
+=======
+        <option value="$PROJECT_DIR$/public/js/index.js" />
+        <option value="$PROJECT_DIR$/util/route_handlers.js" />
+        <option value="$PROJECT_DIR$/util/route_handlers.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+>>>>>>> Stashed changes
+        <option value="$PROJECT_DIR$/public/js/event_handlers.js" />
+        <option value="$PROJECT_DIR$/util/route_handlers.js" />
+        <option value="$PROJECT_DIR$/util/route_handlers.js" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
       </list>
     </option>
   </component>
@@ -208,7 +340,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scope" />
+=======
+      <pane id="Scratches" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,7 +372,11 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scratches" />
+=======
+      <pane id="Scope" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -299,12 +439,25 @@
       <workItem from="1523510683977" duration="363000" />
       <workItem from="1523567396714" duration="410000" />
       <workItem from="1523839633460" duration="5345000" />
+<<<<<<< HEAD
       <workItem from="1523846234650" duration="2427000" />
+=======
+      <workItem from="1523846234650" duration="2374000" />
+      <workItem from="1523862614498" duration="1472000" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="22461000" />
+=======
+<<<<<<< Updated upstream
+    <option name="totallyTimeSpent" value="21665000" />
+=======
+    <option name="totallyTimeSpent" value="23094000" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -312,13 +465,23 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16397415" sideWeight="0.4918033" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31361762" sideWeight="0.5048465" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16397415" sideWeight="0.5081967" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31361762" sideWeight="0.4951535" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31361762" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16397415" sideWeight="0.5081967" order="2" side_tool="true" content_ui="tabs" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16397415" sideWeight="0.5081967" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -352,19 +515,16 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/util/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -406,6 +566,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -433,7 +594,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -459,6 +625,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -483,7 +650,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -493,6 +665,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -519,7 +692,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -529,6 +707,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -555,7 +734,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -565,6 +749,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -573,7 +758,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -594,6 +784,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -636,14 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -666,6 +849,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/bundle.js" />
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/public/js/event_handlers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
@@ -678,59 +862,183 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/util/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="227">
+          <caret line="25" column="52" lean-forward="true" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
           <folding>
             <element signature="e#0#42#0" expanded="true" />
+            <marker date="1523864104238" expanded="true" signature="654:803" ph="{...}" />
           </folding>
+=======
+        <state relative-caret-position="-373">
+          <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/public/js/routing.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="282">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <marker date="1523864104235" expanded="true" signature="865:919" ph="//..." />
+            <marker date="1523864104235" expanded="true" signature="921:970" ph="/** catch 404 and forward to error handler ...*/" />
+            <marker date="1523864104235" expanded="true" signature="1004:1076" ph="{...}" />
+            <marker date="1523864104235" expanded="true" signature="1080:1112" ph="/** Start Express server. ...*/" />
+          </folding>
+=======
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
+          <folding />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="210">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+=======
+<<<<<<< Updated upstream
+        <state relative-caret-position="210">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+=======
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/create-post.html">
-      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="300">
           <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+=======
+<<<<<<< Updated upstream
+        <state relative-caret-position="210">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding>
+            <marker date="1523864104236" expanded="true" signature="328:505" ph="..." />
+          </folding>
+=======
+        <state relative-caret-position="225">
+          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
           <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="41" column="54" lean-forward="false" selection-start-line="41" selection-start-column="54" selection-end-line="41" selection-end-column="54" />
+<<<<<<< Updated upstream
+        <state relative-caret-position="-507">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+        <state relative-caret-position="282">
+          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="41" column="54" lean-forward="false" selection-start-line="41" selection-start-column="54" selection-end-line="41" selection-end-column="54" />
+=======
+    <entry file="file://$PROJECT_DIR$/util/route_handlers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="41" selection-end-column="0" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/util/route_handlers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="169" column="5" lean-forward="true" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/database.js">
+=======
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/public/js/bundle.js" />
+    <entry file="file://$PROJECT_DIR$/public/js/event_handlers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+        <state relative-caret-position="-301">
+          <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+=======
+    <entry file="file://$PROJECT_DIR$/public/create-post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+>>>>>>> Stashed changes
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/routing.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="-195">
+=======
+<<<<<<< Updated upstream
+        <state relative-caret-position="-373">
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
+          <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+=======
+        <state relative-caret-position="-507">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/public/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="25" column="52" lean-forward="true" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/event_handlers.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="368">
+          <caret line="63" column="2" lean-forward="true" selection-start-line="63" selection-start-column="2" selection-end-line="63" selection-end-column="2" />
+=======
+        <state relative-caret-position="225">
+          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 60765bf69554582f52a6bbf91afdd0385370f583
   </component>
 </project>

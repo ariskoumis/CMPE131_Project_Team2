@@ -31,21 +31,13 @@ events.createAccountClicked = function() {
   routing.sendPostRequest("create-account", data);
 };
 
-// /**
-//  * Get Post Page
-//  */
-// events.getPostClicked = function(req, res) {
-//   res.redirect("/post");
-// };
-
 /**
  * Activate Create A Post Clicked Function
  */
 events.createAPostClicked = function() {
   var data = {
-    title: document.getElementById("title").value,
+    name: document.getElementById("name").value,
     content: document.getElementById("content").value,
-    // Working on where to put the currentUser
   };
   //Need Raul build the Create-Post Web Page that has these:
   // Title, Content
@@ -66,7 +58,11 @@ events.SSEReceived = function(data) {
       if (data.result) {
         alert("Login Successful!");
       } else {
-        alert("Login Failed");
+        if (!data.message) {
+          alert("Login Failed");
+        } else {
+          alert(data.message);
+        }
       }
       break;
 
@@ -77,5 +73,17 @@ events.SSEReceived = function(data) {
         alert("Account Creation Failed");
       }
       break;
+
+    case "create_post_result":
+      if (data.result) {
+        alert("Your link has posted successfully.");
+      } else {
+        if (data.logged_in) {
+          alert("Error: Posting failed.");
+        } else {
+          alert("You must be logged in first!");
+        }
+
+      }
   }
 };
