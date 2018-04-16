@@ -24,8 +24,6 @@ function attachButtonListner(button_id, listener) {
 function main() {
   attachButtonListner("login", events.loginClicked);
   attachButtonListner("create-account", events.createAccountClicked);
-  // attachButtonListner("get-post-page", events.getPostClicked);
-  attachButtonListner("create-post", events.createAPostClicked);
 
   routing.setupSSE();
 }
