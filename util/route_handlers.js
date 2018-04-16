@@ -33,7 +33,7 @@ handler_map.attemptLoginHandler = function (req) {
   var data = req.body;
 
   // If the customer is login, then they cannot attempt to login again
-  if (!currentUser) {
+  // if (!currentUser) {
     if (data.username === "" || data.password === "") {
       console.log("You're missing one section, please fill all to login.");
       Stream.emit("push", "message", {event: "login_result", result: false});;
@@ -60,7 +60,7 @@ handler_map.attemptLoginHandler = function (req) {
         client.close();
       });
     }
-  }
+  // }
 };
 
 /**
