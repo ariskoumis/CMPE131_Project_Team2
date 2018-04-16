@@ -21,7 +21,7 @@ handler_map.rootHandler = function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log("we good.")
+      // console.log("we good.")
     }
   });
 };
@@ -43,13 +43,11 @@ handler_map.getPost = function (req, res) {
 /**
  * Login Function
  */
-handler_map.attemptLoginHandler = function (req) {
+handler_map.attemptLoginHandler = function (req, res) {
   var data = req.body;
   if (currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
-      console.log("You're missing one section, please fill all to login.");
-      Stream.emit("push", "message", {event: "login_result", result: false});
-      ;
+      Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
     } else {
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
@@ -57,12 +55,14 @@ handler_map.attemptLoginHandler = function (req) {
         db.collection("users").findOne({username: data.username}, function (err, res) {
           if (res !== null && res.password === data.password) {
             console.log("User Does Exist, Login successfully ");
+            console.log(currentUser)
             currentUser = {
               id: res._id,
               username: res.username,
               password: res.password,
               existed: true
             };
+            console.log(currentUser)
             Stream.emit("push", "message", {event: "login_result", result: true});
           } else {
             console.log("Please enter a correct password");
@@ -82,7 +82,7 @@ handler_map.attemptLoginHandler = function (req) {
 /**
  * Signup Function
  */
-handler_map.createAccountHandler = function (req) {
+handler_map.createAccountHandler = function (req, res) {
   var data = req.body;
   // database.signup("users", data);
   if (data.username === "" || data.password === "" || data.email === "") {
@@ -113,7 +113,7 @@ handler_map.createAccountHandler = function (req) {
  * Create A Post Function
  * Allow the User to create a post if and only if he/she is logged in
  */
-handler_map.createAPostHandler = function (req) {
+handler_map.createAPostHandler = function (req, res) {
   var data = req.body;
 
   // Information of the Post
@@ -138,20 +138,22 @@ handler_map.createAPostHandler = function (req) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
       var db = client.db("mydb");
-      db.collection("posts").insertOne(newPost, function (err, res) {
+      //second parameter of following callback function is typically called res, but I changed it to mongo_res to avoid losing node.js's res parameter.
+      db.collection("posts").insertOne(newPost, function (err, mongo_res) {
         if (err) {
           console.log("err found when insert the post to db.");
           Stream.emit("push", "message", {event: "create_post_result", result: false});
           throw err;
         } else {
           res.redirect("/");
+          Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
         }
       });
       client.close();
     });
   } else {
-    alert("Please login before create a post!");
+    Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }
 };
 
