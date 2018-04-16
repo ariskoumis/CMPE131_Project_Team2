@@ -4,8 +4,6 @@
 const events = {};
 import routing from "./routing.js";
 export default events;
-// const routing = require("./routing.js");
-
 
 /**
  * Activate Login Clicked Function
@@ -33,21 +31,25 @@ events.createAccountClicked = function() {
   routing.sendPostRequest("create-account", data);
 };
 
+// /**
+//  * Get Post Page
+//  */
+// events.getPostClicked = function(req, res) {
+//   res.redirect("/post");
+// };
+
 /**
  * Activate Create A Post Clicked Function
  */
-events.createAPostClicked = function(req) {
+events.createAPostClicked = function() {
   var data = {
     title: document.getElementById("title").value,
     content: document.getElementById("content").value,
     // Working on where to put the currentUser
-    // user: currentUser
   };
-  /**
-   * Need Raul build the Create-Post Web Page that has these:
-   * Title, Content
-   */
-
+  //Need Raul build the Create-Post Web Page that has these:
+  // Title, Content
+  console.log("clicked");
   routing.sendPostRequest("create-post", data);
 };
 

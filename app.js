@@ -37,6 +37,8 @@ app.get('/', handlers.rootHandler);
 app.get('/stream', handlers.initializeSSEHandler);
 app.post('/attempt-login', handlers.attemptLoginHandler);
 app.post('/create-account', handlers.createAccountHandler);
+
+app.get('/post', handlers.getPost);
 app.post('/create-post', handlers.createAPostHandler);
 
 /**
