@@ -27,16 +27,29 @@ handler_map.rootHandler = function (req, res) {
 };
 
 /**
+ * Get HomePage
+ */
+handler_map.getPost = function (req, res) {
+  res.set("Content-Type", "text/html");
+  res.sendFile(path.resolve(__dirname + '/../public/create-post.html'), function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("we good.")
+    }
+  });
+};
+
+/**
  * Login Function
  */
 handler_map.attemptLoginHandler = function (req) {
   var data = req.body;
-
-  // If the customer is login, then they cannot attempt to login again
-  // if (!currentUser) {
+  // if (currentUser === null) {
     if (data.username === "" || data.password === "") {
       console.log("You're missing one section, please fill all to login.");
-      Stream.emit("push", "message", {event: "login_result", result: false});;
+      Stream.emit("push", "message", {event: "login_result", result: false});
+      ;
     } else {
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
@@ -115,12 +128,28 @@ handler_map.createAPostHandler = function (req, res) {
     author: author
   };
 
+  // database.mongoclient.connect(database.url, function (err, client) {
+  //   if (err) throw err;
+  //   var db = client.db("mydb");
+  //   db.collection("posts").findOne({username: data.username}, function (err, res) {
+  //     if (res !== null) {
+  //       console.log("User does Exist, please enter a different username");
+  //       Stream.emit("push", "message", {event: "create_account_result", result: false});
+  //     } else {
+  //       console.log("Congratulation, you just create an account");
+  //       db.collection("users").insertOne(data);
+  //       Stream.emit("push", "message", {event: "create_account_result", result: true});
+  //     }
+  //     client.close();
+  //   })
+  // });
   // Create a new Post and save to the database
   Post.push(newPost, function(err) {
     if (err) {
       console.log(err);
     } else {
       // Need Aris to create a route that lead to the Homepage. HomePage may contains bunch of Posts.
+      console.log("Created a Post");
       res.redirect("/");
     }
   });
