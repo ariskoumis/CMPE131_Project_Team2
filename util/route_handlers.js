@@ -8,9 +8,9 @@ var EventEmitter 		= require('events'),
     Stream 					= new EventEmitter(),
     handler_map 		= {},
     // Add currentUser to know which user is in the system currently
-    currentUser     = {},
-  // List of Post. Each Post will have a title, content, and author, later on will have comment too, but not right now
-    Post            = {};
+    currentUser     = {
+      existed: false
+    };
 
 /**
  * Get HomePage
@@ -45,7 +45,7 @@ handler_map.getPost = function (req, res) {
  */
 handler_map.attemptLoginHandler = function (req) {
   var data = req.body;
-  // if (currentUser === null) {
+  if (currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
       console.log("You're missing one section, please fill all to login.");
       Stream.emit("push", "message", {event: "login_result", result: false});
@@ -60,7 +60,8 @@ handler_map.attemptLoginHandler = function (req) {
             currentUser = {
               id: res._id,
               username: res.username,
-              password: res.password
+              password: res.password,
+              existed: true
             };
             Stream.emit("push", "message", {event: "login_result", result: true});
           } else {
@@ -73,13 +74,15 @@ handler_map.attemptLoginHandler = function (req) {
         client.close();
       });
     }
-  // }
+  } else {
+    alert("You cannot login while there is another user login on the System.");
+  }
 };
 
 /**
  * Signup Function
  */
-handler_map.createAccountHandler = function (req, res) {
+handler_map.createAccountHandler = function (req) {
   var data = req.body;
   // database.signup("users", data);
   if (data.username === "" || data.password === "" || data.email === "") {
@@ -108,13 +111,14 @@ handler_map.createAccountHandler = function (req, res) {
 
 /**
  * Create A Post Function
+ * Allow the User to create a post if and only if he/she is logged in
  */
-handler_map.createAPostHandler = function (req, res) {
+handler_map.createAPostHandler = function (req) {
   var data = req.body;
 
   // Information of the Post
-  var name            = data.name,
-      desc            = data.description;
+  var name                = data.name,
+      content             = data.content;
 
   // Information of the user
   var author          = {
@@ -122,39 +126,34 @@ handler_map.createAPostHandler = function (req, res) {
     username: currentUser.username
   };
 
+  // A new Post
   var newPost   = {
     name: name,
-    description: desc,
+    content: content,
     author: author
   };
 
-  // database.mongoclient.connect(database.url, function (err, client) {
-  //   if (err) throw err;
-  //   var db = client.db("mydb");
-  //   db.collection("posts").findOne({username: data.username}, function (err, res) {
-  //     if (res !== null) {
-  //       console.log("User does Exist, please enter a different username");
-  //       Stream.emit("push", "message", {event: "create_account_result", result: false});
-  //     } else {
-  //       console.log("Congratulation, you just create an account");
-  //       db.collection("users").insertOne(data);
-  //       Stream.emit("push", "message", {event: "create_account_result", result: true});
-  //     }
-  //     client.close();
-  //   })
-  // });
-  // Create a new Post and save to the database
-  Post.push(newPost, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      // Need Aris to create a route that lead to the Homepage. HomePage may contains bunch of Posts.
-      console.log("Created a Post");
-      res.redirect("/");
-    }
-  });
+  // Add The Post to the Database
+  if (currentUser.existed === true) {
+    database.mongoclient.connect(database.url, function (err, client) {
+      if (err) throw err;
+      var db = client.db("mydb");
+      db.collection("posts").insertOne(newPost, function (err, res) {
+        if (err) {
+          console.log("err found when insert the post to db.");
+          Stream.emit("push", "message", {event: "create_post_result", result: false});
+          throw err;
+        } else {
+          res.redirect("/");
+          console.log("The Post is in the db");
+        }
+      });
+      client.close();
+    });
+  } else {
+    alert("Please login before create a post!");
+  }
 };
-
 
 /**
  * Initialize SSE Handler
