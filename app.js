@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 var express       = require('express'),
+    session       = require('express-session'),
     bodyParser    = require('body-parser');
 
 /**
@@ -27,6 +28,12 @@ database.init();
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({
+  cookie: { maxAge: 60000 },
+  secret: 'Cow',
+  resave: false,
+  saveUninitialized: true
+}));
 
 /**
  * Primary app routes.
