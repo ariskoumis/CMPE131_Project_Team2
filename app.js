@@ -7,8 +7,9 @@ var express       = require('express'),
 /**
  * Route Handler
  */
-var database      = require('./util/database.js'),
-    handlers      = require('./util/route_handlers.js');
+var database            = require('./global/database.js'),
+    homeRoute           = require('./routes/user.js'),
+    postRoute           = require('./routes/post.js');
 
 /**
  * Create Express server.
@@ -23,23 +24,21 @@ database.init();
 /**
  * Express configuration.
  */
-//Serve all folders in public directory to localhost
 app.use(express.static('public'));
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
 app.use(bodyParser.json());
 
 /**
  * Primary app routes.
  */
-app.get('/', handlers.rootHandler);
-app.get('/stream', handlers.initializeSSEHandler);
-app.post('/attempt-login', handlers.attemptLoginHandler);
-app.post('/create-account', handlers.createAccountHandler);
+app.get('/', homeRoute.rootHandler);
+app.get('/stream', homeRoute.initializeSSEHandler);
+app.post('/login', homeRoute.login);
+app.post('/signup', homeRoute.signup);
 
-app.get('/post', handlers.getPost);
-app.post('/create-post', handlers.createAPostHandler);
+app.get('/show-post', postRoute.showPost);
+app.get('/new-post', postRoute.newPost);
+app.post('/create-post', postRoute.createPost);
 
 /**
  * catch 404 and forward to error handler
