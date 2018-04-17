@@ -23,10 +23,9 @@ function attachButtonListner(button_id, listener) {
  */
 function main() {
   attachButtonListner("create-post", events.createAPostClicked);
-  // attachButtonListner("login", events.loginClicked);
-
   routing.setupSSE();
 }
+
 
 //Only run the main function when all the HTML elements on the page have rendered
 document.addEventListener('DOMContentLoaded', main);

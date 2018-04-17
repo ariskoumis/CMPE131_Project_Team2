@@ -7,9 +7,11 @@ var express       = require('express'),
 /**
  * Route Handler
  */
-var database      = require('./util/database.js'),
-    handlers      = require('./util/route_handlers.js');
+var database        = require('./util/database.js'),
+    homeRoute       = require('./util/index.js'),
+    postRoute       = require('./util/post.js');
 
+var currUser = homeRoute.currentUser;
 /**
  * Create Express server.
  */
@@ -30,26 +32,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(function(req, res, next){
+  res.locals.currentUser  = currUser;
+  next();
+});
+
 /**
  * Primary app routes.
  */
-app.get('/', handlers.rootHandler);
-app.get('/stream', handlers.initializeSSEHandler);
-app.post('/attempt-login', handlers.attemptLoginHandler);
-app.post('/create-account', handlers.createAccountHandler);
+app.get('/', homeRoute.rootHandler);
+app.get('/stream', homeRoute.initializeSSEHandler);
+app.post('/attempt-login', homeRoute.attemptLoginHandler);
+app.post('/create-account', homeRoute.createAccountHandler);
 
-app.get('/post', handlers.showPost);
-app.get('/post-form', handlers.getPostForm);
-app.post('/create-post', handlers.createAPostHandler);
+app.get('/new-post', postRoute.getPostForm);
+app.get('/show-post', postRoute.showPost);
+app.post('/create-post', postRoute.createAPostHandler);
 
 /**
  * catch 404 and forward to error handler
  */
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 /**
  * Start Express server.

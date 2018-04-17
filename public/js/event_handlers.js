@@ -14,7 +14,6 @@ events.loginClicked = function() {
     email: document.getElementById("email").value,
     password: document.getElementById("password").value
   };
-
   routing.sendPostRequest("attempt-login", data);
 };
 
@@ -27,7 +26,6 @@ events.createAccountClicked = function() {
     email: document.getElementById("email").value,
     password: document.getElementById("password").value
   };
-
   routing.sendPostRequest("create-account", data);
 };
 
@@ -39,9 +37,6 @@ events.createAPostClicked = function() {
     name: document.getElementById("name").value,
     content: document.getElementById("content").value,
   };
-  //Need Raul build the Create-Post Web Page that has these:
-  // Title, Content
-  console.log("clicked");
   routing.sendPostRequest("create-post", data);
 };
 
@@ -83,7 +78,6 @@ events.SSEReceived = function(data) {
         } else {
           alert("You must be logged in first!");
         }
-
       }
   }
 };
