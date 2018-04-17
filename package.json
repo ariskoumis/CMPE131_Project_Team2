@@ -28,7 +28,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "requirejs": "^2.3.5"
   },
   "devDependencies": {}
 }

@@ -1,9 +1,8 @@
 /**
  * Module dependencies.
  */
-const database          = {};
-var mongo               = require('mongodb');
-// export default database;
+const database            = {},
+      mongo               = require('mongodb');
 
 /***
  * Each database has multiple documents. Here are the documents in our db called "website" as of now.

@@ -4,6 +4,8 @@
 var EventEmitter 		= require('events'),
     path 						= require('path'),
     database 				= require('../global/database.js'),
+    currentUser     = database.currentUser,
+    listOfPost      = database.listOfPost,
     Stream 					= new EventEmitter(),
     handler_map 		= {};
 
@@ -12,11 +14,15 @@ var EventEmitter 		= require('events'),
  */
 handler_map.showPost = function(req, res) {
   res.set("Content-Type", "text/html");
-  res.sendFile(path.resolve(__dirname + '/../views/post/show-post.html'));
+  res.render(path.resolve(__dirname + '/../views/post/show-post.html'));
+
+  // Fetch data in ListOfPost to JSON and send it to req.body.innerHTML
+
 };
 
 /**
- * Get Create-Post Form
+ * Get /new-post
+ * Go to New Post Form
  */
 handler_map.newPost = function (req, res) {
   res.set("Content-Type", "text/html");
@@ -38,8 +44,9 @@ function getListOfPosts() {
 }
 
 /**
- * Create A Post Function
+ * POST /Create-post
  * Allow the User to create a post if and only if he/she is logged in
+ * Create a Post Function
  */
 handler_map.createPost = function (req) {
   var data = req.body;
@@ -50,8 +57,8 @@ handler_map.createPost = function (req) {
 
   // Information of the user
   var author          = {
-    id: database.currentUser.id,
-    username: database.currentUser.username
+    id: currentUser.id,
+    username: currentUser.username
   };
 
   // A new Post
@@ -62,7 +69,7 @@ handler_map.createPost = function (req) {
   };
 
   // Add The Post to the Database
-  if (database.currentUser.existed === true) {
+  if (currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
       var db = client.db("mydb");

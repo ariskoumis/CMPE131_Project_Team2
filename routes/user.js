@@ -8,18 +8,19 @@ var EventEmitter 		= require('events'),
     handler_map 		= {};
 
 /**
- * Get HomePage
+ * Get /
+ * HomePage
  */
 handler_map.rootHandler = function (req, res) {
   res.set("Content-Type", "text/html");
+  // res.render('index');
   res.sendFile(path.resolve(__dirname + '/../views/index.html'));
 };
 
 /**
- * Login Function
+ * Post /login
  */
 handler_map.login = function (req) {
-
   var data = req.body;
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
@@ -48,12 +49,13 @@ handler_map.login = function (req) {
       });
     }
   } else {
+    // Stream.emit("push", "message", {event: "login_result", result: false});
     console.log("You're already logged in!");
   }
 };
 
 /**
- * Signup Function
+ * Post /Signup
  */
 handler_map.signup = function (req) {
   var data = req.body;
@@ -79,6 +81,17 @@ handler_map.signup = function (req) {
       })
     });
   }
+};
+
+/**
+ * GET /logout
+ * Log out.
+ */
+handler_map.logout = function(req, res) {
+  database.currentUser = {
+    existed: false
+  };
+  res.redirect("/");
 };
 
 /**

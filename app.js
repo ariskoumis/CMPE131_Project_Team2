@@ -9,7 +9,7 @@ var express       = require('express'),
  * Route Handler
  */
 var database            = require('./global/database.js'),
-    homeRoute           = require('./routes/user.js'),
+    user                = require('./routes/user.js'),
     postRoute           = require('./routes/post.js');
 
 /**
@@ -26,22 +26,25 @@ database.init();
  * Express configuration.
  */
 app.use(express.static('public'));
+// app.set('view engine', 'ejs');
+// app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
 
 /**
  * Primary app routes.
  */
-app.get('/', homeRoute.rootHandler);
-app.get('/stream', homeRoute.initializeSSEHandler);
-app.post('/login', homeRoute.login);
-app.post('/signup', homeRoute.signup);
+app.get('/', user.rootHandler);
+app.get('/stream', user.initializeSSEHandler);
+app.get("/logout", user.logout);
+app.post('/login', user.login);
+app.post('/signup', user.signup);
 
 app.get('/show-post', postRoute.showPost);
 app.get('/new-post', postRoute.newPost);
