@@ -1,8 +1,9 @@
 /**
  * Module dependencies.
  */
-const database        = {};
+const database          = {};
 var mongo             = require('mongodb');
+// export default database;
 
 /***
  * Each database has multiple documents. Here are the documents in our db called "website" as of now.
@@ -12,6 +13,10 @@ var mongo             = require('mongodb');
  */
 database.mongoclient  = mongo.MongoClient;
 database.url          = "mongodb://localhost:27017";
+database.currentUser  = {
+  existed: false
+};
+database.listOfPost = [];
 
 /**
  * Initialize Database

@@ -3,8 +3,7 @@
  */
 var EventEmitter 		= require('events'),
     path 						= require('path'),
-    database 				= require('./database.js'),
-    User            = require('./index.js').getCurrentUser(),
+    database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
     handler_map 		= {};
 
@@ -13,15 +12,15 @@ var EventEmitter 		= require('events'),
  */
 handler_map.showPost = function(req, res) {
   res.set("Content-Type", "text/html");
-  res.sendFile(path.resolve(__dirname + '/../public/post/show-post.html'));
+  res.sendFile(path.resolve(__dirname + '/../views/post/show-post.html'));
 };
 
 /**
  * Get Create-Post Form
  */
-handler_map.getPostForm = function (req, res) {
+handler_map.newPost = function (req, res) {
   res.set("Content-Type", "text/html");
-  res.sendFile(path.resolve(__dirname + '/../public/post/new-post.html'));
+  res.sendFile(path.resolve(__dirname + '/../views/post/new-post.html'));
 };
 
 /**
@@ -42,29 +41,28 @@ function getListOfPosts() {
  * Create A Post Function
  * Allow the User to create a post if and only if he/she is logged in
  */
-handler_map.createAPostHandler = function (req, res) {
+handler_map.createPost = function (req) {
   var data = req.body;
 
   // Information of the Post
   var name                = data.name,
-    content             = data.content;
+      content             = data.content;
 
   // Information of the user
   var author          = {
-    id: User.id,
-    username: User.username
+    id: database.currentUser.id,
+    username: database.currentUser.username
   };
 
   // A new Post
   var newPost   = {
-    name: name,
-    content: content,
-    author: author
+      name: name,
+      content: content,
+      author: author
   };
 
-  console.log(User);
   // Add The Post to the Database
-  if (User.existed === true) {
+  if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
       var db = client.db("mydb");
@@ -75,6 +73,7 @@ handler_map.createAPostHandler = function (req, res) {
           Stream.emit("push", "message", {event: "create_post_result", result: false});
           throw err;
         } else {
+          database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
         }
@@ -82,7 +81,7 @@ handler_map.createAPostHandler = function (req, res) {
       client.close();
     });
   } else {
-    console.log("fail");
+    console.log("User needs to login first!");
     Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }
 };
