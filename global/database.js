@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 const database          = {};
-var mongo             = require('mongodb');
+var mongo               = require('mongodb');
 // export default database;
 
 /***
