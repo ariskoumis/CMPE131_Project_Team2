@@ -17,7 +17,8 @@ var EventEmitter 		= require('events'),
  */
 handler_map.rootHandler = function (req, res) {
   res.set("Content-Type", "text/html");
-  res.sendFile(path.resolve(__dirname + '/../public/login.html'), function (err) {
+  console.log(1);
+  res.sendFile(path.resolve(__dirname + '/../public/index.html'), function (err) {
     if (err) {
       console.log(err);
     } else {
