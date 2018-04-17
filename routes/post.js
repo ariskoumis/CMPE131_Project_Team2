@@ -2,10 +2,7 @@
  * Module dependencies.
  */
 var EventEmitter 		= require('events'),
-    path 						= require('path'),
     database 				= require('../global/database.js'),
-    currentUser     = database.currentUser,
-    listOfPost      = database.listOfPost,
     Stream 					= new EventEmitter(),
     handler_map 		= {};
 
@@ -13,11 +10,7 @@ var EventEmitter 		= require('events'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.set("Content-Type", "text/html");
-  res.render(path.resolve(__dirname + '/../views/post/show-post.html'));
-
-  // Fetch data in ListOfPost to JSON and send it to req.body.innerHTML
-
+  res.render('post/show-post', {data: database.listOfPost});
 };
 
 /**
@@ -25,23 +18,8 @@ handler_map.showPost = function(req, res) {
  * Go to New Post Form
  */
 handler_map.newPost = function (req, res) {
-  res.set("Content-Type", "text/html");
-  res.sendFile(path.resolve(__dirname + '/../views/post/new-post.html'));
+  res.render('post/new-post');
 };
-
-/**
- * Show All the Posts
- */
-function getListOfPosts() {
-  database.mongoclient.connect(database.url, function (err, client) {
-    if (err) throw err;
-    let db = client.db("mydb");
-    db.collection("posts").find().forEach(function(data) {
-      listOfPost.push(data);
-    });
-    client.close();
-  });
-}
 
 /**
  * POST /Create-post
@@ -57,8 +35,8 @@ handler_map.createPost = function (req) {
 
   // Information of the user
   var author          = {
-    id: currentUser.id,
-    username: currentUser.username
+    id: database.currentUser.id,
+    username: database.currentUser.username
   };
 
   // A new Post
@@ -69,7 +47,7 @@ handler_map.createPost = function (req) {
   };
 
   // Add The Post to the Database
-  if (currentUser.existed === true) {
+  if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
       var db = client.db("mydb");
@@ -88,6 +66,7 @@ handler_map.createPost = function (req) {
       client.close();
     });
   } else {
+    console.log(database.currentUser);
     console.log("User needs to login first!");
     Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }

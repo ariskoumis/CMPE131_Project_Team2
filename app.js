@@ -26,15 +26,14 @@ database.init();
  * Express configuration.
  */
 app.use(express.static('public'));
-// app.set('view engine', 'ejs');
-// app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true
 }));
 
 /**

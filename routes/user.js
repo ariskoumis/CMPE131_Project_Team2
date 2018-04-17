@@ -1,8 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    path 						= require('path'),
+var EventEmitter 		= require('events'),s
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
     handler_map 		= {};
@@ -12,9 +11,7 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.set("Content-Type", "text/html");
-  // res.render('index');
-  res.sendFile(path.resolve(__dirname + '/../views/index.html'));
+  res.render('index');
 };
 
 /**
