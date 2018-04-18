@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CMPEit</title>
+</head>
+<body>
+  <h1>CMPEit Show Post Page</h1>
+  <% for(var i = 0; i < data.length; i++) { %>
+  <h2> Post <%= i + 1 %> </h2>
+  <h2>  Title: <%= data[i].name %></h2>
+  <h3>  Content: <%= data[i].content %></h3>
+  <br/>
+  <% }%>
+
+</body>
+<footer>
+  <script type="module" src="js/event_handlers.js"></script>
+  <script type="module" src="js/routing.js"></script>
+  <!--<script type="module" src="js/show-post.js"></script>-->
+</footer>
+
+</html>
