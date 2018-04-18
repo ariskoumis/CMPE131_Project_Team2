@@ -11,7 +11,7 @@ var EventEmitter 		= require('events'),s
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.render('index');
+  res.render('login');
 };
 
 /**

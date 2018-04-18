@@ -8,7 +8,7 @@
 	<body bgcolor="#eff2f1">
 		<header align="center">
 			<h1>CMPEit</h1>
-			<img src="page_resources/moo.png" alt="Moo!" width="30%" height="30%">
+			<img src="images/moo.png" alt="Moo!" width="30%" height="30%">
 		</header>
 		<article align="center">
 			<form>
@@ -18,9 +18,12 @@
 				<input type="email" id="email" placeholder="cow.moo@gmail.com" required><br><br>
 				<input type="password" id="password" placeholder="Password" required><br><br>
 				<button id="login">Login</button>
-				<button id="create-account">Create Account</button>
-
+				<button id="create-account">Create Account</button><br><br>
 			</form>
+			<form action="/new-post">
+				<button id="new-post">Create a New Post</button>
+			</form>
+				
 		</article>
 		<footer>
 			<script type="module" src="js/event_handlers.js"></script>
