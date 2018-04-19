@@ -23,7 +23,11 @@ database.listOfPost = [];
 database.init = function() {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
+    var db = client.db("mydb");
     console.log("Database created!");
+    db.collection("posts").find({}).forEach(function(post){
+      database.listOfPost.push(post);
+    });
     client.close();
   });
 };

@@ -1,4 +1,3 @@
-// import database from "../../global/database.js";
 import routing from "./routing.js";
 import events  from "./event_handlers.js";
 
@@ -6,7 +5,7 @@ import events  from "./event_handlers.js";
  * Main function when page is loaded. Everything starts from here.
  */
 function main() {
-  attachButtonListner("task-submit", events.showAllPost);
+  attachButtonListner("show-post", events.showAllPost);
   routing.setupSSE();
 }
 

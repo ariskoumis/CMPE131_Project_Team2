@@ -4,7 +4,6 @@
 const routing = {};
 import events from './event_handlers.js';
 export default routing;
-// const events = require('./event_handlers.js');
 
 /**
  * Function sendPostrequest

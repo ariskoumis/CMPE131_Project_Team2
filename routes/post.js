@@ -7,30 +7,12 @@ var EventEmitter 		= require('events'),
     handler_map 		= {};
 
 /**
+ * GET /show-post
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  transferDataToList();
-  show(res);
+    res.render('post/show-post', {data: database.listOfPost});
 };
-
-function transferDataToList() {
-  database.mongoclient.connect(database.url, function (err, client) {
-    if (err) throw err;
-    var db = client.db("mydb");
-    database.listOfPost = [];
-    db.collection("posts").find({}).forEach(function(post){
-      console.log(post);
-      database.listOfPost.push(post);
-      console.log("Space");
-    });
-    client.close();
-  });
-}
-
-function show(res) {
-  res.render('post/show-post', {data: database.listOfPost});
-}
 
 /**
  * Get /new-post
@@ -77,6 +59,7 @@ handler_map.createPost = function (req) {
           Stream.emit("push", "message", {event: "create_post_result", result: false});
           throw err;
         } else {
+          database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
         }
