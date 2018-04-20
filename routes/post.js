@@ -4,7 +4,6 @@
 var EventEmitter 		= require('events'),
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
-    date            = require('date-and-time');
     handler_map 		= {};
 
 /**
@@ -50,8 +49,6 @@ handler_map.createPost = function (req) {
     author: author,
     timestamp: time
   };
-
-  console.log(newPost.timestamp);
 
   // Add The Post to the Database
   if (database.currentUser.existed === true) {
