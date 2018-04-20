@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "browserify": "./node_modules/browserify/bin/cmd.js public/js/index.js > public/js/bundle.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

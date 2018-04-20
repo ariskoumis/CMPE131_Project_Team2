@@ -23,10 +23,9 @@ handler_map.login = function (req) {
     if (data.username === "" || data.password === "") {
       Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
     } else {
-      database.mongoclient.connect(database.url, function (err, client) {
+      database.mongoclient.connect(database.url, (err, client) => {
         if (err) throw err;
-        var db = client.db("mydb");
-        db.collection("users").findOne({username: data.username}, function (err, res) {
+        client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
           if (res !== null && res.password === data.password) {
             console.log("User Does Exist, Login successfully ");
             database.currentUser = {
@@ -62,16 +61,15 @@ handler_map.signup = function (req) {
     Stream.emit("push", "message", {event: "create_account_result", result: false});
   } else {
     //Write to data to collection titled 'users'
-    database.mongoclient.connect(database.url, function (err, client) {
+    database.mongoclient.connect(database.url, (err, client) => {
       if (err) throw err;
-      var db = client.db("mydb");
-      db.collection("users").findOne({username: data.username}, function (err, res) {
+      client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
         if (res !== null) {
           console.log("User does Exist, please enter a different username");
           Stream.emit("push", "message", {event: "create_account_result", result: false});
         } else {
           console.log("Congratulation, you just create an account");
-          db.collection("users").insertOne(data);
+          client.db("cmpe-it").collection("users").insertOne(data);
           Stream.emit("push", "message", {event: "create_account_result", result: true});
         }
         client.close();

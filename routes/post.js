@@ -54,9 +54,8 @@ handler_map.createPost = function (req) {
   if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
-      var db = client.db("mydb");
       //second parameter of following callback function is typically called res, but I changed it to mongo_res to avoid losing node.js's res parameter.
-      db.collection("posts").insertOne(newPost, function (err, mongo_res) {
+      client.db("cmpe-it").collection("posts").insertOne(newPost, function (err, mongo_res) {
         if (err) {
           console.log("err found when insert the post to db.");
           Stream.emit("push", "message", {event: "create_post_result", result: false});
