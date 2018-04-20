@@ -42,12 +42,6 @@ events.createAPostClicked = function() {
   routing.sendPostRequest("create-post", data);
 };
 
-/**
- * Activate Show All Posts Clicked Function
- */
-events.showAllPost = function() {
-};
-
 
 events.SSEReceived = function(data) {
   //exit function if data doesn't have event property

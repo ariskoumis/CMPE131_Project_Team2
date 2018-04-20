@@ -3,16 +3,23 @@
 <head>
   <title>CMPEit</title>
 </head>
-<body>
-  <h1>CMPEit Create Post Page</h1>
-  <input id="name" placeholder="Title Name" />
-  <br/>
-  <input id="content" placeholder="Content" />
-  <br/>
-  <button id="create-post"> Post </button>
-  <a href="/show-post"> Show All Posts </a>
-  <br/>
-  <a href="/"> Login </a>
+<body bgcolor="#eff2f1">
+  <header style="background-color: black;color:white; padding:10px">
+   <font size="24">CMPEit Create Post Page</font>
+   
+  </header>
+  <nav align="right">
+    <a href="/">Login/Register</a>
+    <a href="/show-post">   Show All Posts</a>
+  </nav>
+  <article align="center">
+    <form id="post-create">
+      <br>
+      <input id="name" placeholder="Post Title" required autofocus><br><br>
+      <textarea id="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>
+      <button id="create-post">Post</button>
+    </form>
+  </article>
 </body>
 
 <footer>
