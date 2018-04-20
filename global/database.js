@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-const database            = {};
+const database  = {};
 
 /***
  * Each database has multiple documents. Here are the documents in our db called "website" as of now.
@@ -15,6 +15,8 @@ database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
 database.currentUser  = {
   existed: false
 };
+
+
 database.listOfPost = [];
 database.listOfComments = [];
 
@@ -22,13 +24,11 @@ database.listOfComments = [];
  * Initialize Database
  */
 database.init = function() {
-  // console.log(database.url);
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     console.log("Database Created");
     var db = client.db("cmpe-it");
     db.collection('posts').find({}).forEach(function(post) {
-      // console.log(post);
       database.listOfPost.push(post);
     });
   });
