@@ -4,7 +4,6 @@
 var EventEmitter 		= require('events'),
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
-    date            = require('date-and-time');
     handler_map 		= {};
 
 /**
