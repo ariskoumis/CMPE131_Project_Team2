@@ -11,9 +11,6 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-<<<<<<< HEAD
-  res.render('login');
-=======
   res.render('index' , {currentUser: database.currentUser});
 };
 
