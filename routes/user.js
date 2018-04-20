@@ -11,19 +11,7 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-<<<<<<< HEAD:util/route_handlers.js
-  res.set("Content-Type", "text/html");
-  console.log(1);
-  res.sendFile(path.resolve(__dirname + '/../public/index.html'), function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("we good.")
-    }
-  });
-=======
   res.render('index' , {currentUser: database.currentUser});
->>>>>>> bd9e30ea698336707f976b7e58209454def9d5bf:routes/user.js
 };
 
 /**
