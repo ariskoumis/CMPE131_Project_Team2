@@ -39,7 +39,7 @@ events.createAPostClicked = function() {
     name: document.getElementById("name").value,
     content: document.getElementById("content").value,
   };
-  routing.sendPostRequest("create-post", data);
+  routing.sendPostRequest("post/create-post", data);
 };
 
 

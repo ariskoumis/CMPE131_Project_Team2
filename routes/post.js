@@ -44,9 +44,10 @@ handler_map.createPost = function (req) {
   var newPost   = {
       name: name,
       content: content,
-      author: author
+      author: author,
+      comments: []
   };
-  console.log("clicked 2");
+
   // Add The Post to the Database
   if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
@@ -72,6 +73,24 @@ handler_map.createPost = function (req) {
     Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }
 };
+
+
+// /**
+//  * show more info about 1 post
+//  */
+// handler_map.postInfo = function(req, res) {
+//   database.mongoclient.connect(database.url, function (err, client) {
+//     if (err) throw err;
+//     var db = client.db("mydb");
+//     //Find the post with provided ID
+//     db.collection("posts").findById(req.params.id).populate("comments").exec(function(err, foundPost){
+//       if (err || !foundPost) {
+//         console.log("error", "Sorry, that campground does not exist!");
+//         return res.redirect("/posts");
+//       }
+//       res.render("post/show", {campground: foundPost});
+//     });
+// };
 
 /**
  * Initialize SSE Handler

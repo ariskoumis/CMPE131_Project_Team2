@@ -1,9 +1,9 @@
 /**
  * Module dependencies.
  */
-var express       = require('express'),
-    session       = require('express-session'),
-    bodyParser    = require('body-parser');
+var express                 = require('express'),
+    session                 = require('express-session'),
+    bodyParser              = require('body-parser');
 
 /**
  * Route Handler
@@ -49,13 +49,14 @@ app.post('/login', user.login);
 app.post('/signup', user.signup);
 
 // Post Routes
-app.get('/show-post', postRoute.showPost);
-app.get('/new-post', postRoute.newPost);
-app.post('/create-post', postRoute.createPost);
+app.get('/post/show-post', postRoute.showPost);
+app.get('/post/new-post', postRoute.newPost);
+app.post('/post/create-post', postRoute.createPost);
+app.get('/post/:id', postRoute.showPost);
 
 // Comment Routes
-// app.get('/post/:id/comments/new', commentRoute.newComment);
-// app.get('/post/:id/comments/new', commentRoute.editComment);
+app.get('/post/:id/comments/new', commentRoute.newComment);
+app.get('/post/:id/comments/edit', commentRoute.editComment);
 
 /**
  * catch 404 and forward to error handler
