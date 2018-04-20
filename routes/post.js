@@ -46,7 +46,7 @@ handler_map.createPost = function (req) {
       content: content,
       author: author
   };
-
+  console.log("clicked 2");
   // Add The Post to the Database
   if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {

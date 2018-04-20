@@ -22,6 +22,7 @@ function attachButtonListner(button_id, listener) {
  * Main function when page is loaded. Everything starts from here.
  */
 function main() {
+
   attachButtonListner("create-post", events.createAPostClicked);
 
   routing.setupSSE();

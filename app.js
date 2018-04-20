@@ -10,6 +10,7 @@ var express       = require('express'),
  */
 var database            = require('./global/database.js'),
     user                = require('./routes/user.js'),
+    commentRoute        = require('./routes/comment.js'),
     postRoute           = require('./routes/post.js');
 
 /**
@@ -41,13 +42,20 @@ app.use(session({
  */
 app.get('/', user.rootHandler);
 app.get('/stream', user.initializeSSEHandler);
+
+// User Routes
 app.get("/logout", user.logout);
 app.post('/login', user.login);
 app.post('/signup', user.signup);
 
+// Post Routes
 app.get('/show-post', postRoute.showPost);
 app.get('/new-post', postRoute.newPost);
 app.post('/create-post', postRoute.createPost);
+
+// Comment Routes
+// app.get('/post/:id/comments/new', commentRoute.newComment);
+// app.get('/post/:id/comments/new', commentRoute.editComment);
 
 /**
  * catch 404 and forward to error handler
