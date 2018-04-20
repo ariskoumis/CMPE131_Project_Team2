@@ -46,8 +46,6 @@ events.createAPostClicked = function() {
  * Activate Show All Posts Clicked Function
  */
 events.showAllPost = function() {
-  var listOfPost = [];
-  routing.sendPostRequest("show-post", data);
 };
 
 

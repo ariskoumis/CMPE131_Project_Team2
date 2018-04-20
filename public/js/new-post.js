@@ -23,6 +23,7 @@ function attachButtonListner(button_id, listener) {
  */
 function main() {
   attachButtonListner("create-post", events.createAPostClicked);
+
   routing.setupSSE();
 }
 

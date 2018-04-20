@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),s
+var EventEmitter 		= require('events'),
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
     handler_map 		= {};
@@ -11,7 +11,7 @@ var EventEmitter 		= require('events'),s
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.render('index');
+  res.render('index' , {currentUser: database.currentUser});
 };
 
 /**
@@ -46,7 +46,7 @@ handler_map.login = function (req) {
       });
     }
   } else {
-    // Stream.emit("push", "message", {event: "login_result", result: false});
+    Stream.emit("push", "message", {event: "login_result", result: false});
     console.log("You're already logged in!");
   }
 };
