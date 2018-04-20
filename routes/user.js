@@ -25,7 +25,8 @@ handler_map.login = function (req) {
     } else {
       database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
-        client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
+        var db = client.db("cmpe-it");
+        db.collection("users").findOne({username: data.username}, function (err, res) {
           if (res !== null && res.password === data.password) {
             console.log("User Does Exist, Login successfully ");
             database.currentUser = {
@@ -63,7 +64,8 @@ handler_map.signup = function (req) {
     //Write to data to collection titled 'users'
     database.mongoclient.connect(database.url, function(err, client) {
       if (err) throw err;
-      client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
+      var db = client.db("cmpe-it");
+      db.collection("users").findOne({username: data.username}, function (err, res) {
         if (res !== null) {
           console.log("User does Exist, please enter a different username");
           Stream.emit("push", "message", {event: "create_account_result", result: false});
