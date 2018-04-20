@@ -37,6 +37,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://yourIonicServerIp:port');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  next();
+});
+
 /**
  * Primary app routes.
  */
