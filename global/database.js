@@ -10,8 +10,8 @@ const database  = {};
  *     3. Comments
  */
 database.mongoclient         = require('mongodb').MongoClient;
-// database.url          = "mongodb://localhost:27017";
-database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
+// database.url          = ;
+database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
 database.currentUser  = {
   existed: false
 };
