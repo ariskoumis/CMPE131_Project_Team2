@@ -22,14 +22,14 @@ database.listOfComments = [];
  * Initialize Database
  */
 database.init = function() {
-  console.log(database.url);
-  database.mongoclient.connect(database.url, (err, client) => {
+  // console.log(database.url);
+  database.mongoclient.connect(database.url, function(err, client) {
     if (err) {
       return console.log(err);
     }
     console.log("Database Created");
     client.db("cmpe-it").collection('posts').find({}).forEach(function(post) {
-      console.log(post);
+      // console.log(post);
       database.listOfPost.push(post);
     });
   });
