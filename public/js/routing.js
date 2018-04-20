@@ -21,15 +21,15 @@ routing.sendPostRequest = function (endpoint, data) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8000/" + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setHeader('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+  xhr.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
 
   //Check if data was passed to function, if not, add empty object
-  if (data) {
-    xhr.send(JSON.stringify(data));
-  }
-  else {
-    xhr.send();
-  }
+  // if (data) {
+  //   xhr.send(JSON.stringify(data));
+  // }
+  // else {
+  //   xhr.send();
+  // }
 
 };
 
