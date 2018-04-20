@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 var EventEmitter 		= require('events'),
-  database 				= require('../global/database.js'),
-  Stream 					= new EventEmitter(),
-  handler_map 		= {};
+    database 				= require('../global/database.js'),
+    Stream 					= new EventEmitter(),
+    handler_map 		= {};
 
 
 handler_map.newComment = function(req, res) {

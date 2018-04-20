@@ -30,10 +30,6 @@ handler_map.newPost = function (req, res) {
 handler_map.createPost = function (req) {
   var data = req.body;
 
-  // Information of the Post
-  var name                = data.name,
-      content             = data.content;
-
   // Information of the user
   var author          = {
     id: database.currentUser.id,
@@ -42,10 +38,9 @@ handler_map.createPost = function (req) {
 
   // A new Post
   var newPost   = {
-      name: name,
-      content: content,
-      author: author,
-      comments: []
+      name: data.name,
+      content: data.content,
+      author: author
   };
 
   // Add The Post to the Database
@@ -73,24 +68,6 @@ handler_map.createPost = function (req) {
     Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }
 };
-
-
-// /**
-//  * show more info about 1 post
-//  */
-// handler_map.postInfo = function(req, res) {
-//   database.mongoclient.connect(database.url, function (err, client) {
-//     if (err) throw err;
-//     var db = client.db("mydb");
-//     //Find the post with provided ID
-//     db.collection("posts").findById(req.params.id).populate("comments").exec(function(err, foundPost){
-//       if (err || !foundPost) {
-//         console.log("error", "Sorry, that campground does not exist!");
-//         return res.redirect("/posts");
-//       }
-//       res.render("post/show", {campground: foundPost});
-//     });
-// };
 
 /**
  * Initialize SSE Handler

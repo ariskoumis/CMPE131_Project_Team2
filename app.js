@@ -49,14 +49,13 @@ app.post('/login', user.login);
 app.post('/signup', user.signup);
 
 // Post Routes
-app.get('/post/show-post', postRoute.showPost);
-app.get('/post/new-post', postRoute.newPost);
-app.post('/post/create-post', postRoute.createPost);
-app.get('/post/:id', postRoute.showPost);
+app.get('/show-post', postRoute.showPost);
+app.get('/new-post', postRoute.newPost);
+app.post('/create-post', postRoute.createPost);
 
 // Comment Routes
-app.get('/post/:id/comments/new', commentRoute.newComment);
-app.get('/post/:id/comments/edit', commentRoute.editComment);
+// app.get('/post/:id/comments/new', commentRoute.newComment);
+// app.get('/post/:id/comments/edit', commentRoute.editComment);
 
 /**
  * catch 404 and forward to error handler
