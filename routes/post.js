@@ -4,6 +4,7 @@
 var EventEmitter 		= require('events'),
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
+    date            = require('date-and-time');
     handler_map 		= {};
 
 /**
@@ -11,7 +12,7 @@ var EventEmitter 		= require('events'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-    res.render('post/show-post', {data: database.listOfPost});
+  res.render('post/show-post', {data: database.listOfPost});
 };
 
 /**
@@ -29,6 +30,12 @@ handler_map.newPost = function (req, res) {
  */
 handler_map.createPost = function (req) {
   var data = req.body;
+  var d = new Date();
+  var min =0;
+  if(d.getMinutes() > 10){
+    min = "";
+  }
+  var time = d.getHours()+":"+min+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 
   // Information of the user
   var author          = {
@@ -38,10 +45,13 @@ handler_map.createPost = function (req) {
 
   // A new Post
   var newPost   = {
-      name: data.name,
-      content: data.content,
-      author: author
+    name: data.name,
+    content: data.content,
+    author: author,
+    timestamp: time
   };
+
+  console.log(newPost.timestamp);
 
   // Add The Post to the Database
   if (database.currentUser.existed === true) {

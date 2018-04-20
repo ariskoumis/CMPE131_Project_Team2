@@ -42,7 +42,6 @@ events.createAPostClicked = function() {
   routing.sendPostRequest("create-post", data);
 };
 
-
 events.SSEReceived = function(data) {
   //exit function if data doesn't have event property
   if (!data.hasOwnProperty('event')) {
