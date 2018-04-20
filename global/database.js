@@ -11,8 +11,7 @@ const database            = {};
  */
 database.mongoclient         = require('mongodb').MongoClient;
 // database.url          = "mongodb://localhost:27017";
-database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
-// database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
+database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
 database.currentUser  = {
   existed: false
 };
