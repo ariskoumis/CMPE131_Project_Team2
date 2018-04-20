@@ -61,7 +61,7 @@ handler_map.createPost = function (req) {
           Stream.emit("push", "message", {event: "create_post_result", result: false});
           throw err;
         } else {
-          // database.listOfPost.push(newPost);
+          database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
         }

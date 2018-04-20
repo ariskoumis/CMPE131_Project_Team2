@@ -23,7 +23,7 @@ handler_map.login = function (req) {
     if (data.username === "" || data.password === "") {
       Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
     } else {
-      database.mongoclient.connect(database.url, function (err, client) {
+      database.mongoclient.connect(database.url, (err, client) => {
         if (err) throw err;
         client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
           if (res !== null && res.password === data.password) {
@@ -63,7 +63,6 @@ handler_map.signup = function (req) {
     //Write to data to collection titled 'users'
     database.mongoclient.connect(database.url, (err, client) => {
       if (err) throw err;
-      // var db = client.db("mydb");
       client.db("cmpe-it").collection("users").findOne({username: data.username}, function (err, res) {
         if (res !== null) {
           console.log("User does Exist, please enter a different username");

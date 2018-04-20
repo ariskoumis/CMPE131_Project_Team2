@@ -11,7 +11,8 @@ const database            = {};
  */
 database.mongoclient         = require('mongodb').MongoClient;
 // database.url          = "mongodb://localhost:27017";
-database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
+database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
+// database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it";
 database.currentUser  = {
   existed: false
 };
@@ -22,12 +23,14 @@ database.listOfComments = [];
  * Initialize Database
  */
 database.init = function() {
+  console.log(database.url);
   database.mongoclient.connect(database.url, (err, client) => {
     if (err) {
       return console.log(err);
     }
     console.log("Database Created");
     client.db("cmpe-it").collection('posts').find({}).forEach(function(post) {
+      console.log(post);
       database.listOfPost.push(post);
     });
   });
