@@ -35,18 +35,10 @@ events.createAccountClicked = function() {
  * Activate Create A Post Clicked Function
  */
 events.createAPostClicked = function() {
-  var d = new Date();
-  var min =0;
-  if(d.getMinutes() > 10){
-    min = "";
-  }
-  var time = d.getHours()+":"+min+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
   var data = {
     name: document.getElementById("name").value,
     content: document.getElementById("content").value,
-    timestamp: time,
   };
-  console.log(data.timestamp);
   routing.sendPostRequest("create-post", data);
 };
 
