@@ -17,8 +17,9 @@ handler_map.rootHandler = function (req, res) {
 /**
  * Post /login
  */
-handler_map.login = function (req) {
+handler_map.login = function (req, res) {
   var data = req.body;
+  console.log("click");
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
       Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
