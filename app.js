@@ -1,9 +1,10 @@
 /**
  * Module dependencies.
  */
-var express                 = require('express'),
-    session                 = require('express-session'),
-    bodyParser              = require('body-parser');
+var express             = require('express'),
+    session             = require('express-session'),
+    cors                = require('cors'),
+    bodyParser          = require('body-parser');
 
 /**
  * Route Handler
@@ -34,8 +35,10 @@ app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
+
+app.use(cors());
 
 /**
  * Primary app routes.
@@ -44,9 +47,10 @@ app.get('/', user.rootHandler);
 app.get('/stream', user.initializeSSEHandler);
 
 // User Routes
-app.get("/logout", user.logout);
 app.post('/login', user.login);
-app.post('/signup', user.signup);
+app.get("/signup", user.getSignup);
+app.post('/signup', user.postSignup);
+app.get("/logout", user.logout);
 
 // Post Routes
 app.get('/show-post', postRoute.showPost);
