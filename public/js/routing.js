@@ -18,21 +18,25 @@ export default routing;
  * Description: Any parameters, or additional data you want to send to endpoint. By default is empty
  */
 routing.sendPostRequest = function (endpoint, data) {
-  // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8000/" + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  // xhr.setRequestHeader("Accept","application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var json = JSON.parse(xhr.responseText);
+      console.log(json.name);
+    }
+  };
 
   //Check if data was passed to function, if not, add empty object
-  if (data) {
+  // if (data) {
     // console.log(data);
     // console.log(JSON.stringify(data));
-    xhr.send(JSON.stringify(data));
-  }
-  else {
+    // xhr.send(JSON.stringify(data));
+  // }
+  // else {
     xhr.send();
-  }
+  // }
 };
 
 /**

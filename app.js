@@ -4,6 +4,7 @@
 var express                 = require('express'),
     session                 = require('express-session'),
     cors                    = require('cors'),
+    methodOverride          = require('method-override'),
     bodyParser              = require('body-parser');
 
 /**
@@ -31,6 +32,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
