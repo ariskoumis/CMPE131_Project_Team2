@@ -10,13 +10,10 @@ const database  = {};
  *     3. Comments
  */
 database.mongoclient         = require('mongodb').MongoClient;
-// database.url          = ;
 database.url = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
 database.currentUser  = {
   existed: false
 };
-
-
 database.listOfPost = [];
 database.listOfComments = [];
 
@@ -31,7 +28,15 @@ database.init = function() {
     db.collection('posts').find({}).forEach(function(post) {
       database.listOfPost.push(post);
     });
+    database.listOfPost.sort();
+    // console.log(lis)
   });
 };
+
+// function sortPostByTime(list) {
+//   for(var i = 0; i < list.length - 1; i++) {
+//     if(list[i + 1].timestamp.date < list[i] )
+//   }
+// }
 
 module.exports = database;

@@ -48,7 +48,10 @@ handler_map.createPost = function (req, res) {
     name: data.name,
     content: data.content,
     author: author,
-    timestamp: time
+    timestamp: {
+      time: time,
+      date: d.getTime()
+    }
   };
 
   // Add The Post to the Database

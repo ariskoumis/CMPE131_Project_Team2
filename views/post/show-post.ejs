@@ -15,7 +15,7 @@
     <span style="font-size:30px;":><strong><%= data[i].name %></strong></span>
     <span style="font-size:15px"> #<%= i + 1 %></span>
     <span style="font-size:15px"> by: <%= data[i].author.username %> on</span>
-    <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp %></strong></span><br>
+    <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp.time %></strong></span><br>
     <span style="font-size:20px"><%= data[i].content %></span>
     <br/><hr>
     <% }%>
