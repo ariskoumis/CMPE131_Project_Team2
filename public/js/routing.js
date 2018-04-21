@@ -22,7 +22,7 @@ routing.sendPostRequest = function (endpoint, data) {
   xhr.open("POST", "http://localhost:8000/" + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
+    if (xhr.readyState === 4 && xhr.status === 200) {
       var json = JSON.parse(xhr.responseText);
       console.log(json.name);
     }
@@ -30,8 +30,8 @@ routing.sendPostRequest = function (endpoint, data) {
 
   //Check if data was passed to function, if not, add empty object
   // if (data) {
-    // console.log(data);
-    // console.log(JSON.stringify(data));
+    console.log(data);
+    console.log(JSON.stringify(data));
     // xhr.send(JSON.stringify(data));
   // }
   // else {
