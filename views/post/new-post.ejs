@@ -8,8 +8,14 @@
    <font size="24">CMPEit Create Post Page</font>
   </header>
   <nav align="right">
-    <a href="/">Login/ Register</a>
-    <a href="/show-post">   Show All Posts</a>
+      <% if (currUser.existed === true) { %>
+        <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
+        <a href="/new-post" style="color:white">   Create a Post</a>
+        <a href="/logout" style="color:white">   Logout </a>
+      <% } else { %>
+        <a href="/"> Login/ Register </a>
+        <a href="/show-post" style="color:white">   Show all Posts</a>
+      <% } %>
   </nav>
   <article align="center">
     <form id="post-create" action="/create-post" method="POST">

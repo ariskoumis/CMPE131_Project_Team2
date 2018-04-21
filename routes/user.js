@@ -92,7 +92,7 @@ handler_map.postSignup = function (req, res) {
 };
 
 /**
- * GET /logout
+ * POST /logout
  * Log out.
  */
 handler_map.logout = function(req, res) {

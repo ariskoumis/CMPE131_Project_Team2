@@ -23,7 +23,9 @@ handler_map.showPost = function(req, res) {
  */
 handler_map.newPost = function (req, res) {
   console.log("newpost");
-  res.render('post/new-post');
+  res.render('post/new-post', {
+    currUser: database.currentUser
+  });
 };
 
 /**
