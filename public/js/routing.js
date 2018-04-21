@@ -24,14 +24,14 @@ routing.sendPostRequest = function (endpoint, data) {
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   //Check if data was passed to function, if not, add empty object
-  // if (data) {
+  if (data) {
   //   console.log(data);
-    console.log(JSON.stringify(data));
-    // xhr.send(JSON.stringify(data));
-  // }
-  // else {
-  //   xhr.send(null);
-  // }
+  //   console.log(JSON.stringify(data));
+    xhr.send(JSON.stringify(data));
+  }
+  else {
+    xhr.send();
+  }
 };
 
 /**
