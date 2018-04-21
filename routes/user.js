@@ -19,6 +19,7 @@ handler_map.rootHandler = function (req, res) {
  */
 handler_map.login = function (req, res) {
   var data = req.body;
+  console.log(data);
   console.log("click");
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
