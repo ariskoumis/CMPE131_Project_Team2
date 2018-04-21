@@ -35,7 +35,8 @@
     "passport-local-mongoose": "^5.0.0",
     "path": "^0.12.7",
     "request": "^2.85.0",
-    "requirejs": "^2.3.5"
+    "requirejs": "^2.3.5",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {}
 }
