@@ -11,6 +11,7 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
+  console.log("pag1");
   res.render('index' , {currentUser: database.currentUser});
 };
 
@@ -18,9 +19,11 @@ handler_map.rootHandler = function (req, res) {
  * Post /login
  */
 handler_map.login = function (req, res) {
+  // console.log("click");
+  // res.render('post/new-post');
   var data = req.body;
-  console.log(data);
-  console.log("click");
+  // console.log(data);
+  // console.log("click");
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
       Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
@@ -28,19 +31,21 @@ handler_map.login = function (req, res) {
       database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
         var db = client.db("cmpe-it");
-        db.collection("users").findOne({username: data.username}, function (err, res) {
-          if (res !== null && res.password === data.password) {
+        db.collection("users").findOne({username: data.username}, function (err, mongores) {
+          if (mongores !== null && mongores.password === data.password) {
             console.log("User Does Exist, Login successfully ");
             database.currentUser = {
-              id: res._id,
-              username: res.username,
-              password: res.password,
+              id: mongores._id,
+              username: mongores.username,
+              password: mongores.password,
               existed: true
             };
             console.log(database.currentUser);
             Stream.emit("push", "message", {event: "login_result", result: true});
+            res.redirect("/show-post");
           } else {
             console.log("Please enter a correct password");
+            res.redirect("/");
             Stream.emit("push", "message", {event: "login_result", result: false});
           }
         });

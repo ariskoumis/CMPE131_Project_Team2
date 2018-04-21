@@ -32,7 +32,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(methodOverride("_method"));
 app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',

@@ -12,17 +12,17 @@
     <a href="/show-post">   Show All Posts</a>
   </nav>
   <article align="center">
-    <form id="post-create">
+    <form id="post-create" method="POST">
       <br>
-      <input id="name" placeholder="Post Title" required autofocus><br><br>
-      <textarea id="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>
+      <input id="name" name="name" placeholder="Post Title" required autofocus><br><br>
+      <textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>
       <button id="create-post"> Post </button>
     </form>
   </article>
 <footer>
   <script type="module" src="js/event_handlers.js"></script>
   <script type="module" src="js/routing.js"></script>
-  <script type="module" src="js/new-post.js"></script>
+  <!--<script type="module" src="js/new-post.js"></script>-->
 
 </footer>
 </body>
