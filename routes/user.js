@@ -11,19 +11,22 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  console.log("pag1");
   res.render('index' , {currentUser: database.currentUser});
+};
+
+/**
+ * Get /
+ * signup
+ */
+handler_map.signup = function (req, res) {
+  res.render('signup');
 };
 
 /**
  * Post /login
  */
 handler_map.login = function (req, res) {
-  // console.log("click");
-  // res.render('post/new-post');
   var data = req.body;
-  // console.log(data);
-  // console.log("click");
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
       Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
