@@ -6,17 +6,18 @@
 <body bgcolor="#eff2f1">
   <header style="background-color: black;color:white; padding:10px">
    <font size="24">CMPEit Create Post Page</font>
+      <nav align="right">
+          <% if (currUser.existed === true) { %>
+          <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
+          <a href="/new-post" style="color:white">   Create a Post</a>
+          <a href="/logout" style="color:white">   Logout </a>
+          <% } else { %>
+          <a href="/"> Login/ Register </a>
+          <a href="/show-post" style="color:white">   Show all Posts</a>
+          <% } %>
+      </nav>
   </header>
-  <nav align="right">
-      <% if (currUser.existed === true) { %>
-        <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
-        <a href="/new-post" style="color:white">   Create a Post</a>
-        <a href="/logout" style="color:white">   Logout </a>
-      <% } else { %>
-        <a href="/"> Login/ Register </a>
-        <a href="/show-post" style="color:white">   Show all Posts</a>
-      <% } %>
-  </nav>
+
   <article align="center">
     <form id="post-create" action="/create-post" method="POST">
       <br>
