@@ -28,7 +28,7 @@ handler_map.newPost = function (req, res) {
  * Allow the User to create a post if and only if he/she is logged in
  * Create a Post Function
  */
-handler_map.createPost = function (req) {
+handler_map.createPost = function (req, res) {
   var data = req.body;
   var d = new Date();
   var min =0;
@@ -61,11 +61,12 @@ handler_map.createPost = function (req) {
         if (err) {
           console.log("err found when insert the post to db.");
           Stream.emit("push", "message", {event: "create_post_result", result: false});
-          throw err;
+          res.redirect("/new-post");
         } else {
           database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
+          res.redirect("/show-post");
         }
       });
       client.close();
