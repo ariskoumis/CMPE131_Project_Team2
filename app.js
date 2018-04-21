@@ -51,8 +51,8 @@ app.get('/stream', user.initializeSSEHandler);
 // User Routes
 app.get("/logout", user.logout);
 app.post('/login', user.login);
-app.get("/signup", user.signup)
-app.post('/signup', user.signup);
+app.get("/signup", user.getSignup);
+app.post('/signup', user.postSignup);
 
 // Post Routes
 app.get('/show-post', postRoute.showPost);

@@ -18,7 +18,7 @@ handler_map.rootHandler = function (req, res) {
  * Get /
  * signup
  */
-handler_map.signup = function (req, res) {
+handler_map.getSignup = function (req, res) {
   res.render('signup');
 };
 
@@ -64,7 +64,7 @@ handler_map.login = function (req, res) {
 /**
  * Post /Signup
  */
-handler_map.signup = function (req) {
+handler_map.postSignup = function (req, res) {
   var data = req.body;
   // database.signup("users", data);
   if (data.username === "" || data.password === "" || data.email === "") {
