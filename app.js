@@ -35,7 +35,7 @@ app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
 
 app.use(cors());
