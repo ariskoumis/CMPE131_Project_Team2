@@ -35,7 +35,7 @@ routing.sendPostRequest = function (endpoint, data) {
     // xhr.send(JSON.stringify(data));
   // }
   // else {
-    xhr.send();
+    xhr.send(null);
   // }
 };
 
