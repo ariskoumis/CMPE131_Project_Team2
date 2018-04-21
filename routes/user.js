@@ -75,10 +75,11 @@ handler_map.postSignup = function (req, res) {
     database.mongoclient.connect(database.url, function(err, client) {
       if (err) throw err;
       var db = client.db("cmpe-it");
-      db.collection("users").findOne({username: data.username}, function (err, res) {
-        if (res !== null) {
+      db.collection("users").findOne({username: data.username}, function (err, mongoRes) {
+        if (mongoRes !== null) {
           console.log("User does Exist, please enter a different username");
           Stream.emit("push", "message", {event: "create_account_result", result: false});
+          res.redirect("/signup");
         } else {
           console.log("Congratulation, you just create an account");
           client.db("cmpe-it").collection("users").insertOne(data);
