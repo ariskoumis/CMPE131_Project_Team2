@@ -28,15 +28,18 @@ database.init = function() {
     db.collection('posts').find({}).forEach(function(post) {
       database.listOfPost.push(post);
     });
-    database.listOfPost.sort();
-    // console.log(lis)
+    database.listOfPost.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
   });
 };
 
-// function sortPostByTime(list) {
-//   for(var i = 0; i < list.length - 1; i++) {
-//     if(list[i + 1].timestamp.date < list[i] )
-//   }
-// }
+function sortPostByTime(list) {
+  for(var i = 0; i < list.length - 1; i++) {
+    if(list[i + 1].timestamp.date < list[i]) {
+
+    }
+  }
+}
 
 module.exports = database;

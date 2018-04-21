@@ -11,7 +11,10 @@ var EventEmitter 		= require('events'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.render('post/show-post', {data: database.listOfPost});
+  res.render('post/show-post', {
+    data: database.listOfPost,
+    currUser: database.currentUser
+  });
 };
 
 /**
@@ -48,10 +51,8 @@ handler_map.createPost = function (req, res) {
     name: data.name,
     content: data.content,
     author: author,
-    timestamp: {
-      time: time,
-      date: d.getTime()
-    }
+    timestamp: time,
+    date: d.getTime()
   };
 
   // Add The Post to the Database
