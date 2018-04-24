@@ -48,14 +48,15 @@ app.get('/stream', user.initializeSSEHandler);
 
 // User Routes
 app.post('/login', user.login);
+
 app.get("/signup", user.getSignup);
 app.post('/signup', user.postSignup);
 app.get("/logout", user.logout);
 
 // Post Routes
-app.get('/show-post', postRoute.showPost);
-app.get('/new-post', postRoute.newPost);
-app.post('/create-post', postRoute.createPost);
+app.get('/post/show-post', postRoute.showPost);
+app.get('/post/new-post', postRoute.newPost);
+app.post('/post/create-post', postRoute.createPost);
 
 // Comment Routes
 // app.get('/post/:id/comments/new', commentRoute.newComment);

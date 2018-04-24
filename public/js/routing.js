@@ -19,14 +19,11 @@ export default routing;
  */
 routing.sendPostRequest = function (endpoint, data) {
   var xhr = new XMLHttpRequest();
-
   xhr.open("POST", "http://localhost:8000/" + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   //Check if data was passed to function, if not, add empty object
   if (data) {
-  //   console.log(data);
-  //   console.log(JSON.stringify(data));
     xhr.send(JSON.stringify(data));
   }
   else {

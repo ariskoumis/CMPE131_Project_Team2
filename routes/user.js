@@ -11,7 +11,7 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.render('index' , {currentUser: database.currentUser});
+  res.render('index' , { currentUser: database.currentUser });
 };
 
 /**
@@ -45,7 +45,7 @@ handler_map.login = function (req, res) {
             };
             console.log(database.currentUser);
             Stream.emit("push", "message", {event: "login_result", result: true});
-            res.redirect("/show-post");
+            res.redirect("/post/show-post");
           } else {
             console.log("Please enter a correct password");
             res.redirect("/");
@@ -56,7 +56,7 @@ handler_map.login = function (req, res) {
       });
     }
   } else {
-    res.redirect("/show-post");
+    res.redirect("/post/show-post");
     Stream.emit("push", "message", {event: "login_result", result: false});
     console.log("You're already logged in!");
   }

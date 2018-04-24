@@ -67,12 +67,12 @@ handler_map.createPost = function (req, res) {
         if (err) {
           console.log("err found when insert the post to db.");
           Stream.emit("push", "message", {event: "create_post_result", result: false});
-          res.redirect("/new-post");
+          res.redirect("/post/new-post");
         } else {
           database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
-          res.redirect("/show-post");
+          res.redirect("/post/show-post");
         }
       });
       client.close();
