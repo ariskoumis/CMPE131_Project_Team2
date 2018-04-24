@@ -56,6 +56,7 @@ handler_map.login = function (req, res) {
       });
     }
   } else {
+    res.redirect("/show-post");
     Stream.emit("push", "message", {event: "login_result", result: false});
     console.log("You're already logged in!");
   }
