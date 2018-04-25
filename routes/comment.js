@@ -52,6 +52,7 @@ handler_map.createNewComment = function(req, res) {
         db.collection("comments").insertOne(newComment, function (err, comment) {
           if (err) throw err;
           else {
+            res.redirect('/post/show-post');
             foundPost.comment.push(comment);
           }
         })
