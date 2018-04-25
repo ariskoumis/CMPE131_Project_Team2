@@ -19,7 +19,8 @@ export default routing;
  */
 routing.sendPostRequest = function (endpoint, data) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8000/" + endpoint, true);
+  var url = "http://localhost:8000/" || "cmpe-it.herokuapp.com";
+  xhr.open("POST", url + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   //Check if data was passed to function, if not, add empty object
