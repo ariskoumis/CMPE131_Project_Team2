@@ -59,8 +59,9 @@ app.get('/post/new-post', postRoute.newPost);
 app.post('/post/create-post', postRoute.createPost);
 
 // Comment Routes
-// app.get('/post/:id/comments/new', commentRoute.newComment);
-// app.get('/post/:id/comments/edit', commentRoute.editComment);
+app.get('/post/:id/comment/new-comment', commentRoute.getNewComment);
+app.post('/post/:id/comment/create-comment', commentRoute.createNewComment);
+app.get('/post/:id/comment/edit-comment', commentRoute.getEditComment);
 
 /**
  * catch 404 and forward to error handler

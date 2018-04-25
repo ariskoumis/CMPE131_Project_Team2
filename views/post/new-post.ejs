@@ -9,7 +9,7 @@
       <nav align="right">
           <% if (currUser.existed === true) { %>
           <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
-          <a href="/post/new-post" style="color:white">   Create a Post</a>
+          <a href="/post/show-post" style="color:white">   Show all Posts </a>
           <a href="/logout" style="color:white">   Logout </a>
           <% } else { %>
           <a href="/"> Login/ Register </a>

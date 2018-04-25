@@ -24,7 +24,11 @@
     <span style="font-size:15px"> by: <%= data[i].author.username %> on</span>
     <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp %></strong></span><br>
     <span style="font-size:20px"><%= data[i].content %></span>
-    <br/><hr>
+    <span style="font-size:20px">
+      <a href="/post/<%=data[i]._id%>/comment/new-comment"> Add a comment </a>
+    </span>
+    <br/>
+    <hr>
     <% }%>
   </article>
 </body>

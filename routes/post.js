@@ -36,25 +36,28 @@ handler_map.newPost = function (req, res) {
 handler_map.createPost = function (req, res) {
   var data = req.body;
   var d = new Date();
-  var min =0;
+  var min = 0;
+
   if(d.getMinutes() > 10){
     min = "";
   }
-  var time = d.getHours()+":"+min+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+
+  var time = d.getHours() + ":" + min + d.getMinutes() + " " + (d.getMonth() + 1) + "/"
+    + d.getDate() + "/" + d.getFullYear();
 
   // Information of the user
-  var author          = {
+  var author = {
     id: database.currentUser.id,
     username: database.currentUser.username
   };
 
   // A new Post
-  var newPost   = {
+  var newPost = {
     name: data.name,
     content: data.content,
     author: author,
     timestamp: time,
-    date: d.getTime()
+    comments: []
   };
 
   // Add The Post to the Database
