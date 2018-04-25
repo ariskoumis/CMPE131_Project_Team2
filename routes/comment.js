@@ -43,15 +43,18 @@ handler_map.createNewComment = function(req, res) {
     timestamp: time
   };
 
+
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     db.collection("posts").findOne({_id: req.params.id}, function (err, foundPost) {
       if (err) throw err;
       else {
+        console.log("go here 1");
         db.collection("comments").insertOne(newComment, function (err, comment) {
           if (err) throw err;
           else {
+            console.log("go here 2");
             res.redirect('/post/show-post');
             foundPost.comment.push(comment);
           }
