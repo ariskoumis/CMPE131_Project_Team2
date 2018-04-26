@@ -18,6 +18,7 @@ handler_map.getNewComment = function(req, res) {
 
 /**
  * Post Create a new Comment for a post
+ * Comments are stored in Post database. Each post has a list of comments
  */
 handler_map.createNewComment = function(req, res) {
 
