@@ -15,7 +15,6 @@ database.currentUser    = {
   existed: false
 };
 database.listOfPost     = [];
-database.listOfComments = [];
 
 /**
  * Initialize Database

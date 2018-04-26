@@ -51,7 +51,13 @@ handler_map.createNewComment = function(req, res) {
       db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
         if (err) throw err;
         else {
-          database.listOfPost.comments.push(newComment);
+
+          database.listOfPost.forEach(function(post) {
+            var res = post._id.toString().valueOf();
+            if (res === req.params.id.valueOf()) {
+              post.comments.push(newComment);
+            }
+          });
           res.redirect('/post/show-post');
         }
       });

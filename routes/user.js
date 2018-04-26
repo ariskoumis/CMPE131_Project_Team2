@@ -43,7 +43,6 @@ handler_map.login = function (req, res) {
               password: mongores.password,
               existed: true
             };
-            console.log(database.currentUser);
             Stream.emit("push", "message", {event: "login_result", result: true});
             res.redirect("/post/show-post");
           } else {
