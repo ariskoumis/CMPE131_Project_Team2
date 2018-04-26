@@ -4,6 +4,7 @@
 var EventEmitter 		= require('events'),
     database 				= require('../global/database.js'),
     Stream 					= new EventEmitter(),
+    ObjectId        = require('mongodb').ObjectID,
     handler_map 		= {};
 
 /**
@@ -23,7 +24,7 @@ handler_map.createNewComment = function(req, res) {
   var d = new Date();
   var min = 0;
 
-  if(d.getMinutes() > 10){
+  if (d.getMinutes() > 10) {
     min = "";
   }
 
@@ -44,23 +45,18 @@ handler_map.createNewComment = function(req, res) {
   };
 
 
-  database.mongoclient.connect(database.url, function(err, client) {
+  database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection("posts").findOne({_id: req.params.id}, function (err, foundPost) {
-      console.log(req.params.id);
-      console.log(foundPost);
-      if (err) throw err;
-      else {
-        db.collection("comments").insertOne(newComment, function (err, comment) {
-          if (err) throw err;
-          else {
-            res.redirect('/post/show-post');
-            foundPost.comment.push(comment);
-          }
-        })
-      }
-    })
+    if (database.currentUser.existed === true) {
+      db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
+        if (err) throw err;
+        res.redirect('/post/show-post');
+      });
+    } else {
+      console.log("User needs to login first!");
+      res.redirect('/');
+    }
   });
 };
 
