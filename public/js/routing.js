@@ -19,7 +19,7 @@ export default routing;
  */
 routing.sendPostRequest = function (endpoint, data) {
   var xhr = new XMLHttpRequest();
-  var url = "http://localhost:8000/" || "cmpe-it.herokuapp.com";
+  var url = "http://localhost:8000/" || "cmpe-it1.herokuapp.com";
   xhr.open("POST", url + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
