@@ -31,6 +31,7 @@
       <% if (data[i].comments.length >= 1) { %>
         <% for(var j = 0; j < data[i].comments.length; j++) { %>
           <span style="font-size:20px"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
+          <br>
         <% }%>
       <% } %>
     <br/>
