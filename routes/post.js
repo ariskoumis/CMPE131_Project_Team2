@@ -1,9 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
     handler_map 		= {};
 
 /**
@@ -63,16 +61,13 @@ handler_map.createPost = function (req, res) {
   if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
-      //second parameter of following callback function is typically called res, but I changed it to mongo_res to avoid losing node.js's res parameter.
       var db = client.db("cmpe-it");
       db.collection("posts").insertOne(newPost, function (err, mongo_res) {
         if (err) {
           console.log("err found when insert the post to db.");
-          Stream.emit("push", "message", {event: "create_post_result", result: false});
           res.redirect("/post/new-post");
         } else {
           database.listOfPost.push(newPost);
-          Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
           res.redirect("/post/show-post");
         }
@@ -82,23 +77,7 @@ handler_map.createPost = function (req, res) {
   } else {
     console.log(database.currentUser);
     console.log("User needs to login first!");
-    Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
   }
-};
-
-/**
- * Initialize SSE Handler
- */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
-  });
 };
 
 module.exports = handler_map;

@@ -1,9 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
     handler_map 		= {};
 
 /**
@@ -29,7 +27,7 @@ handler_map.login = function (req, res) {
   var data = req.body;
   if (database.currentUser.existed === false) {
     if (data.username === "" || data.password === "") {
-      Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
+      console.log("One of the box is missing");
     } else {
       database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
@@ -43,12 +41,10 @@ handler_map.login = function (req, res) {
               password: mongores.password,
               existed: true
             };
-            Stream.emit("push", "message", {event: "login_result", result: true});
             res.redirect("/post/show-post");
           } else {
             console.log("Please enter a correct password");
             res.redirect("/");
-            Stream.emit("push", "message", {event: "login_result", result: false});
           }
         });
         client.close();
@@ -56,7 +52,6 @@ handler_map.login = function (req, res) {
     }
   } else {
     res.redirect("/post/show-post");
-    Stream.emit("push", "message", {event: "login_result", result: false});
     console.log("You're already logged in!");
   }
 };
@@ -66,10 +61,8 @@ handler_map.login = function (req, res) {
  */
 handler_map.postSignup = function (req, res) {
   var data = req.body;
-  // database.signup("users", data);
   if (data.username === "" || data.password === "" || data.email === "") {
     console.log("You're missing one section, please fill all to signup.");
-    Stream.emit("push", "message", {event: "create_account_result", result: false});
   } else {
     //Write to data to collection titled 'users'
     database.mongoclient.connect(database.url, function(err, client) {
@@ -78,12 +71,10 @@ handler_map.postSignup = function (req, res) {
       db.collection("users").findOne({username: data.username}, function (err, mongoRes) {
         if (mongoRes !== null) {
           console.log("User does Exist, please enter a different username");
-          Stream.emit("push", "message", {event: "create_account_result", result: false});
           res.redirect("/signup");
         } else {
           console.log("Congratulation, you just create an account");
           client.db("cmpe-it").collection("users").insertOne(data);
-          Stream.emit("push", "message", {event: "create_account_result", result: true});
         }
         client.close();
       })
@@ -100,21 +91,6 @@ handler_map.logout = function(req, res) {
     existed: false
   };
   res.redirect("/");
-};
-
-/**
- * Initialize SSE Handler
- */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
-  });
 };
 
 module.exports = handler_map;
