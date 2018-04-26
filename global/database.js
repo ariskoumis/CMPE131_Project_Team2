@@ -26,7 +26,6 @@ database.init = function() {
     console.log("Database Created");
     var db = client.db("cmpe-it");
     db.collection('posts').find({}).forEach(function(post) {
-      // db.collection('posts').update({}, {$set: {"comments": []}}, false, true);
       database.listOfPost.push(post);
     });
     client.close();

@@ -44,14 +44,16 @@ handler_map.createNewComment = function(req, res) {
     timestamp: time
   };
 
-
   database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     if (database.currentUser.existed === true) {
       db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
         if (err) throw err;
-        res.redirect('/post/show-post');
+        else {
+          database.listOfPost.comments.push(newComment);
+          res.redirect('/post/show-post');
+        }
       });
     } else {
       console.log("User needs to login first!");
@@ -59,18 +61,6 @@ handler_map.createNewComment = function(req, res) {
     }
   });
 };
-
-/**
- * Get Comment Edit Form
- */
-handler_map.getEditComment = function(req, res) {
-  res.render('comment/edit-comment');
-};
-
-/**
- * Post Create a new Comment for a post
- */
-
 
 /**
  * Initialize SSE Handler
