@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>
-		CMPEit Login
-	</title>
-</head>
-<body bgcolor="#eff2f1">
-<header align="center">
-	<h1>CMPEit</h1>
-	<img src="images/moo.png" alt="Moo!" width="30%" height="30%">
-</header>
-<article align="center">
-	<form>
-		<strong><font size="28">Login</font></strong>
-		<br>
-		<input type="text" id="username" placeholder="Moosername" required autofocus><br><br>
-		<input type="email" id="email" placeholder="cow.moo@gmail.com" required><br><br>
-		<input type="password" id="password" placeholder="Password" required><br><br>
-		<button id="login">Login</button>
-		<button id="signup">Create Account</button><br><br>
-	</form>
-	<form action="/post/new-post">
-		<button>Create a New Post</button>
-	</form>
-</article>
-<footer>
-	<script type="module" src="js/event_handlers.js"></script>
-	<script type="module" src="js/routing.js"></script>
-	<script type="module" src="js/index.js"> </script>
-</footer>
-</body>
+	<head>
+		<title>
+			CMPEit Login
+		</title>
+	</head>
+	<body bgcolor="#eff2f1">
+		<header align="center">
+			<h1>CMPEit</h1>
+			<img src="images/moo.png" alt="Moo!" width="30%" height="30%">
+		</header>
+		<article align="center">
+			<strong><font size="28">Login</font></strong>
+			<br>
+			<form action="/login" method="POST">
+				<input type="text" id="username" name="username" placeholder="Moosername" required autofocus><br><br>
+
+				<!--<input type="email" id="email" name="email" placeholder="cow.moo@gmail.com" required><br><br>-->
+				<input type="password" id="password" name="password" placeholder="Password" required><br><br>
+				<button> Login </button>
+				<br>
+				<!--<button id="signup">Create Account</button><br><br>-->
+			</form>
+			<a href="/signup">   Not a member? Register here! </a>
+			<form action="/post/show-post">
+				<button> Show All Posts! </button>
+			</form>
+		</article>
+		<footer>
+			<!--<script type="module" src="js/event_handlers.js"></script>-->
+			<!--<script type="module" src="js/routing.js"></script>-->
+			<!--<script type="module" src="js/index.js"> </script>-->
+		</footer>
+	</body>
 </html>
