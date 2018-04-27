@@ -164,14 +164,14 @@ handler_map.postNewPassword = function (req, res, next) {
           service: 'gmail',
           host: 'smtp.gmail.com',
           auth: {
-            user: 'cuongvqnguyen@gmail.com',
-            pass: 'Sonofabeach96'
+            user: 'cmpeit131@gmail.com',
+            pass: 'cmpe-it131'
           }
         });
         var mailOptions = {
           to: user.email,
           from: 'passwordreset@demo.com',
-          subject: 'CMPEit Password Reset',
+          subject: 'CMPEit Password Reset Successful',
           text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
         };
