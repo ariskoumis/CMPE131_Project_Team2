@@ -40,6 +40,8 @@ app.post('/login', user.login);
 app.get("/signup", user.getSignup);
 app.post('/signup', user.postSignup);
 app.get("/logout", user.logout);
+app.get("/reset-password", user.getResetPassword);
+app.post("/reset-password", user.resetPassword);
 
 // Post Routes
 app.get('/post/show-post', postRoute.showPost);
@@ -49,6 +51,8 @@ app.post('/post/create-post', postRoute.createPost);
 // Comment Routes
 app.get('/post/:id/comment/new-comment', commentRoute.getNewComment);
 app.post('/post/:id/comment/create-comment', commentRoute.createNewComment);
+
+
 
 /**
  * catch 404 and forward to error handler

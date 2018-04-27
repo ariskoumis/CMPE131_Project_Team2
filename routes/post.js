@@ -75,7 +75,6 @@ handler_map.createPost = function (req, res) {
       client.close();
     });
   } else {
-    console.log(database.currentUser);
     console.log("User needs to login first!");
   }
 };

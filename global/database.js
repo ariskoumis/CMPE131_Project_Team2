@@ -24,6 +24,15 @@ database.init = function() {
     if (err) throw err;
     console.log("Database Created");
     var db = client.db("cmpe-it");
+    db.collection('users').update({}, { $set:
+      {
+        resetPasswordToken: String,
+        resetPasswordExpires: Date
+      }
+    }, {
+      upsert:false,
+      multi:true
+    });
     db.collection('posts').find({}).forEach(function(post) {
       database.listOfPost.push(post);
     });

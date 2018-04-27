@@ -2,6 +2,10 @@
  * Module dependencies.
  */
 var database 				= require('../global/database.js'),
+    async               = require('async'),
+    crypto              = require('crypto'),
+    bcrypt              = require('bcrypt-nodejs'),
+    nodemailer          = require('nodemailer'),
     handler_map 		= {};
 
 /**
@@ -10,6 +14,71 @@ var database 				= require('../global/database.js'),
  */
 handler_map.rootHandler = function (req, res) {
   res.render('index' , { currentUser: database.currentUser });
+};
+
+/**
+ * Get /
+ * Reset Password Page
+ */
+handler_map.getResetPassword = function (req, res) {
+  res.render('reset-password', { currentUser: database.currentUser });
+};
+
+/**
+ * Post /
+ * Reset Password
+ * This code follow this link: http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
+ */
+handler_map.getResetPassword = function (req, res, next) {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      database.mongoclient.connect(database.url, function(err, client) {
+        if (err) throw err;
+        var db = client.db("cmpe-it");
+        db.collection("users").findOne({email: req.body.email}, function (err, user) {
+          if (!user) {
+            return res.redirect('/reset-password');
+          }
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+          user.save(function(err) {
+            done(err, token, user);
+          });
+      });
+    },
+    function(token, user, done) {
+      var smtpTransport = nodemailer.createTransport('SMTP', {
+        service: 'SendGrid',
+        auth: {
+          user: '!!! YOUR SENDGRID USERNAME !!!',
+          pass: '!!! YOUR SENDGRID PASSWORD !!!'
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'passwordreset@demo.com',
+        subject: 'Node.js Password Reset',
+        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      };
+      smtpTransport.sendMail(mailOptions, function(err) {
+        req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+        done(err, 'done');
+      });
+    }
+  ], function(err) {
+    if (err) return next(err);
+    res.redirect('/forgot');
+  });
 };
 
 /**
@@ -39,6 +108,8 @@ handler_map.login = function (req, res) {
               id: mongores._id,
               username: mongores.username,
               password: mongores.password,
+              resetPasswordToken: String,
+              resetPasswordExpires: Date,
               existed: true
             };
             res.redirect("/post/show-post");
