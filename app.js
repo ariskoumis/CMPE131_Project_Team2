@@ -40,8 +40,13 @@ app.post('/login', user.login);
 app.get("/signup", user.getSignup);
 app.post('/signup', user.postSignup);
 app.get("/logout", user.logout);
-app.get("/reset-password", user.getResetPassword);
-app.post("/reset-password", user.resetPassword);
+
+// Reset Password
+app.get("/send-email", user.getSendEmail);
+app.post("/send-email", user.postSendEmail);
+
+app.get("/reset/:token", user.getNewPassword);
+app.post("/reset/:token", user.postNewPassword);
 
 // Post Routes
 app.get('/post/show-post', postRoute.showPost);
