@@ -11,7 +11,10 @@ var EventEmitter 		= require('events'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.render('post/show-post', {data: database.listOfPost});
+  res.render('post/show-post', {
+    data: database.listOfPost,
+    currUser: database.currentUser
+  });
 };
 
 /**
@@ -19,7 +22,9 @@ handler_map.showPost = function(req, res) {
  * Go to New Post Form
  */
 handler_map.newPost = function (req, res) {
-  res.render('post/new-post');
+  res.render('post/new-post', {
+    currUser: database.currentUser
+  });
 };
 
 /**
@@ -27,46 +32,49 @@ handler_map.newPost = function (req, res) {
  * Allow the User to create a post if and only if he/she is logged in
  * Create a Post Function
  */
-handler_map.createPost = function (req) {
+handler_map.createPost = function (req, res) {
   var data = req.body;
   var d = new Date();
-  var min =0;
+  var min = 0;
+
   if(d.getMinutes() > 10){
     min = "";
   }
-  var time = d.getHours()+":"+min+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+
+  var time = d.getHours() + ":" + min + d.getMinutes() + " " + (d.getMonth() + 1) + "/"
+    + d.getDate() + "/" + d.getFullYear();
 
   // Information of the user
-  var author          = {
+  var author = {
     id: database.currentUser.id,
     username: database.currentUser.username
   };
 
   // A new Post
-  var newPost   = {
+  var newPost = {
     name: data.name,
     content: data.content,
     author: author,
-    timestamp: time
+    timestamp: time,
+    comments: []
   };
-
-  console.log(newPost.timestamp);
 
   // Add The Post to the Database
   if (database.currentUser.existed === true) {
     database.mongoclient.connect(database.url, function (err, client) {
       if (err) throw err;
-      var db = client.db("mydb");
       //second parameter of following callback function is typically called res, but I changed it to mongo_res to avoid losing node.js's res parameter.
+      var db = client.db("cmpe-it");
       db.collection("posts").insertOne(newPost, function (err, mongo_res) {
         if (err) {
           console.log("err found when insert the post to db.");
           Stream.emit("push", "message", {event: "create_post_result", result: false});
-          throw err;
+          res.redirect("/post/new-post");
         } else {
           database.listOfPost.push(newPost);
           Stream.emit("push", "message", {event: "create_post_result", result: true});
           console.log("The Post is in the db");
+          res.redirect("/post/show-post");
         }
       });
       client.close();

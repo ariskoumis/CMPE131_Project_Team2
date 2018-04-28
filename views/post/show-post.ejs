@@ -6,7 +6,17 @@
 <body bgcolor="#eff2f1">
   <header style="background-color: black;color:white; padding:10px">
     <font size="24">CMPEit Show Post Page</font>
+    <nav align="right">
+      <% if (currUser.existed === true) { %>
+      <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
+      <a href="/post/new-post" style="color:white">   Create a Post</a>
+      <a href="/logout" style="color:white">   Logout </a>
+        <% } else { %>
+      <a href="/" style="color:white">   Create a Post</a>
+        <% } %>
+    </nav>
   </header>
+
   <article>
     <% for(var i = 0; i < data.length; i++) { %>
     <span style="font-size:30px;":><strong><%= data[i].name %></strong></span>
@@ -14,16 +24,24 @@
     <span style="font-size:15px"> by: <%= data[i].author.username %> on</span>
     <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp %></strong></span><br>
     <span style="font-size:20px"><%= data[i].content %></span>
-    
-
-    <br/><hr>
-    <% }%>
+    <span style="font-size:20px">
+      <a href="/post/<%=data[i]._id%>/comment/new-comment"> Add a comment </a>
+    </span>
+    <br>
+      <% if (data[i].comments.length >= 1) { %>
+        <% for(var j = 0; j < data[i].comments.length; j++) { %>
+          <span style="font-size:20px"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
+          <br>
+        <% }%>
+      <% } %>
+    <br/>
+    <hr>
+      <% }%>
   </article>
-
 </body>
 <footer>
-  <script type="module" src="js/event_handlers.js"></script>
-  <script type="module" src="js/routing.js"></script>
+  <!--<script type="module" src="js/event_handlers.js"></script>-->
+  <!--<script type="module" src="js/routing.js"></script>-->
   <!-- <script type="module" src="js/show-post.js"></script> -->
 </footer>
 

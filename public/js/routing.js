@@ -19,7 +19,8 @@ export default routing;
  */
 routing.sendPostRequest = function (endpoint, data) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8000/" + endpoint, true);
+  var url = "https://cmpeit.herokuapp.com/"|| "http://localhost:8000/";
+  xhr.open("POST", url + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   //Check if data was passed to function, if not, add empty object
@@ -29,7 +30,6 @@ routing.sendPostRequest = function (endpoint, data) {
   else {
     xhr.send();
   }
-
 };
 
 /**

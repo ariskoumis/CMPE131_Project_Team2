@@ -1,9 +1,10 @@
 /**
  * Module dependencies.
  */
-var express                 = require('express'),
-    session                 = require('express-session'),
-    bodyParser              = require('body-parser');
+var express             = require('express'),
+    session             = require('express-session'),
+    cors                = require('cors'),
+    bodyParser          = require('body-parser');
 
 /**
  * Route Handler
@@ -34,8 +35,10 @@ app.use(session({
   cookie: { maxAge: 60000 },
   secret: 'Cow',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
+
+app.use(cors());
 
 /**
  * Primary app routes.
@@ -44,18 +47,20 @@ app.get('/', user.rootHandler);
 app.get('/stream', user.initializeSSEHandler);
 
 // User Routes
-app.get("/logout", user.logout);
 app.post('/login', user.login);
-app.post('/signup', user.signup);
+
+app.get("/signup", user.getSignup);
+app.post('/signup', user.postSignup);
+app.get("/logout", user.logout);
 
 // Post Routes
-app.get('/show-post', postRoute.showPost);
-app.get('/new-post', postRoute.newPost);
-app.post('/create-post', postRoute.createPost);
+app.get('/post/show-post', postRoute.showPost);
+app.get('/post/new-post', postRoute.newPost);
+app.post('/post/create-post', postRoute.createPost);
 
 // Comment Routes
-// app.get('/post/:id/comments/new', commentRoute.newComment);
-// app.get('/post/:id/comments/edit', commentRoute.editComment);
+app.get('/post/:id/comment/new-comment', commentRoute.getNewComment);
+app.post('/post/:id/comment/create-comment', commentRoute.createNewComment);
 
 /**
  * catch 404 and forward to error handler

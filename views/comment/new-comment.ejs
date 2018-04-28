@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CMPEit</title>
+</head>
+<body bgcolor="#eff2f1">
+<header style="background-color: black;color:white; padding:10px">
+    <font size="24">CMPEit Create Comment Page</font>
+</header>
+
+<article align="center">
+    <form action="/post/<%= postId %>/comment/create-comment" method="POST">
+        <br>
+        <input name="content" placeholder="Comment content" required autofocus><br><br>
+        <!--<textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>-->
+        <button> Comment </button>
+    </form>
+</article>
+<footer>
+    <!--<script type="module" src="js/event_handlers.js"></script>-->
+    <!--<script type="module" src="js/routing.js"></script>-->
+    <!--<script type="module" src="js/new-post.js"></script>-->
+
+</footer>
+</body>
+</html>
