@@ -212,7 +212,6 @@ handler_map.login = function (req, res) {
         var db = client.db("cmpe-it");
         db.collection("users").findOne({username: data.username}, function (err, user) {
           if (user !== null && user.password === data.password) {
-            console.log(user);
             console.log("User Does Exist, Login successfully ");
             database.currentUser = {
               id: user._id,
