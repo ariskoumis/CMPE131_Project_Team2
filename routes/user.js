@@ -46,7 +46,7 @@ handler_map.login = function (req, res) {
             Stream.emit("push", "message", {event: "login_result", result: true});
             res.redirect("/post/show-post");
           } else {
-            console.log("Please enter a correct password");
+            console.log("username or password is incorrect");
             res.redirect("/");
             Stream.emit("push", "message", {event: "login_result", result: false});
           }

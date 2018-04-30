@@ -50,13 +50,20 @@ handler_map.createPost = function (req, res) {
     username: database.currentUser.username
   };
 
+  var impressions = {
+    likes: 0,
+    dislikes: 0
+  };
+
   // A new Post
   var newPost = {
     name: data.name,
     content: data.content,
     author: author,
     timestamp: time,
-    comments: []
+    comments: [],
+    likes: impressions.likes,
+    dislikes: impressions.dislikes
   };
 
   // Add The Post to the Database

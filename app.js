@@ -3,7 +3,7 @@
  */
 var express             = require('express'),
     session             = require('express-session'),
-    cors                = require('cors'),
+    // cors                = require('cors'),
     bodyParser          = require('body-parser');
 
 /**
@@ -38,7 +38,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use(cors());
+// app.use(cors());
 
 /**
  * Primary app routes.
