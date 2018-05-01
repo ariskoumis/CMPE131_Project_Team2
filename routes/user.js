@@ -240,6 +240,7 @@ handler_map.login = function (req, res) {
  */
 handler_map.postSignup = function (req, res) {
   var data = req.body;
+
   if (data.username === "" || data.password === "" || data.email === "") {
     console.log("You're missing one section, please fill all to signup.");
   } else {
@@ -252,6 +253,13 @@ handler_map.postSignup = function (req, res) {
           console.log("User does Exist, please enter a different username");
           res.redirect("/signup");
         } else {
+          database.currentUser = {
+            id: data.id,
+            username: data.username,
+            password: data.password,
+            resetPasswordToken: "",
+            existed: true
+          };
           res.redirect('/post/show-post');
           console.log("Congratulation, you just create an account");
           client.db("cmpe-it").collection("users").insertOne(data);
