@@ -7,7 +7,7 @@
   <header style="background-color: black;color:white; padding:10px">
     <font size="24">CMPEit Show Post Page</font>
     <nav align="right">
-      <% if (currUser.existed === true) { %>
+      <% if (currUser) { %>
         <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
         <a href="/post/new-post" style="color:white">   Create a Post</a>
         <a href="/logout" style="color:white">   Logout </a>

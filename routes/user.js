@@ -12,7 +12,7 @@ var database 				= require('../global/database.js'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.render('index' , { currentUser: database.currentUser });
+  res.render('index');
 };
 
 /**
@@ -20,7 +20,7 @@ handler_map.rootHandler = function (req, res) {
  * Send Email Page
  */
 handler_map.getSendEmail = function (req, res) {
-  res.render('send-email', { currentUser: database.currentUser });
+  res.render('send-email');
 };
 
 /**
@@ -212,14 +212,14 @@ handler_map.login = function (req, res) {
         var db = client.db("cmpe-it");
         db.collection("users").findOne({username: data.username}, function (err, user) {
           if (user !== null && user.password === data.password) {
-            console.log("User Does Exist, Login successfully ");
-            database.currentUser = {
-              id: user._id,
-              username: user.username,
-              password: user.password,
-              resetPasswordToken: "",
-              existed: true
-            };
+            req.session.user = user;
+            // database.currentUser = {
+            //   id: user._id,
+            //   username: user.username,
+            //   password: user.password,
+            //   resetPasswordToken: "",
+            //   existed: true
+            // };
             res.redirect("/post/show-post");
           } else {
             console.log("username or password is incorrect");
@@ -249,17 +249,18 @@ handler_map.postSignup = function (req, res) {
       if (err) throw err;
       var db = client.db("cmpe-it");
       db.collection("users").findOne({username: data.username}, function (err, user) {
-        if (user !== null) {
+        if (user) {
           console.log("User does Exist, please enter a different username");
           res.redirect("/signup");
         } else {
-          database.currentUser = {
-            id: data.id,
-            username: data.username,
-            password: data.password,
-            resetPasswordToken: "",
-            existed: true
-          };
+
+          // database.currentUser = {
+          //   id: data.id,
+          //   username: data.username,
+          //   password: data.password,
+          //   resetPasswordToken: "",
+          //   existed: true
+          // };
           res.redirect('/post/show-post');
           console.log("Congratulation, you just create an account");
           client.db("cmpe-it").collection("users").insertOne(data);

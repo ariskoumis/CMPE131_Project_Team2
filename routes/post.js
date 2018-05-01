@@ -9,10 +9,30 @@ var database 				= require('../global/database.js'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.render('post/show-post', {
-    data: database.listOfPost,
-    currUser: database.currentUser,
-  });
+  if (req.session && req.session.user) {
+    database.mongoclient.connect(database.url, function (err, client) {
+      if (err) throw err;
+      var db = client.db("cmpe-it");
+      db.collection("users").findOne({username: req.session.user.username}, function (err, user) {
+        if (err) throw err;
+        if (!user) {
+          req.session.reset();
+          res.redirect('/');
+        } else {
+          res.locals.user = user;
+          res.render('post/show-post', {
+            data: database.listOfPost,
+            currUser: req.session.user
+          });
+        }
+      });
+    })
+  } else {
+    res.render('post/show-post', {
+      data: database.listOfPost,
+      currUser: req.session.user
+    });
+  }
 };
 
 /**

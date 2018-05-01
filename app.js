@@ -2,7 +2,8 @@
  * Module dependencies.
  */
 var express             = require('express'),
-    session             = require('express-session'),
+    // session             = require('express-session'),
+    session             = require('client-sessions'),
     bodyParser          = require('body-parser');
 
 /**
@@ -30,6 +31,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({
+  cookieName: 'session',
+  secret: 'random_string_goes_here',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 /**
  * Primary app routes.
