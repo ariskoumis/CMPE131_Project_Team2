@@ -2,8 +2,7 @@
  * Module dependencies.
  */
 var express             = require('express'),
-    // session             = require('express-session'),
-    session             = require('client-sessions'),
+    session             = require('express-session'),
     bodyParser          = require('body-parser');
 
 /**
@@ -36,7 +35,37 @@ app.use(session({
   secret: 'random_string_goes_here',
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
+  resave: false,
+  saveUninitialized: false
 }));
+
+app.use(function(req, res, next){
+  res.locals.currentUser  = req.session.user;
+  // res.locals.error        = req.flash("error");
+  // res.locals.success      = req.flash("success");
+  next();
+});
+
+// app.use(function(req, res, next) {
+//   if (req.session && req.session.user) {
+//     database.mongoclient.connect(database.url, function (err, client) {
+//       if (err) throw err;
+//       var db = client.db("cmpe-it");
+//       db.collection("users").findOne({email: req.session.user.email}, function (err, user) {
+//         if (user) {
+//           req.user = user;
+//           delete req.user.password; // delete the password from the session
+//           req.session.user = user;  //refresh the session value
+//           res.locals.user = user;
+//         }
+//         // finishing processing the middleware and run the route
+//         next();
+//       });
+//     })
+//   } else {
+//     next();
+//   }
+// });
 
 /**
  * Primary app routes.
@@ -58,14 +87,12 @@ app.post("/reset/:token", user.postNewPassword);
 
 // Post Routes
 app.get('/post/show-post', postRoute.showPost);
-app.get('/post/new-post', postRoute.newPost);
-app.post('/post/create-post', postRoute.createPost);
+app.get('/post/new-post', requireLogin, postRoute.newPost);
+app.post('/post/create-post', requireLogin, postRoute.createPost);
 
 // Comment Routes
-app.get('/post/:id/comment/new-comment', commentRoute.getNewComment);
-app.post('/post/:id/comment/create-comment', commentRoute.createNewComment);
-
-
+app.get('/post/:id/comment/new-comment', requireLogin, commentRoute.getNewComment);
+app.post('/post/:id/comment/create-comment', requireLogin, commentRoute.createNewComment);
 
 /**
  * catch 404 and forward to error handler
@@ -75,6 +102,15 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+function requireLogin (req, res, next) {
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    next();
+  }
+}
+
 
 /**
  * Start Express server.
