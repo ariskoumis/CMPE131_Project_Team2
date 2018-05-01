@@ -11,7 +11,7 @@ var database 				= require('../global/database.js'),
 handler_map.showPost = function(req, res) {
   res.render('post/show-post', {
     data: database.listOfPost,
-    currUser: database.currentUser
+    currUser: database.currentUser,
   });
 };
 
