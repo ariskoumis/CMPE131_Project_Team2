@@ -76,6 +76,7 @@ handler_map.postSignup = function (req, res) {
           console.log("User does Exist, please enter a different username");
           res.redirect("/signup");
         } else {
+          req.session.user = user;
           client.db("cmpe-it").collection("users").insertOne(data);
           res.redirect('/post/show-post');
           console.log("Congratulation, you just create an account");
