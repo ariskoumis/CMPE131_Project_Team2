@@ -1,9 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
     ObjectId        = require('mongodb').ObjectID,
     handler_map 		= {};
 
@@ -52,7 +50,6 @@ handler_map.createNewComment = function(req, res) {
       db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
         if (err) throw err;
         else {
-
           database.listOfPost.forEach(function(post) {
             var res = post._id.toString().valueOf();
             if (res === req.params.id.valueOf()) {
@@ -66,21 +63,6 @@ handler_map.createNewComment = function(req, res) {
       console.log("User needs to login first!");
       res.redirect('/');
     }
-  });
-};
-
-/**
- * Initialize SSE Handler
- */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
   });
 };
 
