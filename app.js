@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
   cookieName: 'session',
-  secret: 'random_string_goes_here',
+  secret: 'cow_the_milk',
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
   resave: false,
@@ -45,27 +45,6 @@ app.use(function(req, res, next){
   // res.locals.success      = req.flash("success");
   next();
 });
-
-// app.use(function(req, res, next) {
-//   if (req.session && req.session.user) {
-//     database.mongoclient.connect(database.url, function (err, client) {
-//       if (err) throw err;
-//       var db = client.db("cmpe-it");
-//       db.collection("users").findOne({email: req.session.user.email}, function (err, user) {
-//         if (user) {
-//           req.user = user;
-//           delete req.user.password; // delete the password from the session
-//           req.session.user = user;  //refresh the session value
-//           res.locals.user = user;
-//         }
-//         // finishing processing the middleware and run the route
-//         next();
-//       });
-//     })
-//   } else {
-//     next();
-//   }
-// });
 
 /**
  * Primary app routes.
@@ -104,7 +83,7 @@ app.use(function(req, res, next) {
 });
 
 function requireLogin (req, res, next) {
-  if (!req.user) {
+  if (!req.session.user) {
     res.redirect('/');
   } else {
     next();

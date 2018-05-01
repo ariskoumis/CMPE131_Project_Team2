@@ -76,10 +76,15 @@ handler_map.postSignup = function (req, res) {
           console.log("User does Exist, please enter a different username");
           res.redirect("/signup");
         } else {
-          req.session.user = user;
           client.db("cmpe-it").collection("users").insertOne(data);
-          res.redirect('/post/show-post');
-          console.log("Congratulation, you just create an account");
+          db.collection("users").findOne({username: data.username}, function (err, foundUser) {
+            if (foundUser) {
+              req.session.user = foundUser;
+              console.log("Congratulation, you just create an account");
+              res.redirect("/post/show-post");
+
+            }
+          });
         }
         client.close();
       })
@@ -274,6 +279,6 @@ handler_map.logout = function(req, res) {
       res.redirect('/');
     }
   });
-}
+};
 
 module.exports = handler_map;

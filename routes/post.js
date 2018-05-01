@@ -9,35 +9,9 @@ var database 				= require('../global/database.js'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-
   res.render('post/show-post', {
-    data: database.listOfPost,
-    currUser: req.session.user
+    data: database.listOfPost
   });
-  // if (req.session && req.session.user) {
-  //   database.mongoclient.connect(database.url, function (err, client) {
-  //     if (err) throw err;
-  //     var db = client.db("cmpe-it");
-  //     db.collection("users").findOne({username: req.session.user.username}, function (err, user) {
-  //       if (err) throw err;
-  //       if (!user) {
-  //         req.session.reset();
-  //         res.redirect('/');
-  //       } else {
-  //         res.locals.user = user;
-  //         res.render('post/show-post', {
-  //           data: database.listOfPost,
-  //           currUser: req.session.user
-  //         });
-  //       }
-  //     });
-  //   })
-  // } else {
-  //   res.render('post/show-post', {
-  //     data: database.listOfPost,
-  //     currUser: req.session.user
-  //   });
-  // }
 };
 
 /**
@@ -45,9 +19,7 @@ handler_map.showPost = function(req, res) {
  * Go to New Post Form
  */
 handler_map.newPost = function (req, res) {
-  res.render('post/new-post', {
-    currUser: database.currentUser
-  });
+  res.render('post/new-post');
 };
 
 /**
@@ -56,11 +28,12 @@ handler_map.newPost = function (req, res) {
  * Create a Post Function
  */
 handler_map.createPost = function (req, res) {
+  var user = req.session.user;
   var data = req.body;
   var d = new Date();
   var min = 0;
 
-  if(d.getMinutes() > 10){
+  if (d.getMinutes() > 10) {
     min = "";
   }
 
@@ -69,8 +42,8 @@ handler_map.createPost = function (req, res) {
 
   // Information of the user
   var author = {
-    id: database.currentUser.id,
-    username: database.currentUser.username
+    id: user.id,
+    username: user.username
   };
 
   var impressions = {
@@ -90,25 +63,21 @@ handler_map.createPost = function (req, res) {
   };
 
   // Add The Post to the Database
-  if (database.currentUser.existed === true) {
-    database.mongoclient.connect(database.url, function (err, client) {
-      if (err) throw err;
-      var db = client.db("cmpe-it");
-      db.collection("posts").insertOne(newPost, function (err, mongo_res) {
-        if (err) {
-          console.log("err found when insert the post to db.");
-          res.redirect("/post/new-post");
-        } else {
-          database.listOfPost.push(newPost);
-          console.log("The Post is in the db");
-          res.redirect("/post/show-post");
-        }
-      });
-      client.close();
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection("posts").insertOne(newPost, function (err, mongo_res) {
+      if (err) {
+        console.log("err found when insert the post to db.");
+        res.redirect("/post/new-post");
+      } else {
+        database.listOfPost.push(newPost);
+        console.log("The Post is in the db");
+        res.redirect("/post/show-post");
+      }
     });
-  } else {
-    console.log("User needs to login first!");
-  }
+    client.close();
+  });
 };
 
 module.exports = handler_map;
