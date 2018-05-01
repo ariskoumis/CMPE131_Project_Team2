@@ -222,7 +222,7 @@ handler_map.login = function (req, res) {
             };
             res.redirect("/post/show-post");
           } else {
-            console.log("Please enter a correct password");
+            console.log("username or password is incorrect");
             res.redirect("/");
           }
         });
