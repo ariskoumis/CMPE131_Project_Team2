@@ -33,20 +33,28 @@ handler_map.login = function (req, res) {
               req.session.user = user;
               res.redirect("/post/show-post");
             } else {
-              console.log("username or password is incorrect");
+              console.log("Your password is incorrect");
               res.redirect("/");
             }
-          } else {
-            res.redirect("/post/show-post");
+          }
+          else if (user === req.session.user) {
+            res.redirect('/post/show-post');
+            console.log("You're already logged in!");
+          }
+          else {
+            res.redirect('/');
             console.log("You're already logged in!");
           }
         });
         client.close();
       });
     }
-  } else {
+  } else if (req.session.user.username === data.username) {
     res.redirect("/post/show-post");
     console.log("You're already logged in!");
+  } else {
+    res.redirect("/");
+    console.log("Another User is currently login on this Computer");
   }
 };
 

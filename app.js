@@ -49,7 +49,7 @@ app.use(function(req, res, next){
 /**
  * Primary app routes.
  */
-app.get('/', user.rootHandler);
+app.get('/', isLoggedin, user.rootHandler);
 
 // User Routes
 app.post('/login', user.login);
@@ -85,6 +85,15 @@ app.use(function(req, res, next) {
 function requireLogin (req, res, next) {
   if (!req.session.user) {
     res.redirect('/');
+  } else {
+    next();
+  }
+}
+
+function isLoggedin (req, res, next) {
+  if (req.session.user) {
+    console.log("You're already logged in");
+    res.redirect('/post/show-post');
   } else {
     next();
   }
