@@ -24,15 +24,14 @@ database.init = function() {
     if (err) throw err;
     console.log("Database Created");
     var db = client.db("cmpe-it");
-    db.collection('posts').update({}, { $set:
-      {
-        "likes": 0,
-        "dislikes": 0
-     }
-    }, {
-      upsert:false,
-       multi:true
-    });
+    // db.collection('posts').update({}, { $set:
+    //   {
+
+    //  }
+    // }, {
+    //   upsert:false,
+    //    multi:true
+    // });
     db.collection('posts').find({}).forEach(function(post) {
       database.listOfPost.push(post);
     });
