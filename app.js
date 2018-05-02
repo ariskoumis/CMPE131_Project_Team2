@@ -66,7 +66,7 @@ app.post("/send-email", user.postSendEmail);
 app.get("/reset/:token", user.getNewPassword);
 app.post("/reset/:token", user.postNewPassword);
 
-// Post Routes
+// Create A Post Routes
 app.get('/post/show-post', postRoute.showPost);
 app.get('/post/new-post', requireLogin, postRoute.newPost);
 app.post('/post/create-post', requireLogin, postRoute.createPost);

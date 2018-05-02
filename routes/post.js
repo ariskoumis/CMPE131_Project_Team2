@@ -50,7 +50,7 @@ handler_map.createPost = function (req, res) {
 
   // Information of the user
   var author = {
-    id: user.id,
+    id: user._id,
     username: user.username
   };
 

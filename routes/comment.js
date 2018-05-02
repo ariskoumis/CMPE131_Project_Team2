@@ -22,12 +22,13 @@ handler_map.createNewComment = function(req, res) {
   var user = req.session.user;
 
   var author = {
-    id: user.id,
+    id: user._id,
     username: user.username
   };
 
   // New Comment
   var newComment = {
+
     author: author,
     content: req.body.content,
     postId: req.params.id
