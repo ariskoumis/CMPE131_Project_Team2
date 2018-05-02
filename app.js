@@ -3,7 +3,6 @@
  */
 var express             = require('express'),
     session             = require('express-session'),
-    // cors                = require('cors'),
     bodyParser          = require('body-parser');
 
 /**
@@ -31,27 +30,24 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({
-  cookie: { maxAge: 60000 },
-  secret: 'Cow',
-  resave: false,
-  saveUninitialized: false
-}));
-
-// app.use(cors());
 
 /**
  * Primary app routes.
  */
 app.get('/', user.rootHandler);
-app.get('/stream', user.initializeSSEHandler);
 
 // User Routes
 app.post('/login', user.login);
-
 app.get("/signup", user.getSignup);
 app.post('/signup', user.postSignup);
 app.get("/logout", user.logout);
+
+// Reset Password
+app.get("/send-email", user.getSendEmail);
+app.post("/send-email", user.postSendEmail);
+
+app.get("/reset/:token", user.getNewPassword);
+app.post("/reset/:token", user.postNewPassword);
 
 // Post Routes
 app.get('/post/show-post', postRoute.showPost);
@@ -61,6 +57,8 @@ app.post('/post/create-post', postRoute.createPost);
 // Comment Routes
 app.get('/post/:id/comment/new-comment', commentRoute.getNewComment);
 app.post('/post/:id/comment/create-comment', commentRoute.createNewComment);
+
+
 
 /**
  * catch 404 and forward to error handler

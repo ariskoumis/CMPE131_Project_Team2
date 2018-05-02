@@ -24,6 +24,7 @@ database.init = function() {
     if (err) throw err;
     console.log("Database Created");
     var db = client.db("cmpe-it");
+<<<<<<< HEAD
     // db.collection('posts').update({}, { $set:
     //   {
 
@@ -31,6 +32,16 @@ database.init = function() {
     // }, {
     //   upsert:false,
     //    multi:true
+=======
+    // db.collection('users').update({}, { $set:
+    //   {
+    //     // "resetPasswordToken": ""
+    //     "resetPasswordExpires": 0
+    //   }
+    // }, {
+    //   upsert:false,
+    //   multi:true
+>>>>>>> 34e84ab682cf77b8d8d0db4ccbd279f73f45954c
     // });
     db.collection('posts').find({}).forEach(function(post) {
       database.listOfPost.push(post);
