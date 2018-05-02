@@ -39,6 +39,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
+
 app.use(function(req, res, next){
   res.locals.currentUser  = req.session.user;
   // res.locals.error        = req.flash("error");
@@ -57,10 +58,11 @@ app.get("/signup", user.getSignup);
 app.post('/signup', user.postSignup);
 app.get("/logout", user.logout);
 
-// Reset Password
+// Send Email for reset Password
 app.get("/send-email", user.getSendEmail);
 app.post("/send-email", user.postSendEmail);
 
+// Reset Password
 app.get("/reset/:token", user.getNewPassword);
 app.post("/reset/:token", user.postNewPassword);
 
@@ -68,6 +70,10 @@ app.post("/reset/:token", user.postNewPassword);
 app.get('/post/show-post', postRoute.showPost);
 app.get('/post/new-post', requireLogin, postRoute.newPost);
 app.post('/post/create-post', requireLogin, postRoute.createPost);
+
+// Like and Dislike a Post
+app.post("/post/:id/like", requireLogin, postRoute.likePost);
+app.post("/post/:id/dislike", requireLogin, postRoute.dislikePost);
 
 // Comment Routes
 app.get('/post/:id/comment/new-comment', requireLogin, commentRoute.getNewComment);

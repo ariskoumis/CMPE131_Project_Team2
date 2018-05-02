@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 var database 				= require('../global/database.js'),
+    ObjectId        = require('mongodb').ObjectID,
     handler_map 		= {};
 
 /**
@@ -85,5 +86,37 @@ handler_map.createPost = function (req, res) {
     client.close();
   });
 };
+
+handler_map.likePost = function (req, res) {
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+      $inc: {
+        likes: 1
+      }
+    }, function (err) {
+      if (err) throw err;
+      res.redirect('/post/show-post');
+    });
+  });
+};
+
+handler_map.dislikePost = function (req, res) {
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+      $inc: {
+        dislikes: 1
+      }
+    }, function (err) {
+      if (err) throw err;
+      res.redirect('/post/show-post');
+    });
+  });
+};
+
+
 
 module.exports = handler_map;
