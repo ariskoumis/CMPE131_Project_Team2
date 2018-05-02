@@ -9,9 +9,16 @@ var database 				= require('../global/database.js'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.render('post/show-post', {
-    data: database.listOfPost
-  });
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection("posts").find({}).toArray(function (err, allPosts) {
+      if (err) throw err;
+      res.render('post/show-post', {
+        data: allPosts
+      });
+    });
+  })
 };
 
 /**
@@ -66,12 +73,11 @@ handler_map.createPost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection("posts").insertOne(newPost, function (err, mongo_res) {
+    db.collection("posts").insertOne(newPost, function (err) {
       if (err) {
         console.log("err found when insert the post to db.");
         res.redirect("/post/new-post");
       } else {
-        database.listOfPost.push(newPost);
         console.log("The Post is in the db");
         res.redirect("/post/show-post");
       }

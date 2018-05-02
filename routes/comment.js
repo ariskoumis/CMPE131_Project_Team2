@@ -36,17 +36,11 @@ handler_map.createNewComment = function(req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {
+      "comments": newComment
+    }}, function (err) {
       if (err) throw err;
-      else {
-        database.listOfPost.forEach(function(post) {
-          var res = post._id.toString().valueOf();
-          if (res === req.params.id.valueOf()) {
-            post.comments.push(newComment);
-          }
-        });
-        res.redirect('/post/show-post');
-      }
+      res.redirect('/post/show-post');
     });
   });
 };

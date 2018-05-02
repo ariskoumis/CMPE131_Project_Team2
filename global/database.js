@@ -11,7 +11,6 @@ const database  = {};
  */
 database.mongoclient    = require('mongodb').MongoClient;
 database.url            = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
-database.listOfPost     = [];
 
 /**
  * Initialize Database
@@ -30,9 +29,6 @@ database.init = function() {
     //   upsert:false,
     //   multi:true
     // });
-    db.collection('posts').find({}).forEach(function(post) {
-      database.listOfPost.push(post);
-    });
     client.close();
   });
 };
