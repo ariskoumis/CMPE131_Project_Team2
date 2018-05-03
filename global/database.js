@@ -22,7 +22,6 @@ database.init = function() {
     // var db = client.db("cmpe-it");
     // db.collection('posts').update({}, { $set:
     //   {
-    //     // "resetPasswordToken": ""
     //     "likedUser": [],
     //     "dislikedUser": [],
     //     likes: 0,

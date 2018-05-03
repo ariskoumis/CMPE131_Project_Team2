@@ -108,7 +108,7 @@ handler_map.likePost = function (req, res) {
             $inc: {
               likes: -1
             }, $pull: {
-              "likedUser": req.session.user
+              likedUser: req.session.user
             }
           });
           found = true;
@@ -120,13 +120,12 @@ handler_map.likePost = function (req, res) {
           $inc: {
             likes: 1
           }, $push: {
-            "likedUser": req.session.user
+            likedUser: req.session.user
           }
         });
       }
       res.redirect('/post/show-post')
     });
-
   });
 };
 
