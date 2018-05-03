@@ -21,8 +21,6 @@ handler_map.getNewComment = function(req, res) {
  */
 handler_map.createNewComment = function(req, res, next) {
   var user = req.session.user;
-  var temp = false;
-  var foundPost;
 
   var author = {
     id: user._id,
@@ -49,7 +47,7 @@ handler_map.createNewComment = function(req, res, next) {
         client.close();
       });
     },
-    // Insert the newComment
+    // Insert the newComment, and pass that comment to the next function
     function(post, done) {
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
@@ -62,6 +60,7 @@ handler_map.createNewComment = function(req, res, next) {
         client.close();
       });
     },
+    // Insert the comment into the Post's CommentList
     function(post, comment, done) {
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
@@ -74,9 +73,8 @@ handler_map.createNewComment = function(req, res, next) {
         done(err, 'adding comment into comments collection and add that comment into comments list of that post');
         client.close();
       });
-
-    }
-    ],
+    }],
+    // Catch any errors
     function (err) {
       if (err) {
         return next(err);

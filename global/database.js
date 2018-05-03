@@ -19,7 +19,7 @@ database.init = function() {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     console.log("Database Created");
-    var db = client.db("cmpe-it");
+    // var db = client.db("cmpe-it");
     // db.collection('posts').update({}, { $set:
     //   {
     //     // "resetPasswordToken": ""

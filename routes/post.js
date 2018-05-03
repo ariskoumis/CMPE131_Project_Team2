@@ -36,7 +36,6 @@ handler_map.newPost = function (req, res) {
 
 /**
  * POST /Create-post
- * Allow the User to create a post if and only if he/she is logged in
  * Create a Post Function
  */
 handler_map.createPost = function (req, res) {
@@ -91,6 +90,10 @@ handler_map.createPost = function (req, res) {
   });
 };
 
+/**
+ * Post /like
+ * Like a post
+ */
 handler_map.likePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
     var found = false;
@@ -127,6 +130,10 @@ handler_map.likePost = function (req, res) {
   });
 };
 
+/**
+ * Post /like
+ * Dislike a post
+ */
 handler_map.dislikePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
     var found = false;
@@ -158,10 +165,7 @@ handler_map.dislikePost = function (req, res) {
       }
       res.redirect('/post/show-post')
     });
-
   });
 };
-
-
 
 module.exports = handler_map;

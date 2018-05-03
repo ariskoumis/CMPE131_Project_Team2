@@ -100,7 +100,7 @@ handler_map.postSignup = function (req, res) {
  * Send Email Page
  */
 handler_map.getSendEmail = function (req, res) {
-  res.render('send-email');
+  res.render('user/send-email');
 };
 
 /**
@@ -194,7 +194,7 @@ handler_map.getNewPassword = function (req, res) {
         console.log('Password reset token is invalid or has expired.');
         return res.redirect('/');
       }
-      res.render('new-password', {
+      res.render('user/new-password', {
         token: req.params.token
       });
     })
