@@ -3,6 +3,7 @@
  */
 var express             = require('express'),
     session             = require('express-session'),
+    methodOverride      = require('method-override'),
     bodyParser          = require('body-parser');
 
 /**
@@ -30,6 +31,7 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 app.use(session({
   cookieName: 'session',
   secret: 'cow_the_milk',
@@ -42,7 +44,7 @@ app.use(session({
 
 
 app.use(function(req, res, next){
-  res.locals.currentUser  = req.session.user;
+  res.locals.currUser  = req.session.user;
   // res.locals.error        = req.flash("error");
   // res.locals.success      = req.flash("success");
   next();
@@ -67,10 +69,11 @@ app.post("/send-email", user.postSendEmail);
 app.get("/reset/:token", user.getNewPassword);
 app.post("/reset/:token", user.postNewPassword);
 
-// Create A Post Routes
+// Post Routes
 app.get('/post/show-post', postRoute.showPost);
 app.get('/post/new-post', requireLogin, postRoute.newPost);
 app.post('/post/create-post', requireLogin, postRoute.createPost);
+app.delete('/post/:id/delete-post', requireLogin, postRoute.deletePost);
 
 // Like and Dislike a Post
 app.post("/post/:id/like", requireLogin, postRoute.likePost);
@@ -79,6 +82,7 @@ app.post("/post/:id/dislike", requireLogin, postRoute.dislikePost);
 // Comment Routes
 app.get('/post/:id/comment/new-comment', requireLogin, commentRoute.getNewComment);
 app.post('/post/:id/comment/create-comment', requireLogin, commentRoute.createNewComment);
+app.delete('/post/:id/comment/:commentId/delete-comment', requireLogin, commentRoute.deleteComment);
 
 /**
  * catch 404 and forward to error handler

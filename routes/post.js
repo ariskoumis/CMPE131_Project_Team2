@@ -13,14 +13,11 @@ handler_map.showPost = function(req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
+    // Find all the post and convert to a list
     db.collection("posts").find({}).toArray(function (err, allPosts) {
       if (err) throw err;
-      db.collection("comments").find({}).toArray(function (err, allComments) {
-        if (err) throw err;
-        res.render('post/show-post', {
-          posts: allPosts,
-          comments: allComments
-        });
+      res.render('post/show-post', {
+        data: allPosts
       });
     });
   })
@@ -70,7 +67,9 @@ handler_map.createPost = function (req, res) {
     timestamp: time,
     comments: [],
     likes: impressions.likes,
-    dislikes: impressions.dislikes
+    dislikes: impressions.dislikes,
+    likedUser: [],
+    dislikedUser: []
   };
 
   // Add The Post to the Database
@@ -124,7 +123,7 @@ handler_map.likePost = function (req, res) {
           }
         });
       }
-      res.redirect('/post/show-post')
+      res.redirect('/post/show-post');
     });
   });
 };
@@ -162,9 +161,17 @@ handler_map.dislikePost = function (req, res) {
           }
         });
       }
-      res.redirect('/post/show-post')
+      res.redirect('/post/show-post');
     });
   });
+};
+
+/**
+ * Delete /delete-post
+ * Delete a Post from a Database
+ */
+handler_map.deletePost = function (req, res) {
+  console.log("click delete a post");
 };
 
 module.exports = handler_map;

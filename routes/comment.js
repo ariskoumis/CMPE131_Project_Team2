@@ -18,7 +18,7 @@ handler_map.getNewComment = function(req, res) {
  * Post Create a new Comment for a post
  * Comments are stored in Post database. Each post has a list of comments
  */
-handler_map.createNewComment = function(req) {
+handler_map.createNewComment = function(req, res) {
   var user = req.session.user;
 
   var author = {
@@ -40,9 +40,20 @@ handler_map.createNewComment = function(req) {
       $push: {
         "comments": newComment
       }
+    }, function(err) {
+      if (err) throw err;
+      res.redirect('/post/show-post')
     });
     client.close();
   });
+};
+
+/**
+ * Delete /delete-comment
+ * Delete a Comment from a Database
+ */
+handler_map.deleteComment = function (req, res) {
+  console.log("clicked");
 };
 
 module.exports = handler_map;
