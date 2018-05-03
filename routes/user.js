@@ -181,23 +181,14 @@ handler_map.postSendEmail = function (req, res, next) {
     });
 };
 
+
 /**
  * Get /
- * Reset Password Page
+ * Get Reset Password Page
  */
 handler_map.getNewPassword = function (req, res) {
-  database.mongoclient.connect(database.url, function (err, client) {
-    if (err) throw err;
-    var db = client.db("cmpe-it");
-    db.collection("users").findOne({resetPasswordToken: req.params.token}, function (err, user) {
-      if (!user) {
-        console.log('Password reset token is invalid or has expired.');
-        return res.redirect('/');
-      }
-      res.render('user/new-password', {
-        token: req.params.token
-      });
-    })
+  res.render('user/reset-password', {
+    token: req.params.token
   });
 };
 
