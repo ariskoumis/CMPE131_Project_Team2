@@ -37,13 +37,9 @@ handler_map.login = function (req, res) {
               res.redirect("/");
             }
           }
-          else if (user === req.session.user) {
-            res.redirect('/post/show-post');
-            console.log("You're already logged in!");
-          }
           else {
             res.redirect('/');
-            console.log("You're already logged in!");
+            console.log("There's no account associated with this username!");
           }
         });
         client.close();
@@ -84,13 +80,12 @@ handler_map.postSignup = function (req, res) {
           console.log("User does Exist, please enter a different username");
           res.redirect("/signup");
         } else {
-          client.db("cmpe-it").collection("users").insertOne(data);
+          db.collection("users").insertOne(data);
           db.collection("users").findOne({username: data.username}, function (err, foundUser) {
             if (foundUser) {
               req.session.user = foundUser;
               console.log("Congratulation, you just create an account");
               res.redirect("/post/show-post");
-
             }
           });
         }

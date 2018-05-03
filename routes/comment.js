@@ -3,6 +3,7 @@
  */
 var database 				= require('../global/database.js'),
     ObjectId        = require('mongodb').ObjectID,
+    async           = require('async'),
     handler_map 		= {};
 
 /**
@@ -18,7 +19,7 @@ handler_map.getNewComment = function(req, res) {
  * Post Create a new Comment for a post
  * Comments are stored in Post database. Each post has a list of comments
  */
-handler_map.createNewComment = function(req, res) {
+handler_map.createNewComment = function(req, res, next) {
   var user = req.session.user;
 
   var author = {
@@ -28,22 +29,42 @@ handler_map.createNewComment = function(req, res) {
 
   // New Comment
   var newComment = {
-
     author: author,
     content: req.body.content,
     postId: req.params.id
   };
 
-  database.mongoclient.connect(database.url, function (err, client) {
-    if (err) throw err;
-    var db = client.db("cmpe-it");
-    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {
-      "comments": newComment
-    }}, function (err) {
-      if (err) throw err;
+
+
+  async.waterfall([
+    function (done) {
+      database.mongoclient.connect(database.url, function (err, client) {
+        if (err) throw err;
+        var db = client.db("cmpe-it");
+        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {
+          "comments": newComment
+        }}, function (err) {
+          if (err) throw err;
+          done(err)
+        });
+      });
+    },
+    function(done) {
+      database.mongoclient.connect(database.url, function (err, client) {
+        if (err) throw err;
+        var db = client.db("cmpe-it");
+        db.collection("comments").insertOne(newComment);
+        done(err, 'adding comment into comments collection and add that comment into comments list of that post');
+        client.close();
+      });
+    }
+    ],
+    function (err) {
+      if (err) {
+        return next(err);
+      }
       res.redirect('/post/show-post');
     });
-  });
 };
 
 module.exports = handler_map;

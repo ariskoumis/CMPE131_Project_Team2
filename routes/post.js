@@ -15,8 +15,12 @@ handler_map.showPost = function(req, res) {
     var db = client.db("cmpe-it");
     db.collection("posts").find({}).toArray(function (err, allPosts) {
       if (err) throw err;
-      res.render('post/show-post', {
-        data: allPosts
+      db.collection("comments").find({}).toArray(function (err, allComments) {
+        if (err) throw err;
+        res.render('post/show-post', {
+          posts: allPosts,
+          comments: allComments
+        });
       });
     });
   })

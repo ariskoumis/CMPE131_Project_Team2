@@ -88,6 +88,10 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+/**
+ * Middleware Function
+ */
 function requireLogin (req, res, next) {
   if (!req.session.user) {
     res.redirect('/');
@@ -96,6 +100,10 @@ function requireLogin (req, res, next) {
   }
 }
 
+/**
+ * Middleware Function
+ * Check if user is logged in. If not,
+ */
 function isLoggedin (req, res, next) {
   if (req.session.user) {
     console.log("You're already logged in");
