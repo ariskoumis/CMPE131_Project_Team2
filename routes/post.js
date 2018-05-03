@@ -14,7 +14,7 @@ handler_map.showPost = function(req, res) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     // Find all the post and convert to a list
-    db.collection("posts").find({}).toArray(function (err, allPosts) {
+    db.collection("posts").find({}).sort({timestamp: -1}).toArray(function (err, allPosts) {
       if (err) throw err;
       res.render('post/show-post', {
         data: allPosts
