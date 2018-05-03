@@ -20,33 +20,32 @@
   </header>
 
   <article>
-
-    <% for(var i = 0; i < posts.length; i++) { %>
-      <span style="font-size:30px;":><strong><%= posts[i].name %></strong></span>
-      <span style="font-size:15px"> #<%= i + 1 %></span>
-      <span style="font-size:15px"> by: <%= posts[i].author.username %> on</span>
-      <span style="font-size:15px;text-decoration: underline;":><strong><%= posts[i].timestamp %></strong></span><br>
-      <span style="font-size:20px"><%= posts[i].content %></span><br>
-
-      <% if (currentUser) { %>
-      <form method="POST">
-      <span style="font-size:15px">
-          <a href="/post/<%=posts[i]._id%>/comment/new-comment">Comment</a>
-          <button id="like" formaction="/post/<%=posts[i]._id%>/like" formmethod="POST">Like</button> <span id="like-count" style="color:green"> <%= posts[i].likes %></span>
-          <button id="dislike" formaction="/post/<%=posts[i]._id%>/dislike" formmethod="POST">Dislike</button> <span id="dislike-count" style="color:red"> <%= posts[i].dislikes %></span>
-        </span><br>
-      <% } %>
-      </form>
-        <% for(var j = 0; j < comments.length; j++) { %>
-
-            <% if (comments[j].postId === posts[i]._id.toString()) { %>
-              <span style="font-size:20px; padding-left:30px; color:#737373"><%= comments[j].author.username %>: <%= comments[j].content %></span>
-              <br>
+      <% var i = 0 %>
+      <% posts.forEach(function(post) { %>
+          <span style="font-size:30px;":><strong><%= post.name %></strong></span>
+          <span style="font-size:15px"> #<%= i + 1 %></span>
+          <span style="font-size:15px"> by: <%= post.author.username %> on</span>
+          <span style="font-size:15px;text-decoration: underline;":><strong><%= post.timestamp %></strong></span><br>
+          <span style="font-size:20px"><%= post.content %></span><br>
+          <form method="POST">
+              <% if (currentUser) { %>
+                  <span style="font-size:15px">
+                      <a href="/post/<%=post._id%>/comment/new-comment">Comment</a>
+                      <button id="like" formaction="/post/<%=post._id%>/like" formmethod="POST">Like</button> <span id="like-count" style="color:green"> <%= post.likes %></span>
+                      <button id="dislike" formaction="/post/<%=post._id%>/dislike" formmethod="POST">Dislike</button> <span id="dislike-count" style="color:red"> <%= post.dislikes %></span>
+                  </span>
+                  <br>
+              <% } %>
+          </form>
+          <% comments.forEach(function(comment) { %>
+            <% if (comment.postId === post._id.toString()) { %>
+                <span style="font-size:20px; padding-left:30px; color:#737373"><%= comment.author.username %>: <%= comment.content %> </span>
+                <br>
             <% } %>
-      <% } %>
-      <br/>
-      <hr>
-    <% }%>
+          <% }) %>
+          <br/>
+          <hr>
+      <% }) %>
   </article>
 </body>
 <script>

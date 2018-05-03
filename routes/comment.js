@@ -21,6 +21,8 @@ handler_map.getNewComment = function(req, res) {
  */
 handler_map.createNewComment = function(req, res, next) {
   var user = req.session.user;
+  var temp = false;
+  var foundPost;
 
   var author = {
     id: user._id,
@@ -34,29 +36,45 @@ handler_map.createNewComment = function(req, res, next) {
     postId: req.params.id
   };
 
-
-
   async.waterfall([
     function (done) {
+    // Find the Post in the database. If the post is existed, then pass that post to the next function
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
         var db = client.db("cmpe-it");
-        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {
-          "comments": newComment
-        }}, function (err) {
+        db.collection("posts").findOne({"_id": new ObjectId(req.params.id)}, function (err, post) {
           if (err) throw err;
-          done(err)
+          done(err, post);
         });
+        client.close();
       });
     },
-    function(done) {
+    // Insert the newComment
+    function(post, done) {
       database.mongoclient.connect(database.url, function (err, client) {
         if (err) throw err;
         var db = client.db("cmpe-it");
         db.collection("comments").insertOne(newComment);
+        db.collection("comments").findOne({"_id": new ObjectId(newComment._id)}, function (err, comment) {
+          if (err) throw err;
+          done(err, post, comment);
+        });
+        client.close();
+      });
+    },
+    function(post, comment, done) {
+      database.mongoclient.connect(database.url, function (err, client) {
+        if (err) throw err;
+        var db = client.db("cmpe-it");
+        db.collection('posts').update({"_id": new ObjectId(post._id)}, {
+          $push: {
+            "comments": comment
+          }
+        });
         done(err, 'adding comment into comments collection and add that comment into comments list of that post');
         client.close();
       });
+
     }
     ],
     function (err) {

@@ -23,7 +23,10 @@ database.init = function() {
     // db.collection('posts').update({}, { $set:
     //   {
     //     // "resetPasswordToken": ""
-    //     "resetPasswordExpires": 0
+    //     "likedUser": [],
+    //     "dislikedUser": [],
+    //     likes: 0,
+    //     dislikes: 0
     //   }
     // }, {
     //   upsert:false,

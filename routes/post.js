@@ -93,31 +93,72 @@ handler_map.createPost = function (req, res) {
 
 handler_map.likePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
+    var found = false;
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
-      $inc: {
-        likes: 1
-      }
-    }, function (err) {
+
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, post) {
       if (err) throw err;
-      res.redirect('/post/show-post');
+      for (var i = 0; i < post.likedUser.length; i++) {
+        if (post.likedUser[i].username === req.session.user.username) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: -1
+            }, $pull: {
+              "likedUser": req.session.user
+            }
+          });
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+          $inc: {
+            likes: 1
+          }, $push: {
+            "likedUser": req.session.user
+          }
+        });
+      }
+      res.redirect('/post/show-post')
     });
+
   });
 };
 
 handler_map.dislikePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
+    var found = false;
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
-      $inc: {
-        dislikes: 1
-      }
-    }, function (err) {
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, post) {
       if (err) throw err;
-      res.redirect('/post/show-post');
+      for (var i = 0; i < post.dislikedUser.length; i++) {
+        if (post.dislikedUser[i].username === req.session.user.username) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: -1
+            }, $pull: {
+              "dislikedUser": req.session.user
+            }
+          });
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+          $inc: {
+            dislikes: 1
+          }, $push: {
+            "dislikedUser": req.session.user
+          }
+        });
+      }
+      res.redirect('/post/show-post')
     });
+
   });
 };
 
