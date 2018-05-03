@@ -14,7 +14,7 @@ handler_map.showPost = function(req, res) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     // Find all the post and convert to a list
-    db.collection("posts").find({}).sort({timestamp: -1}).toArray(function (err, allPosts) {
+    db.collection("posts").find({}).sort({time: -1}).toArray(function (err, allPosts) {
       if (err) throw err;
       res.render('post/show-post', {
         data: allPosts
@@ -45,7 +45,7 @@ handler_map.createPost = function (req, res) {
     min = "";
   }
 
-  var time = d.getHours() + ":" + min + d.getMinutes() + " " + (d.getMonth() + 1) + "/"
+  var time = d.getHours() + ":" + min + d.getMinutes() + ", " + (d.getMonth() + 1) + "/"
     + d.getDate() + "/" + d.getFullYear();
 
   // Information of the user
@@ -65,6 +65,7 @@ handler_map.createPost = function (req, res) {
     content: data.content,
     author: author,
     timestamp: time,
+    time: d.getTime(),
     comments: [],
     likes: impressions.likes,
     dislikes: impressions.dislikes,
