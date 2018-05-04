@@ -84,6 +84,7 @@ handler_map.postSignup = function (req, res) {
           db.collection("users").findOne({username: data.username}, function (err, foundUser) {
             if (foundUser) {
               req.session.user = foundUser;
+              req
               console.log("Congratulation, you just create an account");
               res.redirect("/post/show-post");
             }
@@ -124,7 +125,6 @@ handler_map.postSendEmail = function (req, res, next) {
           db.collection("users").update({email: req.body.email}, {
             $set: {
               "resetPasswordToken": token
-              // "resetPasswordExpires": Date.now() + 3600000 // 1 hour
             }
           });
           done(err, token);
@@ -138,6 +138,7 @@ handler_map.postSendEmail = function (req, res, next) {
           var db = client.db("cmpe-it");
           db.collection("users").findOne({email: req.body.email}, function (err, user) {
             if (!user) {
+              req.flash("error", "")
               console.log("Email is not found!");
               return res.redirect('/send-email');
             }

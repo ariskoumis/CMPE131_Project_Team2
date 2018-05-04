@@ -96,33 +96,56 @@ handler_map.createPost = function (req, res) {
  */
 handler_map.likePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
-    var found = false;
+    var foundInLike = false;
+    var foundInDislike = false;
     if (err) throw err;
     var db = client.db("cmpe-it");
 
-    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, post) {
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, foundPost) {
       if (err) throw err;
-      for (var i = 0; i < post.likedUser.length; i++) {
-        if (post.likedUser[i].username === req.session.user.username) {
+      // Check if user already like the post. If they like, then, decrement the like.
+      foundPost.likedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
           db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
             $inc: {
               likes: -1
             }, $pull: {
-              likedUser: req.session.user
+              likedUser: req.session.user.username
             }
           });
-          found = true;
-          break;
+          foundInLike = true;
         }
-      }
-      if (!found) {
-        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
-          $inc: {
-            likes: 1
-          }, $push: {
-            likedUser: req.session.user
-          }
-        });
+      });
+
+      foundPost.dislikedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          foundInDislike = true;
+        }
+      });
+
+      // Check if The user is already hit Dislike for that post.
+      // If they already hit Dislike, Decrement dislike and increment Like.
+      if (!foundInLike) {
+        if (!foundInDislike) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: 1
+            }, $push: {
+              likedUser: req.session.user.username
+            }
+          });
+        } else {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: -1,
+              likes: 1
+            }, $pull: {
+              dislikedUser: req.session.user.username
+            }, $push: {
+              likedUser: req.session.user.username
+            }
+          });
+        }
       }
       res.redirect('/post/show-post');
     });
@@ -135,32 +158,55 @@ handler_map.likePost = function (req, res) {
  */
 handler_map.dislikePost = function (req, res) {
   database.mongoclient.connect(database.url, function (err, client) {
-    var found = false;
+    var foundInLike = false;
+    var foundInDislike = false;
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, post) {
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, foundPost) {
       if (err) throw err;
-      for (var i = 0; i < post.dislikedUser.length; i++) {
-        if (post.dislikedUser[i].username === req.session.user.username) {
+      // Check if user already dislike the post. If they dislike, then, decrement the dislike.
+      foundPost.dislikedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
           db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
             $inc: {
               dislikes: -1
             }, $pull: {
-              "dislikedUser": req.session.user
+              dislikedUser: req.session.user.username
             }
           });
-          found = true;
-          break;
+          foundInDislike = true;
         }
-      }
-      if (!found) {
-        db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
-          $inc: {
-            dislikes: 1
-          }, $push: {
-            "dislikedUser": req.session.user
-          }
-        });
+      });
+
+      foundPost.likedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          foundInLike = true;
+        }
+      });
+
+      // Check if The user is already hit Dislike for that post.
+      // If they already hit Dislike, Decrement dislike and increment Like.
+      if (!foundInDislike) {
+        if (!foundInLike) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: 1
+            }, $push: {
+              dislikedUser: req.session.user.username
+            }
+          });
+        } else {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: -1,
+              dislikes: 1
+            }, $pull: {
+              likedUser: req.session.user.username
+            }, $push: {
+              dislikedUser: req.session.user.username
+            }
+          });
+        }
       }
       res.redirect('/post/show-post');
     });

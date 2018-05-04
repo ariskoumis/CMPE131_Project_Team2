@@ -33,7 +33,7 @@ database.init = function() {
     //   upsert:false,
     //   multi:true
     // });
-    client.close();
+    // client.close();
   });
 };
 
