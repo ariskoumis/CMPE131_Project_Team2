@@ -1,9 +1,10 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
+    async           = require('async'),
+    crypto          = require('crypto'),
+    nodemailer      = require('nodemailer'),
     handler_map 		= {};
 
 /**
@@ -11,7 +12,46 @@ var EventEmitter 		= require('events'),
  * HomePage
  */
 handler_map.rootHandler = function (req, res) {
-  res.render('index' , { currentUser: database.currentUser });
+  res.render('index');
+};
+
+/**
+ * Post /login
+ */
+handler_map.login = function (req, res) {
+  var data = req.body;
+  if (!req.session.user) {
+    if (data.username === "" || data.password === "") {
+      console.log("One of the box is missing");
+    } else {
+      database.mongoclient.connect(database.url, function(err, client) {
+        if (err) throw err;
+        var db = client.db("cmpe-it");
+        db.collection("users").findOne({username: data.username}, function (err, user) {
+          if (user) {
+            if (user.password === data.password) {
+              req.session.user = user;
+              res.redirect("/post/show-post");
+            } else {
+              console.log("Your password is incorrect");
+              res.redirect("/");
+            }
+          }
+          else {
+            res.redirect('/');
+            console.log("There's no account associated with this username!");
+          }
+        });
+        client.close();
+      });
+    }
+  } else if (req.session.user.username === data.username) {
+    res.redirect("/post/show-post");
+    console.log("You're already logged in!");
+  } else {
+    res.redirect("/");
+    console.log("Another User is currently login on this Computer");
+  }
 };
 
 /**
@@ -23,67 +63,32 @@ handler_map.getSignup = function (req, res) {
 };
 
 /**
- * Post /login
- */
-handler_map.login = function (req, res) {
-  var data = req.body;
-  if (database.currentUser.existed === false) {
-    if (data.username === "" || data.password === "") {
-      Stream.emit("push", "message", {event: "login_result", result: false, message: "You're missing one section, please fill all to login."});
-    } else {
-      database.mongoclient.connect(database.url, function(err, client) {
-        if (err) throw err;
-        var db = client.db("cmpe-it");
-        db.collection("users").findOne({username: data.username}, function (err, mongores) {
-          if (mongores !== null && mongores.password === data.password) {
-            console.log("User Does Exist, Login successfully ");
-            database.currentUser = {
-              id: mongores._id,
-              username: mongores.username,
-              password: mongores.password,
-              existed: true
-            };
-            Stream.emit("push", "message", {event: "login_result", result: true});
-            res.redirect("/post/show-post");
-          } else {
-            console.log("Please enter a correct password");
-            res.redirect("/");
-            Stream.emit("push", "message", {event: "login_result", result: false});
-          }
-        });
-        client.close();
-      });
-    }
-  } else {
-    res.redirect("/post/show-post");
-    Stream.emit("push", "message", {event: "login_result", result: false});
-    console.log("You're already logged in!");
-  }
-};
-
-/**
  * Post /Signup
  */
 handler_map.postSignup = function (req, res) {
   var data = req.body;
-  // database.signup("users", data);
+
   if (data.username === "" || data.password === "" || data.email === "") {
     console.log("You're missing one section, please fill all to signup.");
-    Stream.emit("push", "message", {event: "create_account_result", result: false});
   } else {
     //Write to data to collection titled 'users'
     database.mongoclient.connect(database.url, function(err, client) {
       if (err) throw err;
       var db = client.db("cmpe-it");
-      db.collection("users").findOne({username: data.username}, function (err, mongoRes) {
-        if (mongoRes !== null) {
+      db.collection("users").findOne({username: data.username}, function (err, user) {
+        if (user) {
           console.log("User does Exist, please enter a different username");
-          Stream.emit("push", "message", {event: "create_account_result", result: false});
           res.redirect("/signup");
         } else {
-          console.log("Congratulation, you just create an account");
-          client.db("cmpe-it").collection("users").insertOne(data);
-          Stream.emit("push", "message", {event: "create_account_result", result: true});
+          db.collection("users").insertOne(data);
+          db.collection("users").findOne({username: data.username}, function (err, foundUser) {
+            if (foundUser) {
+              req.session.user = foundUser;
+              req
+              console.log("Congratulation, you just create an account");
+              res.redirect("/post/show-post");
+            }
+          });
         }
         client.close();
       })
@@ -92,28 +97,182 @@ handler_map.postSignup = function (req, res) {
 };
 
 /**
+ * Get /
+ * Send Email Page
+ */
+handler_map.getSendEmail = function (req, res) {
+  res.render('user/send-email');
+};
+
+/**
+ * Post /
+ * Send Link to the User's Email
+ */
+handler_map.postSendEmail = function (req, res, next) {
+  async.waterfall([
+      // Create a Token
+      function (done) {
+        crypto.randomBytes(20, function (err, buf) {
+          var token = buf.toString('hex');
+          done(err, token);
+        });
+      },
+      // Update the Token in user Data
+      function (token, done) {
+        database.mongoclient.connect(database.url, function (err, client) {
+          if (err) throw err;
+          var db = client.db("cmpe-it");
+          db.collection("users").update({email: req.body.email}, {
+            $set: {
+              "resetPasswordToken": token
+            }
+          });
+          done(err, token);
+          client.close();
+        });
+      },
+      // Find the User and Pass to the next function
+      function (token, done) {
+        database.mongoclient.connect(database.url, function (err, client) {
+          if (err) throw err;
+          var db = client.db("cmpe-it");
+          db.collection("users").findOne({email: req.body.email}, function (err, user) {
+            if (!user) {
+              req.flash("error", "")
+              console.log("Email is not found!");
+              return res.redirect('/send-email');
+            }
+            done(err, token, user);
+          });
+          client.close();
+        });
+      },
+      // Send the Email to the User which is found above
+      function (token, user, done) {
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          host: 'smtp.gmail.com',
+          auth: {
+            user: 'cmpeit131@gmail.com',
+            pass: 'cmpe-it131'
+          }
+        });
+        var url = 'https://' || 'http://';
+        var mailOptions = {
+          to: user.email,
+          from: 'passwordreset@demo.com',
+          subject: 'CMPEit Password Reset',
+          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          url + req.headers.host + '/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+        };
+        transporter.sendMail(mailOptions, function (err) {
+          console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+          done(err, 'done');
+        });
+      }
+    ],
+    // Catch Error if any
+    function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/send-email');
+    });
+};
+
+
+/**
+ * Get /
+ * Get Reset Password Page
+ */
+handler_map.getNewPassword = function (req, res) {
+  res.render('user/reset-password', {
+    token: req.params.token
+  });
+};
+
+/**
+ * Post /
+ * Reset Password
+ */
+handler_map.postNewPassword = function (req, res, next) {
+  var token = req.params.token;
+  async.waterfall([
+      // Find the User
+      function(done) {
+        database.mongoclient.connect(database.url, function (err, client) {
+          if (err) throw err;
+          var db = client.db("cmpe-it");
+          db.collection("users").findOne({resetPasswordToken: token}, function (err, user) {
+            if (!user) {
+              return res.redirect('/');
+            }
+            done(err, user);
+          });
+          client.close();
+        });
+      },
+      // Reset the Password in the Database
+      function (user, done) {
+        database.mongoclient.connect(database.url, function (err, client) {
+          if (err) throw err;
+          var db = client.db("cmpe-it");
+          db.collection("users").update({resetPasswordToken: token}, {
+            $set: {
+              "password": req.body.password,
+              "resetPasswordToken": ""
+            }
+          });
+          done(err, user);
+          client.close();
+        });
+      },
+      // Send the Email to the User which is found above
+      function (user, done) {
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          host: 'smtp.gmail.com',
+          auth: {
+            user: 'cmpeit131@gmail.com',
+            pass: 'cmpe-it131'
+          }
+        });
+        var mailOptions = {
+          to: user.email,
+          from: 'passwordreset@demo.com',
+          subject: 'CMPEit Password Reset Successful',
+          text: 'Hello,\n\n' +
+          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+        };
+        transporter.sendMail(mailOptions, function (err) {
+          console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+          done(err, 'done');
+        });
+      }
+    ],
+    // Catch Error if any
+    function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/');
+    });
+};
+
+
+/**
  * POST /logout
  * Log out.
  */
 handler_map.logout = function(req, res) {
-  database.currentUser = {
-    existed: false
-  };
-  res.redirect("/");
-};
-
-/**
- * Initialize SSE Handler
- */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/');
+    }
   });
 };
 

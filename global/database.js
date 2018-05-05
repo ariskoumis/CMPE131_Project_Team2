@@ -11,10 +11,6 @@ const database  = {};
  */
 database.mongoclient    = require('mongodb').MongoClient;
 database.url            = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
-database.currentUser    = {
-  existed: false
-};
-database.listOfPost     = [];
 
 /**
  * Initialize Database
@@ -23,11 +19,21 @@ database.init = function() {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     console.log("Database Created");
-    var db = client.db("cmpe-it");
-    db.collection('posts').find({}).forEach(function(post) {
-      database.listOfPost.push(post);
-    });
-    client.close();
+
+    // Uncomment if you want to reset any variable in the database
+    // var db = client.db("cmpe-it");
+    // db.collection('posts').update({}, { $set:
+    //   {
+    //     "likedUser": [],
+    //     "dislikedUser": [],
+    //     likes: 0,
+    //     dislikes: 0
+    //   }
+    // }, {
+    //   upsert:false,
+    //   multi:true
+    // });
+    // client.close();
   });
 };
 

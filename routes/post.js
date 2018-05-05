@@ -1,9 +1,8 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
+    ObjectId        = require('mongodb').ObjectID,
     handler_map 		= {};
 
 /**
@@ -11,10 +10,17 @@ var EventEmitter 		= require('events'),
  * Show All the Posts in the Database
  */
 handler_map.showPost = function(req, res) {
-  res.render('post/show-post', {
-    data: database.listOfPost,
-    currUser: database.currentUser
-  });
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    // Find all the post and convert to a list
+    db.collection("posts").find({}).sort({time: -1}).toArray(function (err, allPosts) {
+      if (err) throw err;
+      res.render('post/show-post', {
+        data: allPosts
+      });
+    });
+  })
 };
 
 /**
@@ -22,32 +28,35 @@ handler_map.showPost = function(req, res) {
  * Go to New Post Form
  */
 handler_map.newPost = function (req, res) {
-  res.render('post/new-post', {
-    currUser: database.currentUser
-  });
+  res.render('post/new-post');
 };
 
 /**
  * POST /Create-post
- * Allow the User to create a post if and only if he/she is logged in
  * Create a Post Function
  */
 handler_map.createPost = function (req, res) {
+  var user = req.session.user;
   var data = req.body;
   var d = new Date();
   var min = 0;
 
-  if(d.getMinutes() > 10){
+  if (d.getMinutes() > 10) {
     min = "";
   }
 
-  var time = d.getHours() + ":" + min + d.getMinutes() + " " + (d.getMonth() + 1) + "/"
+  var time = d.getHours() + ":" + min + d.getMinutes() + ", " + (d.getMonth() + 1) + "/"
     + d.getDate() + "/" + d.getFullYear();
 
   // Information of the user
   var author = {
-    id: database.currentUser.id,
-    username: database.currentUser.username
+    id: user._id,
+    username: user.username
+  };
+
+  var impressions = {
+    likes: 0,
+    dislikes: 0
   };
 
   // A new Post
@@ -56,49 +65,160 @@ handler_map.createPost = function (req, res) {
     content: data.content,
     author: author,
     timestamp: time,
-    comments: []
+    time: d.getTime(),
+    comments: [],
+    likes: impressions.likes,
+    dislikes: impressions.dislikes,
+    likedUser: [],
+    dislikedUser: []
   };
 
   // Add The Post to the Database
-  if (database.currentUser.existed === true) {
-    database.mongoclient.connect(database.url, function (err, client) {
-      if (err) throw err;
-      //second parameter of following callback function is typically called res, but I changed it to mongo_res to avoid losing node.js's res parameter.
-      var db = client.db("cmpe-it");
-      db.collection("posts").insertOne(newPost, function (err, mongo_res) {
-        if (err) {
-          console.log("err found when insert the post to db.");
-          Stream.emit("push", "message", {event: "create_post_result", result: false});
-          res.redirect("/post/new-post");
-        } else {
-          database.listOfPost.push(newPost);
-          Stream.emit("push", "message", {event: "create_post_result", result: true});
-          console.log("The Post is in the db");
-          res.redirect("/post/show-post");
-        }
-      });
-      client.close();
+  database.mongoclient.connect(database.url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection("posts").insertOne(newPost, function (err) {
+      if (err) {
+        console.log("err found when insert the post to db.");
+        res.redirect("/post/new-post");
+      } else {
+        console.log("The Post is in the db");
+        res.redirect("/post/show-post");
+      }
     });
-  } else {
-    console.log(database.currentUser);
-    console.log("User needs to login first!");
-    Stream.emit("push", "message", {event: "create_post_result", result: false, logged_in: 0});
-  }
+    client.close();
+  });
 };
 
 /**
- * Initialize SSE Handler
+ * Post /like
+ * Like a post
  */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
+handler_map.likePost = function (req, res) {
+  database.mongoclient.connect(database.url, function (err, client) {
+    var foundInLike = false;
+    var foundInDislike = false;
+    if (err) throw err;
+    var db = client.db("cmpe-it");
 
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, foundPost) {
+      if (err) throw err;
+      // Check if user already like the post. If they like, then, decrement the like.
+      foundPost.likedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: -1
+            }, $pull: {
+              likedUser: req.session.user.username
+            }
+          });
+          foundInLike = true;
+        }
+      });
+
+      foundPost.dislikedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          foundInDislike = true;
+        }
+      });
+
+      // Check if The user is already hit Dislike for that post.
+      // If they already hit Dislike, Decrement dislike and increment Like.
+      if (!foundInLike) {
+        if (!foundInDislike) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: 1
+            }, $push: {
+              likedUser: req.session.user.username
+            }
+          });
+        } else {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: -1,
+              likes: 1
+            }, $pull: {
+              dislikedUser: req.session.user.username
+            }, $push: {
+              likedUser: req.session.user.username
+            }
+          });
+        }
+      }
+      res.redirect('/post/show-post');
+    });
   });
+};
+
+/**
+ * Post /like
+ * Dislike a post
+ */
+handler_map.dislikePost = function (req, res) {
+  database.mongoclient.connect(database.url, function (err, client) {
+    var foundInLike = false;
+    var foundInDislike = false;
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').findOne({_id: new ObjectId(req.params.id)}, function(err, foundPost) {
+      if (err) throw err;
+      // Check if user already dislike the post. If they dislike, then, decrement the dislike.
+      foundPost.dislikedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: -1
+            }, $pull: {
+              dislikedUser: req.session.user.username
+            }
+          });
+          foundInDislike = true;
+        }
+      });
+
+      foundPost.likedUser.forEach(function (username) {
+        if (username === req.session.user.username) {
+          foundInLike = true;
+        }
+      });
+
+      // Check if The user is already hit Dislike for that post.
+      // If they already hit Dislike, Decrement dislike and increment Like.
+      if (!foundInDislike) {
+        if (!foundInLike) {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              dislikes: 1
+            }, $push: {
+              dislikedUser: req.session.user.username
+            }
+          });
+        } else {
+          db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+            $inc: {
+              likes: -1,
+              dislikes: 1
+            }, $pull: {
+              likedUser: req.session.user.username
+            }, $push: {
+              dislikedUser: req.session.user.username
+            }
+          });
+        }
+      }
+      res.redirect('/post/show-post');
+    });
+  });
+};
+
+/**
+ * Delete /delete-post
+ * Delete a Post from a Database
+ */
+handler_map.deletePost = function (req, res) {
+  console.log("click delete a post");
 };
 
 module.exports = handler_map;
