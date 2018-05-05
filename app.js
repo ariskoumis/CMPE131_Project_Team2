@@ -5,6 +5,7 @@ var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
     bodyParser          = require('body-parser');
+    flash               = require('connect-flash');
 
 /**
  * Route Handler
