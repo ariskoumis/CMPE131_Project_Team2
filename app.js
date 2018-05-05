@@ -4,6 +4,7 @@
 var express             = require('express'),
     session             = require('express-session'),
     bodyParser          = require('body-parser');
+    flash               = require('connect-flash');
 
 /**
  * Route Handler
