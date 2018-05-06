@@ -4,6 +4,7 @@
 var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
+    flash               = require('connect-flash'),
     bodyParser          = require('body-parser');
 
 /**
@@ -40,13 +41,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-// app.use(flash());
+app.use(flash());
 
 
 app.use(function(req, res, next){
   res.locals.currUser  = req.session.user;
-  // res.locals.error        = req.flash("error");
-  // res.locals.success      = req.flash("success");
+  res.locals.error        = req.flash("error");
+  res.locals.success      = req.flash("success");
   next();
 });
 

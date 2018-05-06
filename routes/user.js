@@ -31,6 +31,7 @@ handler_map.login = function (req, res) {
           if (user) {
             if (user.password === data.password) {
               req.session.user = user;
+              req.flash('success', 'You successfully login');
               res.redirect("/post/show-post");
             } else {
               console.log("Your password is incorrect");
