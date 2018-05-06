@@ -54,14 +54,29 @@ handler_map.createNewComment = function(req, res) {
  * Delete a Comment from a Database
  */
 handler_map.deleteComment = function (req, res) {
+  var commentId = req.params.commentId;
+  console.log(commentId);
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     db.collection('posts').findOne({"_id": new ObjectId(req.params.id)}, function (err, post) {
-      post.comments.forEach(function(comment){
-        // if ()
-      })
-    })
+      for (var i = 0; i < post.comments.length; i++) {
+        var comment = post.comments[i];
+        if (comment._id.toString().valueOf() === new ObjectId(commentId).toString().valueOf()) {
+          // var index = post.comments.indexOf(i);
+          // console.log(index);
+          // if (index > -1) {
+            post.comments.splice(i, 1);
+            console.log("succ");
+            break;
+          // } else {
+          //   console.log("fail to delet");
+          // }
+        }
+      }
+      res.redirect('/post/show-post');
+    });
+    client.close();
   })
 };
 
