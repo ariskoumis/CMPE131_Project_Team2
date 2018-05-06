@@ -50,8 +50,8 @@ app.use(flash());
 
 app.use(function(req, res, next){
   res.locals.currUser  = req.session.user;
-  // res.locals.error        = req.flash("error");
-  // res.locals.success      = req.flash("success");
+  res.locals.error        = req.flash("error");
+  res.locals.success      = req.flash("success");
   next();
 });
 
@@ -90,12 +90,11 @@ app.post('/post/:id/comment/create-comment', requireLogin, commentRoute.createNe
 app.delete('/post/:id/comment/:commentId/delete-comment', requireLogin, commentRoute.deleteComment);
 
 //Flash
-app.post('/test',function(req, res){
-    req.flash('fail', 'Wait, What?');
-    res.locals.message = req.flash();
-    res.render('index');
-        
-});
+// app.post('/test',function(req, res){
+//     req.flash('fail', 'Wait, What?');
+//     res.locals.message = req.flash();
+//     res.render('index');   
+// });
 
 /**
  * catch 404 and forward to error handler

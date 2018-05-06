@@ -23,6 +23,7 @@ handler_map.login = function (req, res) {
   if (!req.session.user) {
     if (data.username === "" || data.password === "") {
       console.log("Required input missing");
+      req.flash('error','Please fill out all sections');
     } else {
       database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
@@ -34,13 +35,15 @@ handler_map.login = function (req, res) {
               res.redirect("/post/show-post");
             } else {
               console.log("Your password is incorrect");
-              req.flash('fail','Your password is incorrect');
+              req.flash('error','Your password is incorrect');
               res.redirect("/");
             }
           }
           else {
-            res.redirect('/');
+            req.flash('error','User does not exist');
             console.log("There's no account associated with this username!");
+            res.redirect('/');
+            
           }
         });
         client.close();
@@ -71,6 +74,7 @@ handler_map.postSignup = function (req, res) {
 
   if (data.username === "" || data.password === "" || data.email === "") {
     console.log("You're missing one section, please fill all to signup.");
+    req.flash('error','Please fill out all required sections');
   } else {
     //Write to data to collection titled 'users'
     database.mongoclient.connect(database.url, function(err, client) {
@@ -79,6 +83,7 @@ handler_map.postSignup = function (req, res) {
       db.collection("users").findOne({username: data.username}, function (err, user) {
         if (user) {
           console.log("User already exists, please enter a different username");
+          req.flash('error','User already exists. Please enter a different username');
           res.redirect("/signup");
         } else {
           db.collection("users").insertOne(data);
@@ -87,6 +92,7 @@ handler_map.postSignup = function (req, res) {
               req.session.user = foundUser;
               req
               console.log("Congratulations, you just created an account!");
+               req.flash('success','Congratulations, you just created an account!');
               res.redirect("/post/show-post");
             }
           });
@@ -139,7 +145,7 @@ handler_map.postSendEmail = function (req, res, next) {
           var db = client.db("cmpe-it");
           db.collection("users").findOne({email: req.body.email}, function (err, user) {
             if (!user) {
-              req.flash("error", "")
+              req.flash("error", "Email was not found!");
               console.log("Email was not found!");
               return res.redirect('/send-email');
             }
@@ -170,6 +176,7 @@ handler_map.postSendEmail = function (req, res, next) {
         };
         transporter.sendMail(mailOptions, function (err) {
           console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+          req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
           done(err, 'done');
         });
       }
@@ -249,6 +256,7 @@ handler_map.postNewPassword = function (req, res, next) {
         };
         transporter.sendMail(mailOptions, function (err) {
           console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+          req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
           done(err, 'done');
         });
       }
