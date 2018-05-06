@@ -218,7 +218,15 @@ handler_map.dislikePost = function (req, res) {
  * Delete a Post from a Database
  */
 handler_map.deletePost = function (req, res) {
-  console.log("click delete a post");
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').remove({"_id": new ObjectId(req.params.id)}, function(err) {
+      if (err) throw err;
+      res.redirect('/post/show-post')
+    });
+    client.close();
+  });
 };
 
 module.exports = handler_map;
