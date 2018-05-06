@@ -39,6 +39,7 @@
           </form>
 
           <% for(var j = 0; j < data[i].comments.length; j++) { %>
+                <% console.log(data[i].comments[j]._id) %>
               <span style="font-size:20px; padding-left:30px; color:#737373"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
               <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
                   <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
