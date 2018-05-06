@@ -57,12 +57,17 @@ handler_map.deleteComment = function (req, res) {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    db.collection('posts').findOne({"_id": new ObjectId(req.params.id)}, function (err, post) {
-      post.comments.forEach(function(comment){
-        // if ()
-      })
-    })
-  })
+    console.log("hey")
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+      $pull: {
+        "comments": {"_id": new ObjectId(req.params.commentId)}
+      }
+    }, function(err) {
+        if (err) throw err;
+        res.redirect('/post/show-post')
+    });
+    client.close()
+  });
 };
 
 module.exports = handler_map;
