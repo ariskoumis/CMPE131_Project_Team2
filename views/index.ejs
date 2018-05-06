@@ -24,6 +24,15 @@
 			<form action="/post/show-post">
 				<button> Show All Posts! </button>
 			</form>
+			<br>
+			<form action="/test" method="POST">
+				<button>Flash Test</button>
+			</form>
+			<% if(locals.message){ %>
+			    <div class="alert alert-success" role="alert">
+			        <strong>Well done!</strong> <%=message.fail%>
+			    </div>
+			<% } %>
 		</article>
 	</body>
 </html>

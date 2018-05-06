@@ -5,6 +5,7 @@ var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
     bodyParser          = require('body-parser');
+    cookieParser        = require('cookie-parser');
     flash               = require('connect-flash');
 
 /**
@@ -32,6 +33,7 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser('secret'));
 app.use(methodOverride('_method'));
 app.use(session({
   cookieName: 'session',
@@ -39,9 +41,11 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  maxAge: 60000
 }));
-// app.use(flash());
+
+app.use(flash());
 
 
 app.use(function(req, res, next){
@@ -84,6 +88,14 @@ app.post("/post/:id/dislike", requireLogin, postRoute.dislikePost);
 app.get('/post/:id/comment/new-comment', requireLogin, commentRoute.getNewComment);
 app.post('/post/:id/comment/create-comment', requireLogin, commentRoute.createNewComment);
 app.delete('/post/:id/comment/:commentId/delete-comment', requireLogin, commentRoute.deleteComment);
+
+//Flash
+app.post('/test',function(req, res){
+    req.flash('fail', 'Wait, What?');
+    res.locals.message = req.flash();
+    res.render('index');
+        
+});
 
 /**
  * catch 404 and forward to error handler

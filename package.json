@@ -23,11 +23,9 @@
     "async": "^2.6.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
-<<<<<<< HEAD
     "client-sessions": "^0.8.0",
-=======
     "connect-flash": "^0.1.1",
->>>>>>> 0355a9fab2e1666d4c57cb180cdfca2eb395874b
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "date-and-time": "^0.6.2",
     "ejs": "^2.5.8",

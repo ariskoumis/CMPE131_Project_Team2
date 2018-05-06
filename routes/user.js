@@ -22,7 +22,7 @@ handler_map.login = function (req, res) {
   var data = req.body;
   if (!req.session.user) {
     if (data.username === "" || data.password === "") {
-      console.log("One of the box is missing");
+      console.log("Required input missing");
     } else {
       database.mongoclient.connect(database.url, function(err, client) {
         if (err) throw err;
@@ -34,6 +34,7 @@ handler_map.login = function (req, res) {
               res.redirect("/post/show-post");
             } else {
               console.log("Your password is incorrect");
+              req.flash('fail','Your password is incorrect');
               res.redirect("/");
             }
           }
@@ -50,7 +51,7 @@ handler_map.login = function (req, res) {
     console.log("You're already logged in!");
   } else {
     res.redirect("/");
-    console.log("Another User is currently login on this Computer");
+    console.log("Another User is currently logged in on this Computer");
   }
 };
 
@@ -77,7 +78,7 @@ handler_map.postSignup = function (req, res) {
       var db = client.db("cmpe-it");
       db.collection("users").findOne({username: data.username}, function (err, user) {
         if (user) {
-          console.log("User does Exist, please enter a different username");
+          console.log("User already exists, please enter a different username");
           res.redirect("/signup");
         } else {
           db.collection("users").insertOne(data);
@@ -85,7 +86,7 @@ handler_map.postSignup = function (req, res) {
             if (foundUser) {
               req.session.user = foundUser;
               req
-              console.log("Congratulation, you just create an account");
+              console.log("Congratulations, you just created an account!");
               res.redirect("/post/show-post");
             }
           });
@@ -139,7 +140,7 @@ handler_map.postSendEmail = function (req, res, next) {
           db.collection("users").findOne({email: req.body.email}, function (err, user) {
             if (!user) {
               req.flash("error", "")
-              console.log("Email is not found!");
+              console.log("Email was not found!");
               return res.redirect('/send-email');
             }
             done(err, token, user);
