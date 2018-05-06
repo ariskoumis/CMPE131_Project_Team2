@@ -28,6 +28,7 @@ handler_map.createNewComment = function(req, res) {
 
   // New Comment
   var newComment = {
+    _id: new ObjectId(),
     author: author,
     content: req.body.content,
     postId: req.params.id
@@ -53,7 +54,15 @@ handler_map.createNewComment = function(req, res) {
  * Delete a Comment from a Database
  */
 handler_map.deleteComment = function (req, res) {
-  console.log("clicked");
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').findOne({"_id": new ObjectId(req.params.id)}, function (err, post) {
+      post.comments.forEach(function(comment){
+        // if ()
+      })
+    })
+  })
 };
 
 module.exports = handler_map;
