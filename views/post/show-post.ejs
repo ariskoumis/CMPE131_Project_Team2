@@ -7,42 +7,55 @@
   <header style="background-color: black;color:white; padding:10px">
     <font size="24">CMPEit Show Post Page</font>
     <nav align="right">
-      <% if (currUser.existed === true) { %>
-      <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
-      <a href="/post/new-post" style="color:white">   Create a Post</a>
-      <a href="/logout" style="color:white">   Logout </a>
-        <% } else { %>
-      <a href="/" style="color:white">   Create a Post</a>
-        <% } %>
+      <% if (currUser) { %>
+        <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
+        <a href="/post/new-post" style="color:white">   Create a Post</a>
+        <a href="/logout" style="color:white">   Logout </a>
+      <% } else { %>
+        <a href="/" style="color:white">   Login </a>
+        <a href="/signup" style="color:white">   Register </a>
+        <a href="/post/new-post" style="color:white">   Create a Post</a>
+      <% } %>
     </nav>
   </header>
 
   <article>
-    <% for(var i = 0; i < data.length; i++) { %>
-    <span style="font-size:30px;":><strong><%= data[i].name %></strong></span>
-    <span style="font-size:15px"> #<%= i + 1 %></span>
-    <span style="font-size:15px"> by: <%= data[i].author.username %> on</span>
-    <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp %></strong></span><br>
-    <span style="font-size:20px"><%= data[i].content %></span>
-    <span style="font-size:20px">
-      <a href="/post/<%=data[i]._id%>/comment/new-comment"> Add a comment </a>
-    </span>
-    <br>
-      <% if (data[i].comments.length >= 1) { %>
-        <% for(var j = 0; j < data[i].comments.length; j++) { %>
-          <span style="font-size:20px"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
-          <br>
-        <% }%>
+      <% for(var i = 0; i < data.length; i++) { %>
+          <span style="font-size:30px;":><strong><%= data[i].name %></strong></span>
+          <span style="font-size:15px"> #<%= i + 1 %></span>
+          <span style="font-size:15px"> by: <%= data[i].author.username %> on</span>
+          <span style="font-size:15px;text-decoration: underline;":><strong><%= data[i].timestamp %></strong></span><br>
+          <span style="font-size:20px"><%= data[i].content %></span><br>
+
+          <form method="POST">
+              <% if (currUser) { %>
+              <span style="font-size:15px">
+                      <a href="/post/<%=data[i]._id%>/comment/new-comment">Comment</a>
+                      <button id="like" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like</button> <span id="like-count" style="color:green"> <%= data[i].likes %></span>
+                      <button id="dislike" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike</button> <span id="dislike-count" style="color:red"> <%= data[i].dislikes %></span>
+                  </span>
+              <br>
+              <% } %>
+          </form>
+
+          <% for(var j = 0; j < data[i].comments.length; j++) { %>
+              <span style="font-size:20px; padding-left:30px; color:#737373"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
+              <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
+                  <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
+                      <button type="submit">Delete Comment</button>
+                  </form>
+              <% } %>
+              <br>
+          <% } %>
+
+          <% if (currUser && currUser.username === data[i].author.username) { %>
+              <form action="/post/<%=data[i]._id%>/delete-post?_method=DELETE" method="POST" style='display:inline;'>
+                  <button>Delete Post</button>
+              </form>
+          <% } %>
+          <br/>
+          <hr>
       <% } %>
-    <br/>
-    <hr>
-      <% }%>
   </article>
 </body>
-<footer>
-  <!--<script type="module" src="js/event_handlers.js"></script>-->
-  <!--<script type="module" src="js/routing.js"></script>-->
-  <!-- <script type="module" src="js/show-post.js"></script> -->
-</footer>
-
 </html>

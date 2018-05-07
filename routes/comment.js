@@ -1,9 +1,7 @@
 /**
  * Module dependencies.
  */
-var EventEmitter 		= require('events'),
-    database 				= require('../global/database.js'),
-    Stream 					= new EventEmitter(),
+var database 				= require('../global/database.js'),
     ObjectId        = require('mongodb').ObjectID,
     handler_map 		= {};
 
@@ -21,66 +19,53 @@ handler_map.getNewComment = function(req, res) {
  * Comments are stored in Post database. Each post has a list of comments
  */
 handler_map.createNewComment = function(req, res) {
-
-  var d = new Date();
-  var min = 0;
-
-  if (d.getMinutes() > 10) {
-    min = "";
-  }
-
-  var time = d.getHours() + ":" + min + d.getMinutes() + " " + (d.getMonth() + 1) + "/"
-    + d.getDate() + "/" + d.getFullYear();
+  var user = req.session.user;
 
   var author = {
-    id: database.currentUser.id,
-    username: database.currentUser.username
+    id: user._id,
+    username: user.username
   };
 
   // New Comment
   var newComment = {
+    _id: new ObjectId(),
     author: author,
     content: req.body.content,
-    postId: req.params.id,
-    timestamp: time
+    postId: req.params.id
   };
 
   database.mongoclient.connect(database.url, function (err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    if (database.currentUser.existed === true) {
-      db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {$push: {"comments": newComment}}, function (err) {
-        if (err) throw err;
-        else {
-
-          database.listOfPost.forEach(function(post) {
-            var res = post._id.toString().valueOf();
-            if (res === req.params.id.valueOf()) {
-              post.comments.push(newComment);
-            }
-          });
-          res.redirect('/post/show-post');
-        }
-      });
-    } else {
-      console.log("User needs to login first!");
-      res.redirect('/');
-    }
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+      $push: {
+        "comments": newComment
+      }
+    }, function(err) {
+      if (err) throw err;
+      res.redirect('/post/show-post')
+    });
+    client.close();
   });
 };
 
 /**
- * Initialize SSE Handler
+ * Delete /delete-comment
+ * Delete a Comment from a Database
  */
-handler_map.initializeSSEHandler = function (req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
-
-  Stream.on("push", function (event, data) {
-    res.write("event: " + String(event) + "\n" + "data: " + JSON.stringify(data) + "\n\n");
+handler_map.deleteComment = function (req, res) {
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    var db = client.db("cmpe-it");
+    db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
+      $pull: {
+        "comments": {"_id": new ObjectId(req.params.commentId)}
+      }
+    }, function(err) {
+        if (err) throw err;
+        res.redirect('/post/show-post')
+    });
+    client.close()
   });
 };
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!--<link rel="stylesheet" type="text/css" href="../public/css/signup.css">-->
+	<link rel="stylesheet" href="../public/css/main.css">
     <title>
         CMPEit Sign-Up
     </title>
@@ -9,7 +9,7 @@
 <body bgcolor="#353535">
 <header align="left">
     <h1>
-    	<img src="../images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+    	<img src="../public/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
     	<!--<font face="helvetica"><font color="#FFD72C" size="18">CMPE</font><font color="white" size="18">it</font>-->
     </h1>
 </header>
@@ -19,21 +19,16 @@
     <br><br>
     <form action="/signup" method="POST">
         <input type="text" id="username" name="username" placeholder="Username" required autofocus><br><br>
-        <input type="email" id="email" name="email" placeholder="Email" required><br><br>
-        <input type="password" id="password" name="password" placeholder="Password" required><br><br>
-        <button>Sign Up</button>
+        <input type="text" id="email" name="email" placeholder="Email" required><br><br>
+        <input type="text" id="password" name="password" placeholder="Password" required><br><br>
+        <button class="button">Sign Up</button>
         <br><br>
         <a href="/"><font color="#FFD72C">Are you a member? Login here!</a>
     </form>
     <br><br>
     <form action="/post/show-post">
-        <button> Show All Posts! </button>
+        <button class="button">Show All Posts!</button>
     </form>
 </article>
-<footer>
-    <!--<script type="module" src="js/event_handlers.js"></script>-->
-    <!--<script type="module" src="js/routing.js"></script>-->
-    <!--<script type="module" src="js/index.js"> </script>-->
-</footer>
 </body>
 </html>
