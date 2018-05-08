@@ -66,6 +66,23 @@ textArea{
     outline: none;
 }
 
+.deletePost{
+    background-color: #FFD72C;
+    border: none;
+    color: red;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 1px 1px;
+    cursor: pointer;
+    outline: none;
+}
+
 input[type=password] {
     width: 200px;
     padding: 12px 20px;

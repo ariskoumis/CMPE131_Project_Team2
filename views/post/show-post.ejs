@@ -75,7 +75,7 @@
 
                   <% if (currUser && currUser.username === data[i].author.username) { %>
                       <form action="/post/<%=data[i]._id%>/delete-post?_method=DELETE" method="POST" style='display:inline;'>
-                          <button>Delete Post</button>
+                          <button class="deletePost">Delete Post</button>
                       </form>
                   <% } %>
                   <br/>
