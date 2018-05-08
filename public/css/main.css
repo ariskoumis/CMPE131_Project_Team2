@@ -18,7 +18,7 @@ textArea{
 .button {
 	background-color: #FFD72C;
     border: none;
-    color: white;
+    color: black;
     padding: 15px 32px;
     border-radius: 4px;
     text-align: center;
@@ -69,4 +69,17 @@ input[type=text] {
 
 .btn-group button:not(:last-child) {
     border-right: none; /* Prevent double borders */
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #353535;
+}
+
+.topnav-right {
+  float: right;
+}
+
+.topnav-left {
+  float: left;
 }
