@@ -57,7 +57,6 @@ handler_map.deleteComment = function (req, res) {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     var db = client.db("cmpe-it");
-    console.log("hey")
     db.collection('posts').update({"_id": new ObjectId(req.params.id)}, {
       $pull: {
         "comments": {"_id": new ObjectId(req.params.commentId)}
