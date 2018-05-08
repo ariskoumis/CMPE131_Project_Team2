@@ -19,19 +19,9 @@ database.init = function() {
   database.mongoclient.connect(database.url, function(err, client) {
     if (err) throw err;
     console.log("Database Created");
-
-    // Uncomment if you want to reset any variable in the database
     // var db = client.db("cmpe-it");
-    // db.collection('posts').update({}, { $set:
-    //   {
-    //     "likedUser": [],
-    //     "dislikedUser": [],
-    //     likes: 0,
-    //     dislikes: 0
-    //   }
-    // }, {
-    //   upsert:false,
-    //   multi:true
+    // db.collection('posts').find({}).forEach(function(post) {
+    //   database.listOfPost.push(post);
     // });
     // client.close();
   });

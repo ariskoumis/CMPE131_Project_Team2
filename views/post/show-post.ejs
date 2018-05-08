@@ -18,8 +18,18 @@
       <% } %>
     </nav>
   </header>
-
   <article>
+    <div>
+        <% if(error && error.length > 0) {%>
+        <div align="center" style="color:red;">
+            <%= error %>
+        </div>
+         <% } else if (success && success.length > 0) { %>
+        <div align="center" style="color:green;">
+            <%= success %>
+        </div>
+        <% } %>
+     </div>
       <% for(var i = 0; i < data.length; i++) { %>
           <span style="font-size:30px;":><strong><%= data[i].name %></strong></span>
           <span style="font-size:15px"> #<%= i + 1 %></span>
@@ -42,7 +52,7 @@
               <span style="font-size:20px; padding-left:30px; color:#737373"><%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
               <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
                   <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
-                      <button type="submit">Delete Comment</button>
+                      <button type="submit">x</button>
                   </form>
               <% } %>
               <br>
