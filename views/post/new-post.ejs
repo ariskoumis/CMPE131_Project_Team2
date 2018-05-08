@@ -10,27 +10,35 @@
         <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
       </h1>
     </header> -->
-      <nav align="center">
-          <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+      <div class="topnav">
           <% if (currUser) { %>
-          <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Welcome <%= currUser.username %> </strong></span>
-          <a href="/post/show-post" style="color:white; font-family: Helvetica;">   Show all Posts </a>
-          <a href="/logout" style="color:white; font-family: Helvetica;">   Logout </a>
-          <% } else { %>
-          <a href="/" style="color:white; font-family: Helvetica;"> Login/ Register </a>
-          <a href="/post/show-post" style="color:white">   Show all Posts</a>
+          <div class="topnav-left">
+            <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+            <div class="topnav-right">
+              <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Welcome <%= currUser.username %> </strong></span>
+              <a href="/post/show-post" style="color:white; font-family: Helvetica;"><button class="button">Show all Posts</button></a>
+              <a href="/logout" style="color:white; font-family: Helvetica;"><button class="button">Logout</button></a>
+              <% } else { %>
+              <a href="/" style="color:white; font-family: Helvetica;"> <button class="button">Login/ Register</button></a>
+              <a href="/post/show-post" style="color:white"><button class="button">Show all Posts</button></a>
+          </div>
+          
+          
           <% } %>
-      </nav>
+        </div>
+      </div>
   </header>
+  <br><br><br><br><br><br><br><br>
   <article align="center">
     <strong><font face="helvetica"><font size="6" color="white">Create a Post</font><strong>
   </article>
   <article align="center">
     <form id="post-create" action="/post/create-post" method="POST">
       <br>
-      <input id="name" name="name" placeholder="Post Title" required autofocus><br><br>
-      <textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>
-      <button id="create-post"> Post </button>
+      <input type="text" name="name" placeholder="Post Title" required autofocus><br><br>
+      <textarea name="content" placeholder="Write post content here" required autofocus class="resizedTextbox"></textarea><br><br>
+      <!--<textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>-->
+      <button class="button">Post</button>
     </form>
   </article>
 </body>
