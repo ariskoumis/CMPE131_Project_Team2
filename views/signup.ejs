@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="/css/main.css">
-    <title>
-        CMPEit Sign-Up
-    </title>
-</head>
-<body bgcolor="#353535">
-<header align="left">
-    <h1>
-        <img src="images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
-    </h1>
-</header>
-<article align="center">
-    <br><br><br><br><br>
-    <strong><font face="helvetica"><font size="15" color="white">Sign Up</font></strong>
-    <br><br>
-    <form action="/signup" method="POST">
-        <input type="text" id="username" name="username" placeholder="Username" required autofocus><br><br>
-        <input type="text" id="email" name="email" placeholder="Email" required><br><br>
-        <input type="password" id="password" name="password" placeholder="Password" required><br><br>
-        <button class="button">Sign Up</button>
-        <br><br>
-        <a href="/"><font color="#FFD72C">Are you a member? Login here!</a>
-    </form>
-    <br><br>
-    <form action="/post/show-post">
-        <button class="button">Show All Posts</button>
-    </form>
-    <div>
-        <% if(error && error.length > 0) {%>
-        <div class="alertfail">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              <strong><%= error %></strong>
+    <head>
+        <link rel="stylesheet" href="/css/main.css">
+        <title>
+            CMPEit Sign-Up
+        </title>
+    </head>
+    <body bgcolor="#353535">
+        <header align="left">
+            <h1>
+                <img src="images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+            </h1>
+        </header>
+        <div>
+            <% if(error && error.length > 0) {%>
+            <div class="alertfail">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong><%= error %></strong>
+            </div>
+            <% } else if (success && success.length > 0) { %>
+            <div align="center" style="color:green; font-family: Helvetica;">
+                <%= success %>
+            </div>
+            <% } %>
         </div>
-         <% } else if (success && success.length > 0) { %>
-        <div align="center" style="color:green; font-family: Helvetica;">
-            <%= success %>
-        </div>
-        <% } %>
-     </div>
-</article>
-</body>
+        <article align="center">
+            <br><br><br><br><br>
+            <strong><font face="helvetica"><font size="15" color="white">Sign Up</font></strong>
+            <br><br>
+            <form action="/signup" method="POST">
+                <input type="text" id="username" name="username" placeholder="Username" required autofocus><br><br>
+                <input type="text" id="email" name="email" placeholder="Email" required><br><br>
+                <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+                <button class="button">Sign Up</button>
+                <br><br>
+                <a href="/"><font color="#FFD72C">Are you a member? Login here!</a>
+            </form>
+            <br><br>
+            <form action="/post/show-post">
+                <button class="button">Show All Posts</button>
+            </form>
+        </article>
+    </body>
 </html>
