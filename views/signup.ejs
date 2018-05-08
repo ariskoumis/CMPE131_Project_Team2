@@ -29,6 +29,17 @@
     <form action="/post/show-post">
         <button class="button">Show All Posts</button>
     </form>
+    <div>
+        <% if(error && error.length > 0) {%>
+        <div align="center" style="color:red;">
+            <%= error %>
+        </div>
+         <% } else if (success && success.length > 0) { %>
+        <div align="center" style="color:green;">
+            <%= success %>
+        </div>
+        <% } %>
+     </div>
 </article>
 </body>
 </html>

@@ -4,7 +4,8 @@
 var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
-    bodyParser          = require('body-parser');
+    bodyParser          = require('body-parser'),
+    flash               = require('connect-flash');
 
 /**
  * Route Handler
@@ -38,15 +39,17 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  maxAge: 60000
 }));
-// app.use(flash());
+
+app.use(flash());
 
 
 app.use(function(req, res, next){
   res.locals.currUser  = req.session.user;
-  // res.locals.error        = req.flash("error");
-  // res.locals.success      = req.flash("success");
+  res.locals.error        = req.flash("error");
+  res.locals.success      = req.flash("success");
   next();
 });
 
