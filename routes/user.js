@@ -32,6 +32,7 @@ handler_map.login = function (req, res) {
           if (user) {
             if (user.password === data.password) {
               req.session.user = user;
+              req.flash('success', 'You successfully login');
               res.redirect("/post/show-post");
             } else {
               console.log("Your password is incorrect");
@@ -43,7 +44,7 @@ handler_map.login = function (req, res) {
             req.flash('error','User does not exist');
             console.log("There's no account associated with this username!");
             res.redirect('/');
-            
+
           }
         });
         client.close();

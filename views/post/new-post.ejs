@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CMPEit</title>
+  <title>CMPEit New Post</title>
+  <link rel="stylesheet" href="/css/main.css">
 </head>
-<body bgcolor="#eff2f1">
-  <header style="background-color: black;color:white; padding:10px">
-   <font size="24">CMPEit Create Post Page</font>
-      <nav align="right">
+<body bgcolor="#353535">
+  <!-- <header align="left">
+      <h1>
+        <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+      </h1>
+    </header> -->
+      <nav align="center">
+          <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
           <% if (currUser) { %>
-          <span style="font-size:30px;":><strong> Welcome <%= currUser.username %> </strong></span>
-          <a href="/post/show-post" style="color:white">   Show all Posts </a>
-          <a href="/logout" style="color:white">   Logout </a>
+          <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Welcome <%= currUser.username %> </strong></span>
+          <a href="/post/show-post" style="color:white; font-family: Helvetica;">   Show all Posts </a>
+          <a href="/logout" style="color:white; font-family: Helvetica;">   Logout </a>
           <% } else { %>
-          <a href="/"> Login/ Register </a>
+          <a href="/" style="color:white; font-family: Helvetica;"> Login/ Register </a>
           <a href="/post/show-post" style="color:white">   Show all Posts</a>
           <% } %>
       </nav>
   </header>
-
+  <article align="center">
+    <strong><font face="helvetica"><font size="6" color="white">Create a Post</font><strong>
+  </article>
   <article align="center">
     <form id="post-create" action="/post/create-post" method="POST">
       <br>
