@@ -91,9 +91,8 @@ handler_map.postSignup = function (req, res) {
           db.collection("users").findOne({username: data.username}, function (err, foundUser) {
             if (foundUser) {
               req.session.user = foundUser;
-              req
               console.log("Congratulations, you just created an account!");
-               req.flash('success','Congratulations, you just created an account!');
+              req.flash('success','Congratulations, you just created an account!');
               res.redirect("/post/show-post");
             }
           });

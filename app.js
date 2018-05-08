@@ -42,14 +42,13 @@ app.use(session({
   saveUninitialized: false,
   maxAge: 60000
 }));
-
 app.use(flash());
 
 
 app.use(function(req, res, next){
-  res.locals.currUser  = req.session.user;
-  res.locals.error        = req.flash("error");
-  res.locals.success      = req.flash("success");
+  res.locals.currUser   = req.session.user;
+  res.locals.error      = req.flash("error");
+  res.locals.success    = req.flash("success");
   next();
 });
 
