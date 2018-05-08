@@ -1,82 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CMPEit</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
-<body bgcolor="#353535">
-    <div class="topnav">
-      <div class="topnav-left">
-        <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
-        <div class="topnav-right">
-          <span style="font-size:30px; font-family: Helvetica; color: white;":><% if (currUser) { %><strong> Signed in as <%= currUser.username %>  </strong></span>
-          <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
-          <a href="/logout" style="color:white"><button class="button">Logout</button></a>
-        <% } else { %>
-          <a href="/" style="color:white"><button class="button">Login</button></a>
-          <a href="/signup" style="color:white"><button class="button">Register</button></a>
-          <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
-      <% } %>
-      </div>
-    </div>
-  </header>
-  <br><br><br><br><br>
-  <div>
-        <% if(error && error.length > 0) {%>
-      <div class="alertfail">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              <strong><%= error %></strong>
+    <head>
+      <title>CMPEit</title>
+      <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body bgcolor="#353535">
+        <div class="topnav">
+            <div class="topnav-left">
+                <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+                <div class="topnav-right">
+                    <% if (currUser) { %>
+                        <span style="font-size:30px; font-family: Helvetica; color: white;":>
+                          <strong> Signed in as <%= currUser.username %>  </strong>
+                        </span>
+                        <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
+                        <a href="/logout" style="color:white"><button class="button">Logout</button></a>
+                    <% } else { %>
+                        <a href="/" style="color:white"><button class="button">Login</button></a>
+                        <a href="/signup" style="color:white"><button class="button">Register</button></a>
+                        <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
+                    <% } %>
+                </div>
+            </div>
         </div>
-         <% } else if (success && success.length > 0) { %>
-        <div class="alertsuccess">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              <strong><%= success %></strong>
+        <br>
+        <div>
+            <% if(error && error.length > 0) {%>
+            <div class="alertfail">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong><%= error %></strong>
+            </div>
+            <br>
+            <% } else if (success && success.length > 0) { %>
+            <div class="alertsuccess">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong><%= success %></strong>
+            </div>
+            <br>
+            <% } %>
         </div>
-        <% } %>
-  </div>
-  <strong><font face="helvetica"><font size="15" color="white">All Posts</font></strong>
-  <article>
-    <font face="Helvetica" color="white">
-     <hr color="#737373">
-      <% for(var i = 0; i < data.length; i++) { %>
-      <br>
-          <span style="font-size:30px; color: white;":><strong><%= data[i].name %></strong></span>
-          <span style="font-size:15px; color: #FFD72C;"> #<%= i + 1 %></span>
-          <span style="font-size:15px; color: #FFD72C;"> by: <%= data[i].author.username %> on</span>
-          <span style="font-size:15px; color: #FFD72C;":><strong><%= data[i].timestamp %></strong></span><br>
-          <span style="font-size:15px; color: white;"><%= data[i].content %></span>
-          <br><br>
-
-          <form method="POST">
-              <% if (currUser) { %>
-              <span style="font-size:15px">
-                      <a href="/post/<%=data[i]._id%>/comment/new-comment"><font color="#FFD72C">Comment</font></a>
-                      <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button>
-                      <button class="smallbutton" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike <span id="dislike-count" style="color:red; font-family: Helvetica;"> <%= data[i].dislikes %></span></button>
-                  </span>
+        <strong><font face="helvetica"><font size="15" color="white">All Posts</font></strong>
+        <article>
+            <font face="Helvetica" color="white">
+             <hr color="#737373">
+              <% for(var i = 0; i < data.length; i++) { %>
               <br>
-              <% } %>
-          </form>
-          <font style="font-size: 15; color: #737373"> Discussion Thread</font> <br>
-          <% for(var j = 0; j < data[i].comments.length; j++) { %>
-              <span style="font-size:15px; padding-left:30px; color:#737373">| <%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
-              <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
-                  <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
-                      <button class="deletebutton">Delete Comment</button>
+                  <span style="font-size:30px; color: white;":><strong><%= data[i].name %></strong></span>
+                  <span style="font-size:15px; color: #FFD72C;"> #<%= i + 1 %></span>
+                  <span style="font-size:15px; color: #FFD72C;"> by: <%= data[i].author.username %> on</span>
+                  <span style="font-size:15px; color: #FFD72C;":><strong><%= data[i].timestamp %></strong></span><br>
+                  <span style="font-size:15px; color: white;"><%= data[i].content %></span>
+                  <br><br>
+
+                  <form method="POST">
+                      <% if (currUser) { %>
+                      <span style="font-size:15px">
+                              <a href="/post/<%=data[i]._id%>/comment/new-comment"><font color="#FFD72C">Comment</font></a>
+                              <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button>
+                              <button class="smallbutton" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike <span id="dislike-count" style="color:red; font-family: Helvetica;"> <%= data[i].dislikes %></span></button>
+                          </span>
+                      <br>
+                      <% } %>
                   </form>
-              <% } %>
-              <br>
-          <% } %>
+                  <font style="font-size: 15; color: #737373"> Discussion Thread</font> <br>
+                  <% for(var j = 0; j < data[i].comments.length; j++) { %>
+                      <span style="font-size:15px; padding-left:30px; color:#737373">| <%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
+                      <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
+                          <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
+                              <button class="deletebutton">Delete Comment</button>
+                          </form>
+                      <% } %>
+                      <br>
+                  <% } %>
 
-          <% if (currUser && currUser.username === data[i].author.username) { %>
-              <form action="/post/<%=data[i]._id%>/delete-post?_method=DELETE" method="POST" style='display:inline;'>
-                  <button>Delete Post</button>
-              </form>
-          <% } %>
-          <br/>
-          <hr color="#737373">
-      <% } %>
-    </font>
-  </article>
-</body>
+                  <% if (currUser && currUser.username === data[i].author.username) { %>
+                      <form action="/post/<%=data[i]._id%>/delete-post?_method=DELETE" method="POST" style='display:inline;'>
+                          <button>Delete Post</button>
+                      </form>
+                  <% } %>
+                  <br/>
+                  <hr color="#737373">
+              <% } %>
+            </font>
+        </article>
+    </body>
 </html>

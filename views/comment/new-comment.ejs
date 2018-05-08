@@ -11,7 +11,7 @@
 				<img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
 				<div class="topnav-right">
 					<span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Signed in as <%= currUser.username %>  </strong></span>
-					<a href="/post/show-post" style="color:white; font-family: Helvetica;"><button class="button">Show all Posts</button></a>
+					<a href="/post/show-post" style="color:white; font-family: Helvetica;"><button class="button"> Show all Posts</button></a>
 					<a href="/logout" style="color:white; font-family: Helvetica;"><button class="button">Logout</button></a>
 				</div>
 				<% } %>
@@ -24,9 +24,6 @@
 			<form action="/post/<%= postId %>/comment/create-comment" method="POST">
 				<textarea name="content" placeholder="Write comment here" required autofocus class="resizedTextbox"></textarea><br><br>
 				<button class="button">Post Comment</button>
-			</form>
-			<form action="/post/show-post">
-				<button class="button"> Show All Posts</button>
 			</form>
 		</article>
 	</body>
