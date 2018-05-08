@@ -22,7 +22,6 @@ handler_map.login = function (req, res) {
   var data = req.body;
   if (!req.session.user) {
     if (data.username === "" || data.password === "") {
-      console.log("Required input missing");
       req.flash('error','Please fill out all sections');
     } else {
       database.mongoclient.connect(database.url, function(err, client) {
@@ -35,14 +34,12 @@ handler_map.login = function (req, res) {
               req.flash('success', 'Login Successful');
               res.redirect("/post/show-post");
             } else {
-              console.log("Your password is incorrect");
               req.flash('error','Your password is incorrect');
               res.redirect("/");
             }
           }
           else {
             req.flash('error','User does not exist');
-            console.log("There's no account associated with this username!");
             res.redirect('/');
 
           }
@@ -51,11 +48,11 @@ handler_map.login = function (req, res) {
       });
     }
   } else if (req.session.user.username === data.username) {
+    req.flash('error','You\'re already logged in!');
     res.redirect("/post/show-post");
-    console.log("You're already logged in!");
   } else {
+    req.flash('error','Another User is currently logged in on this Computer');
     res.redirect("/");
-    console.log("Another User is currently logged in on this Computer");
   }
 };
 
@@ -74,7 +71,6 @@ handler_map.postSignup = function (req, res) {
   var data = req.body;
 
   if (data.username === "" || data.password === "" || data.email === "") {
-    console.log("You're missing one section, please fill all to signup.");
     req.flash('error','Please fill out all required sections');
   } else {
     //Write to data to collection titled 'users'
@@ -83,7 +79,6 @@ handler_map.postSignup = function (req, res) {
       var db = client.db("cmpe-it");
       db.collection("users").findOne({username: data.username}, function (err, user) {
         if (user) {
-          console.log("User already exists, please enter a different username");
           req.flash('error','User already exists. Please enter a different username');
           res.redirect("/signup");
         } else {
@@ -91,7 +86,6 @@ handler_map.postSignup = function (req, res) {
           db.collection("users").findOne({username: data.username}, function (err, foundUser) {
             if (foundUser) {
               req.session.user = foundUser;
-              console.log("Congratulations, you just created an account!");
               req.flash('success','Congratulations, you just created an account!');
               res.redirect("/post/show-post");
             }
@@ -146,7 +140,6 @@ handler_map.postSendEmail = function (req, res, next) {
           db.collection("users").findOne({email: req.body.email}, function (err, user) {
             if (!user) {
               req.flash("error", "Email was not found!");
-              console.log("Email was not found!");
               return res.redirect('/send-email');
             }
             done(err, token, user);
@@ -175,7 +168,6 @@ handler_map.postSendEmail = function (req, res, next) {
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         transporter.sendMail(mailOptions, function (err) {
-          console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
           req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
           done(err, 'done');
         });
@@ -255,7 +247,6 @@ handler_map.postNewPassword = function (req, res, next) {
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
         };
         transporter.sendMail(mailOptions, function (err) {
-          console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
           req.flash('success','Your password has been reset');
           done(err, 'done');
         });
@@ -277,11 +268,8 @@ handler_map.postNewPassword = function (req, res, next) {
  */
 handler_map.logout = function(req, res) {
   req.session.destroy(function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-    }
+    if (err) throw err;
+    res.redirect('/');
   });
 };
 

@@ -79,10 +79,10 @@ handler_map.createPost = function (req, res) {
     var db = client.db("cmpe-it");
     db.collection("posts").insertOne(newPost, function (err) {
       if (err) {
-        console.log("err found when insert the post to db.");
+        req.flash('error','Error with creating your post.');
         res.redirect("/post/new-post");
       } else {
-        console.log("The Post is in the db");
+        req.flash('success','Your Post has been added to the News Feed!');
         res.redirect("/post/show-post");
       }
     });
@@ -222,7 +222,11 @@ handler_map.deletePost = function (req, res) {
     if (err) throw err;
     var db = client.db("cmpe-it");
     db.collection('posts').remove({"_id": new ObjectId(req.params.id)}, function(err) {
-      if (err) throw err;
+      if (err) {
+        req.flash('error','Cannot delete the post');
+        throw err;
+      }
+      req.flash('success','You just deleted your post!');
       res.redirect('/post/show-post')
     });
     client.close();

@@ -10,8 +10,7 @@ var express             = require('express'),
 /**
  * Route Handler
  */
-var database            = require('./global/database.js'),
-    user                = require('./routes/user.js'),
+var user                = require('./routes/user.js'),
     commentRoute        = require('./routes/comment.js'),
     postRoute           = require('./routes/post.js');
 
@@ -19,11 +18,6 @@ var database            = require('./global/database.js'),
  * Create Express server.
  */
 var app = express();
-
-/**
- * Connect to MongoDB.
- */
-database.init();
 
 /**
  * Express configuration.
@@ -101,6 +95,7 @@ app.use(function(req, res, next) {
  */
 function requireLogin (req, res, next) {
   if (!req.session.user) {
+    req.flash('error','You need to Login first');
     res.redirect('/');
   } else {
     next();
@@ -113,7 +108,7 @@ function requireLogin (req, res, next) {
  */
 function isLoggedin (req, res, next) {
   if (req.session.user) {
-    console.log("You're already logged in");
+    req.flash('error','You\'re already logged in');
     res.redirect('/post/show-post');
   } else {
     next();

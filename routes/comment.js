@@ -62,8 +62,12 @@ handler_map.deleteComment = function (req, res) {
         "comments": {"_id": new ObjectId(req.params.commentId)}
       }
     }, function(err) {
-        if (err) throw err;
-        res.redirect('/post/show-post')
+      if (err) {
+        req.flash('error','Cannot delete the comment');
+        throw err;
+      }
+      req.flash('success','You just deleted your comment!');
+      res.redirect('/post/show-post')
     });
     client.close()
   });
