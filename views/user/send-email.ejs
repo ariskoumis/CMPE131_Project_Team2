@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>
-        CMPEit Recovery Email
-    </title>
-    <link rel="stylesheet" href="/css/main.css">
-</head>
-<body bgcolor="#353535">
-<header align="left">
-    <h1>
-        <img src="images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
-    </h1>
-</header>
-<div>
-    <% if(error && error.length > 0) {%>
-    <div class="alertfail">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <%= error %>
-    </div>
-    <br>
-    <% } else if (success && success.length > 0) { %>
-    <div class="alertsuccess">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <%= success %>
-    </div>
-    <br>
-    <% } %>
-</div>
-<article align="center">
-    <strong><font face="helvetica"><font size="15" color="white">Recovery Email</font></strong>
-    <br><br>
-    <form action="/send-email" method="POST">
-        <input type="text" id="email" name="email" placeholder="Email" required><br><br>
-        <button class="button">Send Email</button>
-        <br><br>
-    </form>
-    <a href="/signup"><font color="#FFD72C">Not a member? Register here!</a>
-        <br><br>
-    <a href="/"><font color="#FFD72C">Are you a member? Login here!</a>
-        <br><br>
-    <form action="/post/show-post">
-        <button class="button">Show All Posts</button>
-    </form>
-</article>
-</body>
+    <head>
+        <title>
+            CMPEit Recovery Email
+        </title>
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body bgcolor="#353535">
+        <header align="left">
+            <h1>
+                <img src="images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+            </h1>
+        </header>
+        <div>
+            <% if(error && error.length > 0) {%>
+            <div class="alertfail">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <%= error %>
+            </div>
+            <br>
+            <% } else if (success && success.length > 0) { %>
+            <div class="alertsuccess">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <%= success %>
+            </div>
+            <br>
+            <% } %>
+        </div>
+        <article align="center">
+            <strong><font face="helvetica"><font size="15" color="white">Recovery Email</font></strong>
+            <br><br>
+            <form action="/send-email" method="POST">
+                <input type="text" id="email" name="email" placeholder="Email" required><br><br>
+                <button class="button">Send Email</button>
+                <br><br>
+            </form>
+            <a href="/signup"><font color="#FFD72C">Not a member? Register here!</a>
+                <br><br>
+            <a href="/"><font color="#FFD72C">Are you a member? Login here!</a>
+                <br><br>
+            <form action="/post/show-post">
+                <button class="button">Show All Posts</button>
+            </form>
+        </article>
+    </body>
 </html>
