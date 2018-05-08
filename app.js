@@ -4,8 +4,9 @@
 var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
-    flash               = require('connect-flash'),
-    bodyParser          = require('body-parser');
+    bodyParser          = require('body-parser'),
+    cookieParser        = require('cookie-parser'),
+    flash               = require('connect-flash');
 
 /**
  * Route Handler
@@ -32,6 +33,7 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser('secret'));
 app.use(methodOverride('_method'));
 app.use(session({
   cookieName: 'session',
@@ -39,8 +41,10 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  maxAge: 60000
 }));
+
 app.use(flash());
 
 
