@@ -44,7 +44,7 @@ handler_map.login = function (req, res) {
             req.flash('error','User does not exist');
             console.log("There's no account associated with this username!");
             res.redirect('/');
-            
+
           }
         });
         client.close();

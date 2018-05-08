@@ -5,7 +5,6 @@ var express             = require('express'),
     session             = require('express-session'),
     methodOverride      = require('method-override'),
     bodyParser          = require('body-parser'),
-    cookieParser        = require('cookie-parser'),
     flash               = require('connect-flash');
 
 /**
@@ -33,7 +32,6 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser('secret'));
 app.use(methodOverride('_method'));
 app.use(session({
   cookieName: 'session',
