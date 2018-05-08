@@ -2,18 +2,29 @@
 <html>
 <head>
     <title>CMPEit</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
-<body bgcolor="#eff2f1">
-<header style="background-color: black;color:white; padding:10px">
-    <font size="24">CMPEit Create Comment Page</font>
-</header>
+<body bgcolor="#353535">
+<header>
+			<h1 align="left">
+				<img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+			</h1>
+			<h2 align="center">
+				<font face="helvetica"><font color="white">Create a Comment</font>
+			</h2>
+		</header>
 
 <article align="center">
     <form action="/post/<%= postId %>/comment/create-comment" method="POST">
-        <br>
-        <input name="content" placeholder="Comment content" required autofocus><br><br>
-        <button> Comment </button>
+        <textarea name="content" placeholder="Write comment here" required autofocus class="resizedTextbox"></textarea><br><br>
+        <!--<textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>-->
+        <button class="button">Post Comment</button>
     </form>
+	<form action="/post/show-post">
+		<button class="button"> Show All Posts</button>
+	</form>
 </article>
+<footer>
+</footer>
 </body>
 </html>
