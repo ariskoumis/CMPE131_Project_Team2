@@ -9,7 +9,7 @@
       <div class="topnav-left">
         <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
         <div class="topnav-right">
-          <span style="font-size:30px; font-family: Helvetica; color: white;":><% if (currUser) { %><strong> Welcome <%= currUser.username %> </strong></span>
+          <span style="font-size:30px; font-family: Helvetica; color: white;":><% if (currUser) { %><strong> Welcome: <%= currUser.username %>  </strong></span>
           <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
           <a href="/logout" style="color:white"><button class="button">Logout</button></a>
         <% } else { %>
@@ -22,18 +22,18 @@
   </header>
   <br><br><br><br><br>
   <div>
-    <font face="Helvetica" color="white">
         <% if(error && error.length > 0) {%>
-        <div align="center" style="color:red; font-family: Helvetica;">
-            <%= error %>
+      <div class="alertfail">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong><%= error %></strong>
         </div>
          <% } else if (success && success.length > 0) { %>
-        <div align="center" style="color:green; font-family: Helvetica;">
-            <%= success %>
+        <div class="alertsuccess">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong><%= success %></strong>
         </div>
         <% } %>
-      </font>
-     </div>
+      </div>
   <strong><font face="helvetica"><font size="15" color="white">All Posts</font></strong>
   <article>
     <font face="Helvetica" color="white">

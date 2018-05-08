@@ -30,8 +30,9 @@
     </form>
     <div>
         <% if(error && error.length > 0) {%>
-        <div align="center" style="color:red; font-family: Helvetica;">
-            <%= error %>
+        <div class="alertfail">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong><%= error %></strong>
         </div>
          <% } else if (success && success.length > 0) { %>
         <div align="center" style="color:green; font-family: Helvetica;">
