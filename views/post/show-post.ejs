@@ -51,7 +51,7 @@
               <% if (currUser) { %>
               <span style="font-size:15px">
                       <a href="/post/<%=data[i]._id%>/comment/new-comment"><font color="#FFD72C">Comment</font></a>
-                      <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button> 
+                      <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button>
                       <button class="smallbutton" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike <span id="dislike-count" style="color:red; font-family: Helvetica;"> <%= data[i].dislikes %></span></button>
                   </span>
               <br>
