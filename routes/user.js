@@ -32,7 +32,7 @@ handler_map.login = function (req, res) {
           if (user) {
             if (user.password === data.password) {
               req.session.user = user;
-              req.flash('success', 'You successfully login');
+              req.flash('success', 'Login Successful');
               res.redirect("/post/show-post");
             } else {
               console.log("Your password is incorrect");
@@ -257,7 +257,7 @@ handler_map.postNewPassword = function (req, res, next) {
         };
         transporter.sendMail(mailOptions, function (err) {
           console.log('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-          req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
+          req.flash('success','Your password has been reset');
           done(err, 'done');
         });
       }
