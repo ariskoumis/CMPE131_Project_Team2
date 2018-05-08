@@ -5,25 +5,18 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body bgcolor="#353535">
-  <!-- <header align="left">
-      <h1>
-        <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
-      </h1>
-    </header> -->
       <div class="topnav">
           <% if (currUser) { %>
           <div class="topnav-left">
             <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
             <div class="topnav-right">
-              <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Current User: <%= currUser.username %> </strong></span>
+              <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Welcome: <%= currUser.username %>  </strong></span>
               <a href="/post/show-post" style="color:white; font-family: Helvetica;"><button class="button">Show all Posts</button></a>
               <a href="/logout" style="color:white; font-family: Helvetica;"><button class="button">Logout</button></a>
               <% } else { %>
               <a href="/" style="color:white; font-family: Helvetica;"> <button class="button">Login/ Register</button></a>
               <a href="/post/show-post" style="color:white"><button class="button">Show all Posts</button></a>
           </div>
-          
-          
           <% } %>
         </div>
       </div>
@@ -37,7 +30,6 @@
       <br>
       <input type="text" name="name" placeholder="Post Title" required autofocus><br><br>
       <textarea name="content" placeholder="Write post content here" required autofocus class="resizedTextbox"></textarea><br><br>
-      <!--<textarea id="content" name="content" cols="30" rows="10" placeholder="Enter Content Here" required></textarea><br><br>-->
       <button class="button">Post</button>
     </form>
   </article>
