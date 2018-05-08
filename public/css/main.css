@@ -117,3 +117,35 @@ input[type=text] {
 .topnav-left {
   float: left;
 }
+
+.alertsuccess {
+    font-family: Helvetica;
+    padding: 10px 20px;
+    background-color: #32CD32;
+    text-align: left;
+    color: white;
+}
+
+.alertfail {
+    font-family: Helvetica;
+    padding: 10px 20px;
+    background-color: #ED4337;
+    text-align: left;
+    color: white;
+}
+
+.closebtn {
+    font-family: Helvetica;
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
