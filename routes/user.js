@@ -158,7 +158,7 @@ handler_map.postSendEmail = function (req, res, next) {
             pass: 'cmpe-it131'
           }
         });
-        var url = 'https://' || 'http://';
+        var url = 'http://' || 'https://';
         var mailOptions = {
           to: user.email,
           from: 'passwordreset@demo.com',
