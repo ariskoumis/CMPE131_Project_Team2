@@ -9,7 +9,7 @@
       <div class="topnav-left">
         <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
         <div class="topnav-right">
-          <span style="font-size:30px; font-family: Helvetica; color: white;":><% if (currUser) { %><strong> Welcome <%= currUser.username %>  </strong></span>
+          <span style="font-size:30px; font-family: Helvetica; color: white;":><% if (currUser) { %><strong> Signed in as <%= currUser.username %>  </strong></span>
           <a href="/post/new-post" style="color:white"><button class="button">Create a Post</button></a>
           <a href="/logout" style="color:white"><button class="button">Logout</button></a>
         <% } else { %>

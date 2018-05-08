@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>
-        CMPEit Reset Password
+        CMPEit Recovery Email
     </title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
@@ -11,27 +11,25 @@
     <h1>
         <img src="images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
     </h1>
-        <br><br><br><br>
-        <div>
-        <% if(error && error.length > 0) {%>
-        <div class="alertfail">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              <%= error %>
-        </div>
-        <br>
-         <% } else if (success && success.length > 0) { %>
-        <div class="alertsuccess">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              <%= success %>
-        </div>
-        <br>
-        <% } %>
-     </div>
-     <h2 align="center">
-            <font face="helvetica"><font color="white">Recovery Email</font>
-    </h2>
 </header>
+<div>
+    <% if(error && error.length > 0) {%>
+    <div class="alertfail">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <%= error %>
+    </div>
+    <br>
+    <% } else if (success && success.length > 0) { %>
+    <div class="alertsuccess">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <%= success %>
+    </div>
+    <br>
+    <% } %>
+</div>
 <article align="center">
+    <strong><font face="helvetica"><font size="15" color="white">Recovery Email</font></strong>
+    <br><br>
     <form action="/send-email" method="POST">
         <input type="text" id="email" name="email" placeholder="Email" required><br><br>
         <button class="button">Send Email</button>

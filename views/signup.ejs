@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/main.css">
         <title>
             CMPEit Sign-Up
         </title>
+        <link rel="stylesheet" href="/css/main.css">
     </head>
     <body bgcolor="#353535">
         <header align="left">
@@ -16,16 +16,18 @@
             <% if(error && error.length > 0) {%>
             <div class="alertfail">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong><%= error %></strong>
+                    <strong><%= error %></strong>
             </div>
+            <br>
             <% } else if (success && success.length > 0) { %>
-            <div align="center" style="color:green; font-family: Helvetica;">
-                <%= success %>
+            <div class="alertsuccess">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong><%= success %></strong>
             </div>
+            <br>
             <% } %>
         </div>
         <article align="center">
-            <br><br><br><br><br>
             <strong><font face="helvetica"><font size="15" color="white">Sign Up</font></strong>
             <br><br>
             <form action="/signup" method="POST">

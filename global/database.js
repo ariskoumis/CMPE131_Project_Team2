@@ -11,4 +11,16 @@ const database  = {};
 database.mongoclient    = require('mongodb').MongoClient;
 database.url            = "mongodb://calvin:q1w2e3r4@ds251819.mlab.com:51819/cmpe-it" || "mongodb://localhost:27017";
 
+/**
+ * Initialize Database
+ */
+database.init = function() {
+  database.mongoclient.connect(database.url, function(err, client) {
+    if (err) throw err;
+    console.log("Database Created");
+
+    client.close();
+  });
+};
+
 module.exports = database;

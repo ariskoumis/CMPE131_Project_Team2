@@ -1,23 +1,29 @@
 /**
  * Module dependencies.
  */
-var express             = require('express'),
-    session             = require('express-session'),
-    methodOverride      = require('method-override'),
-    bodyParser          = require('body-parser'),
-    flash               = require('connect-flash');
+var express         = require('express'),
+    session         = require('express-session'),
+    methodOverride  = require('method-override'),
+    bodyParser      = require('body-parser'),
+    flash           = require('connect-flash');
 
 /**
  * Route Handler
  */
-var user                = require('./routes/user.js'),
-    commentRoute        = require('./routes/comment.js'),
-    postRoute           = require('./routes/post.js');
+var database        = require('./global/database'),
+    user            = require('./routes/user'),
+    commentRoute    = require('./routes/comment'),
+    postRoute       = require('./routes/post');
 
 /**
  * Create Express server.
  */
 var app = express();
+
+/**
+ * Create Express server.
+ */
+database.init();
 
 /**
  * Express configuration.
@@ -39,6 +45,9 @@ app.use(session({
 app.use(flash());
 
 
+/**
+ * Initialize Local Variable
+ */
 app.use(function(req, res, next){
   res.locals.currUser   = req.session.user;
   res.locals.error      = req.flash("error");
@@ -88,7 +97,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 
 /**
  * Middleware Function

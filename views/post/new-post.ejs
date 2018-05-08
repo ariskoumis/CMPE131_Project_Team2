@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CMPEit New Post</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
-<body bgcolor="#353535">
-      <div class="topnav">
+  <head>
+    <title>CMPEit</title>
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body bgcolor="#353535">
+    <div class="topnav">
+      <div class="topnav-left">
+        <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
+        <div class="topnav-right">
           <% if (currUser) { %>
-          <div class="topnav-left">
-            <img src="/images/cmpeit_logo3.png" style="width: 20%;height: 20%;">
-            <div class="topnav-right">
-              <span style="font-size:30px; color: white; font-family: Helvetica;":><strong> Welcome <%= currUser.username %>  </strong></span>
-              <a href="/post/show-post" style="color:white; font-family: Helvetica;"><button class="button">Show all Posts</button></a>
-              <a href="/logout" style="color:white; font-family: Helvetica;"><button class="button">Logout</button></a>
-              <% } else { %>
-              <a href="/" style="color:white; font-family: Helvetica;"> <button class="button">Login/ Register</button></a>
-              <a href="/post/show-post" style="color:white"><button class="button">Show all Posts</button></a>
-          </div>
+            <span style="font-size:30px; font-family: Helvetica; color: white;">
+              <strong> Signed in as <%= currUser.username %>  </strong>
+            </span>
+            <a href="/post/show-post" style="color:white"><button class="button">Show all Posts</button></a>
+            <a href="/logout" style="color:white"><button class="button">Logout</button></a>
           <% } %>
         </div>
       </div>
-  </header>
-  <br><br><br><br><br><br><br><br>
-  <article align="center">
-    <strong><font face="helvetica"><font size="6" color="white">Create a Post</font><strong>
-  </article>
-  <article align="center">
-    <form id="post-create" action="/post/create-post" method="POST">
+    </div>
+    <div>
+        <% if(error && error.length > 0) {%>
+      <div class="alertfail">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong><%= error %></strong>
+      </div>
       <br>
-      <input type="text" name="name" placeholder="Post Title" required autofocus><br><br>
-      <textarea name="content" placeholder="Write post content here" required autofocus class="resizedTextbox"></textarea><br><br>
-      <button class="button">Post</button>
-    </form>
-  </article>
-</body>
+        <% } else if (success && success.length > 0) { %>
+      <div class="alertsuccess">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong><%= success %></strong>
+      </div>
+      <br>
+        <% } %>
+    </div>
+    <br><br>
+    <article align="center">
+      <strong><font face="helvetica"><font size="15" color="white">Create a Post</font><strong>
+      <br><br>
+      <form id="post-create" action="/post/create-post" method="POST">
+
+        <input type="text" name="name" placeholder="Post Title" required autofocus><br><br>
+        <textarea name="content" placeholder="Write post content here" required autofocus class="resizedTextbox"></textarea><br><br>
+        <button class="button">Post</button>
+      </form>
+    </article>
+  </body>
 </html>
