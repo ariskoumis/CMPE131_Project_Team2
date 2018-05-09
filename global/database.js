@@ -19,19 +19,19 @@ database.init = function() {
     if (err) throw err;
     console.log("Database Created");
     // Uncomment if you want to reset any variable in the database
-  //   var db = client.db("cmpe-it");
-  //   db.collection('posts').update({}, { $set:
-  //     {
-  //       "likedUser": [],
-  //       "dislikedUser": [],
-  //       likes: 0,
-  //       dislikes: 0
-  //     }
-  //   }, {
-  //     upsert:false,
-  //     multi:true
-  //   });
-  //   client.close();
+    // db.collection('users').update({}, { $set:
+    //   {
+    //     "admin": false,
+    //     "dislikedUser": [],
+    //     likes: 0,
+    //     dislikes: 0
+    //   }
+    // }, {
+    //   upsert:false,
+    //   multi:true
+    // });
+    client.close();
+
   });
 };
 
