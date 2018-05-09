@@ -44,28 +44,27 @@
             <font face="Helvetica" color="white">
              <hr color="#737373">
               <% for(var i = 0; i < data.length; i++) { %>
-              <br>
-                  <span style="font-size:30px; color: white;":><strong><%= data[i].name %></strong></span>
-                  <span style="font-size:15px; color: #FFD72C;"> #<%= i + 1 %></span>
-                  <span style="font-size:15px; color: #FFD72C;"> by: <%= data[i].author.username %> on</span>
-                  <span style="font-size:15px; color: #FFD72C;":><strong><%= data[i].timestamp %></strong></span><br>
-                  <span style="font-size:15px; color: white;"><%= data[i].content %></span>
-                  <br><br>
-
-                  <form method="POST">
-                      <% if (currUser) { %>
-                      <span style="font-size:15px">
-                              <a href="/post/<%=data[i]._id%>/comment/new-comment"><font color="#FFD72C">Comment</font></a>
-                              <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button>
-                              <button class="smallbutton" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike <span id="dislike-count" style="color:red; font-family: Helvetica;"> <%= data[i].dislikes %></span></button>
-                          </span>
-                      <br>
-                      <% } %>
+                <br>
+                <span style="font-size:30px; color: white;":><strong><%= data[i].name %></strong></span>
+                <span style="font-size:15px; color: #FFD72C;"> #<%= i + 1 %></span>
+                <span style="font-size:15px; color: #FFD72C;"> by: <%= data[i].author.username %> on</span>
+                <span style="font-size:15px; color: #FFD72C;":><strong><%= data[i].timestamp %></strong></span><br>
+                <span style="font-size:15px; color: white;"><%= data[i].content %></span>
+                <br><br>
+                <form method="POST">
+                    <% if (currUser) { %>
+                        <span style="font-size:15px">
+                            <a href="/post/<%=data[i]._id%>/comment/new-comment"><font color="#FFD72C">Comment</font></a>
+                            <button class="smallbutton" formaction="/post/<%=data[i]._id%>/like" formmethod="POST">Like <span id="like-count" style="color:green; font-family: Helvetica;"> <%= data[i].likes %></span></button>
+                            <button class="smallbutton" formaction="/post/<%=data[i]._id%>/dislike" formmethod="POST">Dislike <span id="dislike-count" style="color:red; font-family: Helvetica;"> <%= data[i].dislikes %></span></button>
+                        </span>
+                        <br>
+                    <% } %>
                   </form>
                   <font style="font-size: 15; color: #737373"> Discussion Thread</font> <br>
                   <% for(var j = 0; j < data[i].comments.length; j++) { %>
                       <span style="font-size:15px; padding-left:30px; color:#737373">| <%= data[i].comments[j].author.username %>: <%= data[i].comments[j].content %></span>
-                      <% if (currUser && currUser.username === data[i].comments[j].author.username) { %>
+                      <% if (currUser && (currUser.admin || currUser.username === data[i].comments[j].author.username)) { %>
                           <form action="/post/<%=data[i]._id%>/comment/<%=data[i].comments[j]._id%>/delete-comment?_method=DELETE" method="POST" style='display:inline;'>
                               <button class="deletebutton">Delete Comment</button>
                           </form>
@@ -73,7 +72,7 @@
                       <br>
                   <% } %>
 
-                  <% if (currUser && currUser.username === data[i].author.username) { %>
+                  <% if (currUser && (currUser.admin || currUser.username === data[i].author.username)) { %>
                       <form action="/post/<%=data[i]._id%>/delete-post?_method=DELETE" method="POST" style='display:inline;'>
                           <button class="deletePost">Delete Post</button>
                       </form>
