@@ -19,12 +19,13 @@ database.init = function() {
     if (err) throw err;
     console.log("Database Created");
     // Uncomment if you want to reset any variable in the database
-    // db.collection('users').update({}, { $set:
+    // var db = client.db("cmpe-it");
+    // db.collection('users').update({}, { $unset:
     //   {
-    //     "admin": false,
-    //     "dislikedUser": [],
-    //     likes: 0,
-    //     dislikes: 0
+    //     "admin": false
+    //     // "dislikedUser": [],
+    //     // likes: 0,
+    //     // dislikes: 0
     //   }
     // }, {
     //   upsert:false,
