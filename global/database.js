@@ -32,7 +32,6 @@ database.init = function() {
     //   multi:true
     // });
     client.close();
-
   });
 };
 

@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var express         = require('express'),
+let express         = require('express'),
     session         = require('express-session'),
     methodOverride  = require('method-override'),
     bodyParser      = require('body-parser'),
@@ -10,7 +10,7 @@ var express         = require('express'),
 /**
  * Route Handler
  */
-var database        = require('./global/database'),
+let database        = require('./global/database'),
     user            = require('./routes/user'),
     commentRoute    = require('./routes/comment'),
     postRoute       = require('./routes/post');
@@ -18,7 +18,7 @@ var database        = require('./global/database'),
 /**
  * Create Express server.
  */
-var app = express();
+let app = express();
 
 /**
  * Create Express server.
@@ -93,7 +93,7 @@ app.delete('/post/:id/comment/:commentId/delete-comment', requireLogin, commentR
  * catch 404 and forward to error handler
  */
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -127,7 +127,7 @@ function isLoggedin (req, res, next) {
 /**
  * Start Express server.
  */
-var PORT = process.env.PORT || 8000;
+let PORT = process.env.PORT || 8000;
 app.listen(PORT, process.env.IP, function() {
   console.log('Project hosted on port 8000');
 });
