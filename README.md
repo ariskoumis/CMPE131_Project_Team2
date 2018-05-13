@@ -1,7 +1,7 @@
 # CMPE131_Project
 
 ## Running on Heroku
-[Click Here](http://cmpeit.herokuapp.com/) to be redirected to the CMPEit website hosted on Heroku
+[Click Here](https://cmpeit.herokuapp.com/) to be redirected to the CMPEit website hosted on Heroku
 
 ## Running on Local Host
 1. Install Node Package Manager
